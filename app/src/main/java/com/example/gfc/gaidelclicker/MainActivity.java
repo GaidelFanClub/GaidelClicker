@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     TextView priceOfClicker;
     ImageView svaston;
 
+    int TEST_TEST;
+
 
     int countOfF = 0;
     int countOfFa = 0;
