@@ -17,8 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/mainText"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="19dp"
+        android:layout_centerHorizontal="true"
         android:text="TextView" />
 
     <ImageView
@@ -36,13 +35,6 @@
         android:layout_centerInParent="true"
         android:background="@drawable/gaidel_face_pink"
         android:text="ImageButton" />
-
-    <Button
-        android:id="@+id/buttonStat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:text="Статистика" />
 
     <TextView
         android:id="@+id/mainText"

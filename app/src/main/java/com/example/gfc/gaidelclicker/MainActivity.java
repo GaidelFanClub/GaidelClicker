@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -24,8 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private ImageButton Gaidel;
-    private Button Stats;
+
+    private ImageButton gaidel;
     private ImageView svaston;
     public static TextView countOfClick;
 
@@ -43,9 +45,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Gaidel = (ImageButton) findViewById(R.id.buttonGaidel);
+        gaidel = (ImageButton) findViewById(R.id.buttonGaidel);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
-        Stats = (Button) findViewById(R.id.buttonStat);
 
         spinnerScheme = (Spinner) findViewById(R.id.spinner);
 
@@ -55,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         countOfClick = (TextView) findViewById(R.id.clicks);
         countOfClick.setText(Integer.toString((int) count));
         countOfClick.setTextSize(36);
-
 
         AutoClickerThread autoClick = new AutoClickerThread();
 
@@ -73,39 +73,28 @@ public class MainActivity extends AppCompatActivity {
                 count++;
                 maximum++;
                 countOfClick.setText(Integer.toString((int) count));
-
-
-            }
-        };
-        View.OnClickListener clickOnStat = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast toast = Toast.makeText(getApplicationContext(), "Кликов в секунду: " + Double.toString(delta) + "\nВсего накликано: " + maximum + "\nВсего собрано: " + (maximumAll + maximum), Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.BOTTOM, 0, 5);
-                toast.show();
             }
         };
 
-        Gaidel.setOnClickListener(clickOnGaidel);
-        Gaidel.setOnTouchListener(new View.OnTouchListener() {
+        gaidel.setOnClickListener(clickOnGaidel);
+        gaidel.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN: {
-                        Gaidel.setScaleX(1f);
-                        Gaidel.setScaleY(1f);
+                        gaidel.setScaleX(1f);
+                        gaidel.setScaleY(1f);
                         break;
                     }
                     case MotionEvent.ACTION_UP: {
-                        Gaidel.setScaleX(0.99f);
-                        Gaidel.setScaleY(0.99f);
+                        gaidel.setScaleX(0.99f);
+                        gaidel.setScaleY(0.99f);
                         break;
                     }
                 }
                 return false;
             }
         });
-        Stats.setOnClickListener(clickOnStat);
 
         initRecycler();
 
@@ -115,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 String[] choose = getResources().getStringArray(R.array.gaidellist);
                 switch (selectedItemPosition) {
                     case 0:
+<<<<<<< HEAD
                         Gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_gold));
                         break;
                     case 1:
@@ -125,6 +115,18 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     default:
                         Gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face));
+=======
+                        gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_gold));
+                        break;
+                    case 1:
+                        gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_pink));
+                        break;
+                    case 2:
+                        gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_dark));
+                        break;
+                    default:
+                        gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face));
+>>>>>>> adf8bcc0cf2b020804600cf85f8c9b03d875cec2
                         break;
                 }
 
@@ -166,5 +168,22 @@ public class MainActivity extends AppCompatActivity {
         adapter.setData(bonusesData);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.stats:
+                Toast toast = Toast.makeText(getApplicationContext(), "Кликов в секунду: " + Double.toString(delta) + "\nВсего накликано: " + maximum + "\nВсего собрано: " + (maximumAll + maximum), Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.BOTTOM, 0, 5);
+                toast.show();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
