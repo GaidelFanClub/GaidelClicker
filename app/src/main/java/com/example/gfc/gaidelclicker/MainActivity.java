@@ -7,9 +7,11 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView priceOfFactory;
     private TextView priceOfClicker;
     private ImageView svaston;
+
+    private Spinner spinnerScheme;
 
     private Bonus clicker;
     private Bonus factory;
@@ -56,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
         Clicker = (ImageButton) findViewById(R.id.buttonClicker);
         Farm = (ImageButton) findViewById(R.id.buttonFarm);
         Stats = (Button) findViewById(R.id.buttonStat);
+
+        spinnerScheme = (Spinner) findViewById(R.id.spinner);
+
 
         svaston = (ImageView) findViewById(R.id.imageView);
 
@@ -164,6 +171,21 @@ public class MainActivity extends AppCompatActivity {
         Clicker.setOnClickListener(clickOnClicker);
         Farm.setOnClickListener(clickOnFarm);
         Stats.setOnClickListener(clickOnStat);
+
+
+
+        spinnerScheme.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent,
+                                       View itemSelected, int selectedItemPosition, long selectedId) {
+
+                String[] choose = getResources().getStringArray(R.array.gaidellist);
+                switch (selectedItemPosition) {
+                    case 1
+                }
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
     }
 

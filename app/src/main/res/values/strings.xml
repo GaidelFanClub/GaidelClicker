@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">GaidelClicker</string>
+
+    <string-array name="gaidellist">
+        <item>Gold</item>
+        <item>Pale Pink</item>
+        <item>Dark</item>
+
+    </string-array>
 </resources>
