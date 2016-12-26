@@ -1,7 +1,6 @@
 package com.example.gfc.gaidelclicker;
 
 import android.animation.ObjectAnimator;
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -15,35 +14,37 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    ImageButton Gaidel;
-    ImageButton Factory;
-    ImageButton Clicker;
-    ImageButton Farm;
-    Button Stats;
+    private ImageButton Gaidel;
+    private ImageButton Factory;
+    private ImageButton Clicker;
+    private ImageButton Farm;
+    private Button Stats;
     static TextView countOfClick;
-    TextView countOfFarm;
-    TextView countOfFactory;
-    TextView countOfClicker;
-    TextView priceOfFarm;
-    TextView priceOfFactory;
-    TextView priceOfClicker;
-    ImageView svaston;
+    private TextView countOfFarm;
+    private TextView countOfFactory;
+    private TextView countOfClicker;
+    private TextView priceOfFarm;
+    private TextView priceOfFactory;
+    private TextView priceOfClicker;
+    private ImageView svaston;
+
+    private Bonus clicker;
+    private Bonus factory;
+    private Bonus farm;
 
 
-    int countOfF = 0;
-    int countOfFa = 0;
-    int countOfC = 0;
-    int priceFarm = 560;
-    int priceFactory = 150;
-    int priceClicker = 20;
-    int maximum = 0;
-    int maximumAll = 0;
+    private int countOfF = 0;
+    private int countOfFa = 0;
+    private int countOfC = 0;
+    private int priceFarm = 560;
+    private int priceFactory = 150;
+    private int priceClicker = 20;
+    private int maximum = 0;
+    static int maximumAll = 0;
     static double count = 0;
 
     static double delta = 0;
-    double deltaFarm = 8;
-    double deltaFactory = 1;
-    double deltaClicker = 0.1;
+
 
 
     @Override
@@ -73,12 +74,16 @@ public class MainActivity extends AppCompatActivity {
         countOfClick.setTextSize(36);
 
 
-        priceOfFactory.setText("Цена:" + Integer.toString(priceFactory));
-        priceOfClicker.setText("Цена:" + Integer.toString(priceClicker));
-        priceOfFarm.setText("Цена:" + Integer.toString(priceFarm));
-        DelterThread a = new DelterThread();
+        priceOfFactory.setText("Цена: " + Integer.toString(priceFactory));
+        priceOfClicker.setText("Цена: " + Integer.toString(priceClicker));
+        priceOfFarm.setText("Цена: " + Integer.toString(priceFarm));
+        AutoClickerThread autoClick = new AutoClickerThread();
 
 
+
+        clicker = new Bonus(20, 0.1);
+        factory = new Bonus(150, 1);
+        farm = new Bonus(560, 8);
 
 
         ObjectAnimator anim = ObjectAnimator.ofFloat(svaston, View.ROTATION, 0f, 360f);
@@ -101,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener clickOnStat = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast toast = Toast.makeText(getApplicationContext(), "Кликов в секунду: " + Double.toString(delta) + "\nВсего накликано: " + maximum + "\nВсего собрано: " + (maximumAll+maximum) , Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), "Кликов в секунду: " + Double.toString(delta) + "\nВсего накликано: " + maximum + "\nВсего собрано: " + (maximumAll + maximum), Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.BOTTOM, 0, 5);
                 toast.show();
             }
@@ -109,38 +114,19 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener clickOnFactory = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (count >= priceFactory) {
-                    countOfF++;
-                    count -= priceFactory;
-                    delta += 1;
-                    priceFactory += (int) priceFactory * 0.2;
-                    priceOfFactory.setText("Цена:" + Integer.toString(priceFactory));
-                    countOfFactory.setText(Integer.toString(countOfF));
-                    countOfClick.setText(Integer.toString((int) count));
-                } else {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Не доступно для покупки", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.BOTTOM, 0, 5);
-                    toast.show();
-                }
-
+                factory.UpdateItem();
+                countOfClick.setText(Integer.toString((int)count));
+                countOfFactory.setText(Integer.toString(factory.getCount()));
+                priceOfFactory.setText("Цена: " + Integer.toString((int)factory.getPrice()));
             }
         };
         View.OnClickListener clickOnClicker = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (count >= priceClicker) {
-                countOfC++;
-                    count -= priceClicker;
-                    delta += 0.1;
-                    priceClicker += (int) priceClicker * 0.2;
-                    priceOfClicker.setText("Цена:" + Integer.toString(priceClicker));
-                    countOfClicker.setText(Integer.toString(countOfC));
-                    countOfClick.setText(Integer.toString((int) count));
-                } else {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Не доступно для покупки", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.BOTTOM, 0, 5);
-                    toast.show();
-                }
+                clicker.UpdateItem();
+                countOfClick.setText(Integer.toString((int)count));
+                countOfClicker.setText(Integer.toString(clicker.getCount()));
+                priceOfClicker.setText("Цена: " + Integer.toString((int)clicker.getPrice()));
 
 
             }
@@ -148,21 +134,10 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener clickOnFarm = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (count >= priceFarm) {
-                    countOfFa++;
-                    count -= priceFarm;
-                    delta += 8;
-                    priceFarm += (int) priceFarm * 0.2;
-                    priceOfFarm.setText("Цена:" + Integer.toString(priceFarm));
-                    countOfFarm.setText(Integer.toString(countOfFa));
-                    countOfClick.setText(Integer.toString((int) count));
-                } else {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Не доступно для покупки", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.BOTTOM, 0, 5);
-                    toast.show();
-                }
-
-
+                farm.UpdateItem();
+                countOfClick.setText(Integer.toString((int)count));
+                countOfFarm.setText(Integer.toString(farm.getCount()));
+                priceOfFarm.setText("Цена: " + Integer.toString((int)farm.getPrice()));
             }
         };
 
@@ -194,36 +169,5 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    class DelterThread extends Thread {
 
-
-        public DelterThread() {
-            super();
-            start();
-        }
-
-        public void run() {
-            while (true) {
-                try {
-                    for (int i = 0; i < 10; i++) {
-                        count += delta * 0.1;
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                countOfClick.setText(Integer.toString((int) count));
-                            }
-                        });
-                        Thread.sleep(100);
-                    }
-                    maximumAll += delta;
-
-                } catch (InterruptedException e) {
-                    System.out.println("Второй поток прерван");
-                }
-            }
-
-        }
-
-    }
 }
