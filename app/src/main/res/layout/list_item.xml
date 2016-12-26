@@ -1,37 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
     <TextView
-        android:text="TextView"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView2"
-        android:layout_weight="5" />
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="5"
-        android:orientation="vertical" >
-
-    </LinearLayout>
+        android:id="@+id/amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <ImageView
+        android:id="@+id/image"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/bank_gaidel"
-        android:id="@+id/imageView2"
-        android:layout_weight="5" />
+        app:srcCompat="@drawable/bank_gaidel" />
 
     <TextView
-        android:text="TextView"
-        android:layout_width="100dp"
+        android:id="@+id/cost"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView3"
         android:layout_weight="5" />
 
 </LinearLayout>

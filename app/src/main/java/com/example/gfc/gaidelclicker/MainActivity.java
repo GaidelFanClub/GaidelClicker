@@ -3,6 +3,8 @@ package com.example.gfc.gaidelclicker;
 import android.animation.ObjectAnimator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,50 +17,34 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gfc.gaidelclicker.bonus.BonusesAdapter;
+import com.example.gfc.gaidelclicker.bonus.OnBonusClickListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     private ImageButton Gaidel;
-    private ImageButton Factory;
-    private ImageButton Clicker;
-    private ImageButton Farm;
     private Button Stats;
-    static TextView countOfClick;
-    private TextView countOfFarm;
-    private TextView countOfFactory;
-    private TextView countOfClicker;
-    private TextView priceOfFarm;
-    private TextView priceOfFactory;
-    private TextView priceOfClicker;
     private ImageView svaston;
+    public static TextView countOfClick;
+
+    private RecyclerView recyclerView;
+    private BonusesAdapter adapter;
 
     private Spinner spinnerScheme;
 
-    private Bonus clicker;
-    private Bonus factory;
-    private Bonus farm;
-
-
-    private int countOfF = 0;
-    private int countOfFa = 0;
-    private int countOfC = 0;
-    private int priceFarm = 560;
-    private int priceFactory = 150;
-    private int priceClicker = 20;
     private int maximum = 0;
     static int maximumAll = 0;
     static double count = 0;
-
     static double delta = 0;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Gaidel = (ImageButton) findViewById(R.id.buttonGaidel);
-        Factory = (ImageButton) findViewById(R.id.buttonFactory);
-        Clicker = (ImageButton) findViewById(R.id.buttonClicker);
-        Farm = (ImageButton) findViewById(R.id.buttonFarm);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler);
         Stats = (Button) findViewById(R.id.buttonStat);
 
         spinnerScheme = (Spinner) findViewById(R.id.spinner);
@@ -67,30 +53,11 @@ public class MainActivity extends AppCompatActivity {
         svaston = (ImageView) findViewById(R.id.imageView);
 
         countOfClick = (TextView) findViewById(R.id.clicks);
-        countOfClicker = (TextView) findViewById(R.id.clickers);
-        countOfFactory = (TextView) findViewById(R.id.factories);
-        countOfFarm = (TextView) findViewById(R.id.farms);
-        priceOfFarm = (TextView) findViewById(R.id.textView7);
-        priceOfFactory = (TextView) findViewById(R.id.textView5);
-        priceOfClicker = (TextView) findViewById(R.id.textView);
-
-        countOfFarm.setText(Integer.toString(countOfFa));
-        countOfFactory.setText(Integer.toString(countOfF));
-        countOfClicker.setText(Integer.toString(countOfC));
         countOfClick.setText(Integer.toString((int) count));
         countOfClick.setTextSize(36);
 
 
-        priceOfFactory.setText("Цена: " + Integer.toString(priceFactory));
-        priceOfClicker.setText("Цена: " + Integer.toString(priceClicker));
-        priceOfFarm.setText("Цена: " + Integer.toString(priceFarm));
         AutoClickerThread autoClick = new AutoClickerThread();
-
-
-
-        clicker = new Bonus(20, 0.1);
-        factory = new Bonus(150, 1);
-        farm = new Bonus(560, 8);
 
 
         ObjectAnimator anim = ObjectAnimator.ofFloat(svaston, View.ROTATION, 0f, 360f);
@@ -118,35 +85,6 @@ public class MainActivity extends AppCompatActivity {
                 toast.show();
             }
         };
-        View.OnClickListener clickOnFactory = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                factory.UpdateItem();
-                countOfClick.setText(Integer.toString((int)count));
-                countOfFactory.setText(Integer.toString(factory.getCount()));
-                priceOfFactory.setText("Цена: " + Integer.toString((int)factory.getPrice()));
-            }
-        };
-        View.OnClickListener clickOnClicker = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clicker.UpdateItem();
-                countOfClick.setText(Integer.toString((int)count));
-                countOfClicker.setText(Integer.toString(clicker.getCount()));
-                priceOfClicker.setText("Цена: " + Integer.toString((int)clicker.getPrice()));
-
-
-            }
-        };
-        View.OnClickListener clickOnFarm = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                farm.UpdateItem();
-                countOfClick.setText(Integer.toString((int)count));
-                countOfFarm.setText(Integer.toString(farm.getCount()));
-                priceOfFarm.setText("Цена: " + Integer.toString((int)farm.getPrice()));
-            }
-        };
 
         Gaidel.setOnClickListener(clickOnGaidel);
         Gaidel.setOnTouchListener(new View.OnTouchListener() {
@@ -167,29 +105,40 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-        Factory.setOnClickListener(clickOnFactory);
-        Clicker.setOnClickListener(clickOnClicker);
-        Farm.setOnClickListener(clickOnFarm);
         Stats.setOnClickListener(clickOnStat);
 
-
-
-        spinnerScheme.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent,
-                                       View itemSelected, int selectedItemPosition, long selectedId) {
-
-                String[] choose = getResources().getStringArray(R.array.gaidellist);
-                switch (selectedItemPosition) {
-                    case 1
-                }
-            }
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
+        initRecycler();
     }
 
+    private void initRecycler() {
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new BonusesAdapter();
+        adapter.setOnBonusClickListener(new OnBonusClickListener() {
+            @Override
+            public void onBonusClick(Bonus bonus) {
+                if (count > bonus.getPrice()) {
+                    count -= bonus.getPrice();
+                    bonus.buy();
+                    delta += bonus.getDelta();
+                    countOfClick.setText(String.valueOf((int) MainActivity.count));
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
+        recyclerView.setAdapter(adapter);
+        List<Bonus> bonusesData = new ArrayList<>();
+        bonusesData.add(new Bonus(R.drawable.click_gaidel, 20, 0.1));
+        bonusesData.add(new Bonus(R.drawable.factory_of_gaidel, 150, 1));
+        bonusesData.add(new Bonus(R.drawable.farm_of_gaidel, 560, 8));
+        //todo change next 3 lines
+        bonusesData.add(new Bonus(R.drawable.click_gaidel, 20, 0.1));
+        bonusesData.add(new Bonus(R.drawable.factory_of_gaidel, 150, 1));
+        bonusesData.add(new Bonus(R.drawable.farm_of_gaidel, 560, 8));
+        adapter.setData(bonusesData);
+    }
 
 
 }
