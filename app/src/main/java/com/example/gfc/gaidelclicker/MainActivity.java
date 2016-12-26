@@ -103,19 +103,8 @@ public class MainActivity extends AppCompatActivity {
 
                 String[] choose = getResources().getStringArray(R.array.gaidellist);
                 switch (selectedItemPosition) {
+
                     case 0:
-<<<<<<< HEAD
-                        Gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_gold));
-                        break;
-                    case 1:
-                        Gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_pink));
-                        break;
-                    case 2:
-                        Gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_dark));
-                        break;
-                    default:
-                        Gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face));
-=======
                         gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_gold));
                         break;
                     case 1:
@@ -126,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     default:
                         gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face));
->>>>>>> adf8bcc0cf2b020804600cf85f8c9b03d875cec2
+
                         break;
                 }
 
