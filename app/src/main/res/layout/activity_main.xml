@@ -134,8 +134,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buttonGaidel"
-        android:src="@drawable/gaidel_face_gold"
+        android:src="@drawable/gaidel_face_pink"
         android:background="@null"
         android:layout_above="@+id/clickers"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Статистика"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/buttonStat"
+        android:layout_above="@+id/imageView" />
+
+
 </RelativeLayout>
