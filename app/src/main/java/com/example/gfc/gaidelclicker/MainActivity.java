@@ -1,6 +1,7 @@
 package com.example.gfc.gaidelclicker;
 
 import android.animation.ObjectAnimator;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -167,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+        Gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_gold));
         Factory.setOnClickListener(clickOnFactory);
         Clicker.setOnClickListener(clickOnClicker);
         Farm.setOnClickListener(clickOnFarm);
@@ -175,13 +177,16 @@ public class MainActivity extends AppCompatActivity {
 
 
         spinnerScheme.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent,
-                                       View itemSelected, int selectedItemPosition, long selectedId) {
+            public void onItemSelected(AdapterView<?> parent, View itemSelected, int selectedItemPosition, long selectedId) {
 
                 String[] choose = getResources().getStringArray(R.array.gaidellist);
                 switch (selectedItemPosition) {
-                    case 1
+                    case 0: Gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_gold)); break;
+                    case 1: Gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_pink)); break;
+                    case 2: Gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_dark)); break;
+                    default: Gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face)); break;
                 }
+
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }
