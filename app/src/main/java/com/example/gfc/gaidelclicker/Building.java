@@ -8,14 +8,14 @@ import org.w3c.dom.Text;
  * Created by Artem on 26.12.2016.
  */
 
-public class Bonus {
+public class Building {
     private int imageResourceId;
     private int count = 0;
     private double price = 0;
     private double delta = 0;
 
 
-    public Bonus(int imageResourceId, double price, double delta) {
+    public Building(int imageResourceId, double price, double delta) {
         this.imageResourceId = imageResourceId;
         this.count = 0;
         this.price = price;

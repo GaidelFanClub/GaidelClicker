@@ -1,6 +1,6 @@
 package com.example.gfc.gaidelclicker.bonus;
 
-import com.example.gfc.gaidelclicker.Bonus;
+import com.example.gfc.gaidelclicker.Building;
 
 /**
  * Created by user on 26.12.2016.
@@ -8,6 +8,6 @@ import com.example.gfc.gaidelclicker.Bonus;
 
 public interface OnBonusClickListener {
 
-    void onBonusClick(Bonus bonus);
+    void onBonusClick(Building bonus);
 
 }

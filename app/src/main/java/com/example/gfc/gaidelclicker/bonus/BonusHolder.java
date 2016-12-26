@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.gfc.gaidelclicker.Bonus;
+import com.example.gfc.gaidelclicker.Building;
 import com.example.gfc.gaidelclicker.R;
 
 /**
@@ -18,7 +18,7 @@ public class BonusHolder extends RecyclerView.ViewHolder {
     private TextView cost;
     private ImageView image;
 
-    private Bonus bonus;
+    private Building bonus;
 
     public BonusHolder(View itemView, final OnBonusClickListener onBonusClickListener) {
         super(itemView);
@@ -35,7 +35,7 @@ public class BonusHolder extends RecyclerView.ViewHolder {
         });
     }
 
-    public void bind(Bonus bonus) {
+    public void bind(Building bonus) {
         this.bonus = bonus;
         amount.setText(String.valueOf(bonus.getCount()));
         image.setImageResource(bonus.getImageResourceId());

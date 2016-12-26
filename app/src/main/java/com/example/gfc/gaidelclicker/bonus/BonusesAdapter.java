@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.gfc.gaidelclicker.Bonus;
+import com.example.gfc.gaidelclicker.Building;
 import com.example.gfc.gaidelclicker.R;
 
 import java.util.List;
@@ -16,14 +16,14 @@ import java.util.List;
 
 public class BonusesAdapter extends RecyclerView.Adapter<BonusHolder> {
 
-    private List<Bonus> data;
+    private List<Building> data;
     private OnBonusClickListener onBonusClickListener;
 
     public void setOnBonusClickListener(OnBonusClickListener onBonusClickListener) {
         this.onBonusClickListener = onBonusClickListener;
     }
 
-    public void setData(List<Bonus> data) {
+    public void setData(List<Building> data) {
         this.data = data;
         notifyDataSetChanged();
     }

@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new BonusesAdapter();
         adapter.setOnBonusClickListener(new OnBonusClickListener() {
             @Override
-            public void onBonusClick(Bonus bonus) {
+            public void onBonusClick(Building bonus) {
                 if (count > bonus.getPrice()) {
                     count -= bonus.getPrice();
                     bonus.buy();
@@ -145,15 +145,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         recyclerView.setAdapter(adapter);
-        List<Bonus> bonusesData = new ArrayList<>();
-        bonusesData.add(new Bonus(R.drawable.click_gaidel, 20, 0.1));
-        bonusesData.add(new Bonus(R.drawable.factory_of_gaidel, 150, 1));
-        bonusesData.add(new Bonus(R.drawable.farm_of_gaidel, 560, 8));
+        List<Building> bonusesData = new ArrayList<>();
+        bonusesData.add(new Building(R.drawable.building_click, 20, 0.1));
+        bonusesData.add(new Building(R.drawable.building_factory, 150, 1));
+        bonusesData.add(new Building(R.drawable.building_farm, 560, 8));
         //todo change next 3 lines
-        bonusesData.add(new Bonus(R.drawable.bank_gaidel, 12000, 47));
-        bonusesData.add(new Bonus(R.drawable.mine_of_gaidel, 130000, 260));
-        bonusesData.add(new Bonus(R.drawable.rocket_of_gaidel, 1400000, 1400));
-        bonusesData.add(new Bonus(R.drawable.wizardtower_of_gaidel, 20000000, 7800));
+        bonusesData.add(new Building(R.drawable.building_bank, 12000, 47));
+        bonusesData.add(new Building(R.drawable.building_mine, 130000, 260));
+        bonusesData.add(new Building(R.drawable.building_rocket, 1400000, 1400));
+        bonusesData.add(new Building(R.drawable.building_wizard, 20000000, 7800));
         adapter.setData(bonusesData);
     }
 
