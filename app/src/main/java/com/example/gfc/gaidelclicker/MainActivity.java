@@ -114,13 +114,22 @@ public class MainActivity extends AppCompatActivity {
 
                 String[] choose = getResources().getStringArray(R.array.gaidellist);
                 switch (selectedItemPosition) {
-                    case 0: Gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_gold)); break;
-                    case 1: Gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_pink)); break;
-                    case 2: Gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_dark)); break;
-                    default: Gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face)); break;
+                    case 0:
+                        Gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_gold));
+                        break;
+                    case 1:
+                        Gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_pink));
+                        break;
+                    case 2:
+                        Gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_dark));
+                        break;
+                    default:
+                        Gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face));
+                        break;
                 }
 
             }
+
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
@@ -150,9 +159,10 @@ public class MainActivity extends AppCompatActivity {
         bonusesData.add(new Bonus(R.drawable.factory_of_gaidel, 150, 1));
         bonusesData.add(new Bonus(R.drawable.farm_of_gaidel, 560, 8));
         //todo change next 3 lines
-        bonusesData.add(new Bonus(R.drawable.click_gaidel, 20, 0.1));
-        bonusesData.add(new Bonus(R.drawable.factory_of_gaidel, 150, 1));
-        bonusesData.add(new Bonus(R.drawable.farm_of_gaidel, 560, 8));
+        bonusesData.add(new Bonus(R.drawable.bank_gaidel, 12000, 47));
+        bonusesData.add(new Bonus(R.drawable.mine_of_gaidel, 130000, 260));
+        bonusesData.add(new Bonus(R.drawable.rocket_of_gaidel, 1400000, 1400));
+        bonusesData.add(new Bonus(R.drawable.wizardtower_of_gaidel, 20000000, 7800));
         adapter.setData(bonusesData);
     }
 
