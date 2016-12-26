@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton Clicker;
     ImageButton Farm;
     Button Stats;
-    TextView countOfClick;
+    static TextView countOfClick;
     TextView countOfFarm;
     TextView countOfFactory;
     TextView countOfClicker;
@@ -38,8 +38,13 @@ public class MainActivity extends AppCompatActivity {
     int priceClicker = 20;
     int maximum = 0;
     int maximumAll = 0;
-    double count = 0;
-    double delta = 0;
+    static double count = 0;
+
+    static double delta = 0;
+    double deltaFarm = 8;
+    double deltaFactory = 1;
+    double deltaClicker = 0.1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
         priceOfClicker.setText("Цена:" + Integer.toString(priceClicker));
         priceOfFarm.setText("Цена:" + Integer.toString(priceFarm));
         DelterThread a = new DelterThread();
+
+
 
 
         ObjectAnimator anim = ObjectAnimator.ofFloat(svaston, View.ROTATION, 0f, 360f);
@@ -122,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (count >= priceClicker) {
-                    countOfC++;
+                countOfC++;
                     count -= priceClicker;
                     delta += 0.1;
                     priceClicker += (int) priceClicker * 0.2;
@@ -134,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
                     toast.setGravity(Gravity.BOTTOM, 0, 5);
                     toast.show();
                 }
+
 
             }
         };
@@ -153,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
                     toast.setGravity(Gravity.BOTTOM, 0, 5);
                     toast.show();
                 }
+
 
             }
         };
@@ -182,6 +191,8 @@ public class MainActivity extends AppCompatActivity {
         Stats.setOnClickListener(clickOnStat);
 
     }
+
+
 
     class DelterThread extends Thread {
 
