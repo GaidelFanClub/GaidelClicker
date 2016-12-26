@@ -108,6 +108,22 @@ public class MainActivity extends AppCompatActivity {
         Stats.setOnClickListener(clickOnStat);
 
         initRecycler();
+
+        spinnerScheme.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View itemSelected, int selectedItemPosition, long selectedId) {
+
+                String[] choose = getResources().getStringArray(R.array.gaidellist);
+                switch (selectedItemPosition) {
+                    case 0: Gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_gold)); break;
+                    case 1: Gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_pink)); break;
+                    case 2: Gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_dark)); break;
+                    default: Gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face)); break;
+                }
+
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
     private void initRecycler() {

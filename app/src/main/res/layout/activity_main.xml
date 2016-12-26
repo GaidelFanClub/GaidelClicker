@@ -34,8 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="@null"
-        android:src="@drawable/gaidel_face_pink"
+        android:background="@drawable/gaidel_face_pink"
         android:text="ImageButton" />
 
     <Button
