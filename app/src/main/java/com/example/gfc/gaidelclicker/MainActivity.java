@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton Factory;
     ImageButton Clicker;
     ImageButton Farm;
+    Button Stats;
     TextView countOfClick;
     TextView countOfFarm;
     TextView countOfFactory;
@@ -28,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
     TextView priceOfClicker;
     ImageView svaston;
 
-    int TEST_TEST;
-
 
     int countOfF = 0;
     int countOfFa = 0;
@@ -37,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     int priceFarm = 560;
     int priceFactory = 150;
     int priceClicker = 20;
+    int maximum = 0;
+    int maximumAll = 0;
     double count = 0;
     double delta = 0;
 
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         Factory = (ImageButton) findViewById(R.id.buttonFactory);
         Clicker = (ImageButton) findViewById(R.id.buttonClicker);
         Farm = (ImageButton) findViewById(R.id.buttonFarm);
+        Stats = (Button) findViewById(R.id.buttonStat);
+
         svaston = (ImageView) findViewById(R.id.imageView);
 
         countOfClick = (TextView) findViewById(R.id.clicks);
@@ -82,11 +85,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 count++;
+                maximum++;
                 countOfClick.setText(Integer.toString((int) count));
-                //Toast toast = Toast.makeText(getApplicationContext(), "Gaidel!GO!GO!", Toast.LENGTH_SHORT);
-                //toast.setGravity(Gravity.BOTTOM, 0, 5);
-                //toast.show();
 
+
+            }
+        };
+        View.OnClickListener clickOnStat = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast toast = Toast.makeText(getApplicationContext(), "Кликов в секунду: " + Double.toString(delta) + "\nВсего накликано: " + maximum + "\nВсего собрано: " + (maximumAll+maximum) , Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.BOTTOM, 0, 5);
+                toast.show();
             }
         };
         View.OnClickListener clickOnFactory = new View.OnClickListener() {
@@ -169,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
         Factory.setOnClickListener(clickOnFactory);
         Clicker.setOnClickListener(clickOnClicker);
         Farm.setOnClickListener(clickOnFarm);
+        Stats.setOnClickListener(clickOnStat);
 
     }
 
@@ -185,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     for (int i = 0; i < 10; i++) {
                         count += delta * 0.1;
+
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -193,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
                         });
                         Thread.sleep(100);
                     }
+                    maximumAll += delta;
 
                 } catch (InterruptedException e) {
                     System.out.println("Второй поток прерван");
