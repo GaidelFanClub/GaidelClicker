@@ -1,10 +1,10 @@
 package com.example.gfc.gaidelclicker;
 
 import android.animation.ObjectAnimator;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -14,16 +14,15 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gfc.gaidelclicker.bonus.BuildingsAdapter;
 import com.example.gfc.gaidelclicker.bonus.BuildingsRepository;
 import com.example.gfc.gaidelclicker.bonus.OnBuildingClickListener;
+import com.example.gfc.gaidelclicker.utils.FormatUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -31,12 +30,13 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageButton gaidel;
     private ImageView svaston;
-    private TextView countOfClick;
+
+    private TextView countOfClicksLabel;
+    private TextView speedLabel;
 
     private RecyclerView recyclerView;
     private BuildingsAdapter adapter;
 
-    private Spinner spinnerScheme;
     private Handler handler;
 
     @Override
@@ -44,16 +44,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         handler = new UpdateHandler(this);
+
+        initViews();
+        initRecycler();
+    }
+
+    private void initViews() {
         gaidel = (ImageButton) findViewById(R.id.buttonGaidel);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
 
-        spinnerScheme = (Spinner) findViewById(R.id.spinner);
+        svaston = (ImageView) findViewById(R.id.svaston);
 
-
-        svaston = (ImageView) findViewById(R.id.imageView);
-
-        countOfClick = (TextView) findViewById(R.id.clicks);
-        countOfClick.setTextSize(36);
+        countOfClicksLabel = (TextView) findViewById(R.id.clicks);
+        speedLabel = (TextView) findViewById(R.id.speed);
 
         ObjectAnimator anim = ObjectAnimator.ofFloat(svaston, View.ROTATION, 0f, 360f);
         anim.setRepeatCount(-1);
@@ -61,16 +64,13 @@ public class MainActivity extends AppCompatActivity {
         anim.setDuration(2000);
         anim.start();
 
-
-        View.OnClickListener clickOnGaidel = new View.OnClickListener() {
+        gaidel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 GlobalPrefs.getInstance().increaseBalance(1);
-                countOfClick.setText(String.valueOf(Math.round(GlobalPrefs.getInstance().getBalance())));
+                countOfClicksLabel.setText(String.valueOf(Math.round(GlobalPrefs.getInstance().getBalance())));
             }
-        };
-
-        gaidel.setOnClickListener(clickOnGaidel);
+        });
         gaidel.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -87,35 +87,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 return false;
-            }
-        });
-
-        initRecycler();
-
-        spinnerScheme.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View itemSelected, int selectedItemPosition, long selectedId) {
-
-                String[] choose = getResources().getStringArray(R.array.gaidellist);
-                switch (selectedItemPosition) {
-
-                    case 0:
-                        gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_gold));
-                        break;
-                    case 1:
-                        gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_pink));
-                        break;
-                    case 2:
-                        gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_dark));
-                        break;
-                    default:
-                        gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face));
-
-                        break;
-                }
-
-            }
-
-            public void onNothingSelected(AdapterView<?> parent) {
             }
         });
     }
@@ -195,7 +166,8 @@ public class MainActivity extends AppCompatActivity {
                 GlobalPrefs.getInstance().increaseBalance(moneyDifference);
                 GlobalPrefs.getInstance().putLastUpdateTs(currentTs);
 
-                mainActivity.countOfClick.setText(String.valueOf(Math.round(GlobalPrefs.getInstance().getBalance())));
+                mainActivity.countOfClicksLabel.setText(String.valueOf(Math.round(GlobalPrefs.getInstance().getBalance())));
+                mainActivity.speedLabel.setText(String.format(mainActivity.getText(R.string.per_second_format).toString(), FormatUtils.formatClicksSpeed(BuildingsRepository.getInstance().getDeltaPerSecond())));
                 sendEmptyMessageDelayed(UPDATE_MESSAGE, UPDATE_MESSAGE_DELAY);
             }
         }
