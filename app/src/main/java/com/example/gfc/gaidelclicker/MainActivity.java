@@ -1,6 +1,8 @@
 package com.example.gfc.gaidelclicker;
 
 import android.animation.ObjectAnimator;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,32 +21,29 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.gfc.gaidelclicker.bonus.BonusesAdapter;
-import com.example.gfc.gaidelclicker.bonus.OnBonusClickListener;
+import com.example.gfc.gaidelclicker.bonus.BuildingsAdapter;
+import com.example.gfc.gaidelclicker.bonus.BuildingsRepository;
+import com.example.gfc.gaidelclicker.bonus.OnBuildingClickListener;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.ref.WeakReference;
 
 public class MainActivity extends AppCompatActivity {
 
     private ImageButton gaidel;
     private ImageView svaston;
-    public static TextView countOfClick;
+    private TextView countOfClick;
 
     private RecyclerView recyclerView;
-    private BonusesAdapter adapter;
+    private BuildingsAdapter adapter;
 
     private Spinner spinnerScheme;
-
-    private int maximum = 0;
-    static int maximumAll = 0;
-    static double count = 0;
-    static double delta = 0;
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        handler = new UpdateHandler(this);
         gaidel = (ImageButton) findViewById(R.id.buttonGaidel);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
 
@@ -54,11 +53,7 @@ public class MainActivity extends AppCompatActivity {
         svaston = (ImageView) findViewById(R.id.imageView);
 
         countOfClick = (TextView) findViewById(R.id.clicks);
-        countOfClick.setText(Integer.toString((int) count));
         countOfClick.setTextSize(36);
-
-        AutoClickerThread autoClick = new AutoClickerThread();
-
 
         ObjectAnimator anim = ObjectAnimator.ofFloat(svaston, View.ROTATION, 0f, 360f);
         anim.setRepeatCount(-1);
@@ -70,9 +65,8 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener clickOnGaidel = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                count++;
-                maximum++;
-                countOfClick.setText(Integer.toString((int) count));
+                GlobalPrefs.getInstance().increaseBalance(1);
+                countOfClick.setText(String.valueOf(Math.round(GlobalPrefs.getInstance().getBalance())));
             }
         };
 
@@ -131,30 +125,19 @@ public class MainActivity extends AppCompatActivity {
                 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new BonusesAdapter();
-        adapter.setOnBonusClickListener(new OnBonusClickListener() {
+        adapter = new BuildingsAdapter();
+        adapter.setOnBuildingClickListener(new OnBuildingClickListener() {
             @Override
             public void onBonusClick(Building bonus) {
-                if (count > bonus.getPrice()) {
-                    count -= bonus.getPrice();
-                    bonus.buy();
-                    delta += bonus.getDelta();
-                    countOfClick.setText(String.valueOf((int) MainActivity.count));
+                if (GlobalPrefs.getInstance().getBalance() > bonus.getPrice()) {
+                    GlobalPrefs.getInstance().increaseBalance(-bonus.getPrice());
+                    BuildingsRepository.getInstance().buy(bonus);
                     adapter.notifyDataSetChanged();
                 }
             }
         });
         recyclerView.setAdapter(adapter);
-        List<Building> bonusesData = new ArrayList<>();
-        //TODO Artem, change names (need to move strings to resources)
-        bonusesData.add(new Building(R.drawable.building_click, "One", 20, 0.1));
-        bonusesData.add(new Building(R.drawable.building_factory, "Two", 150, 1));
-        bonusesData.add(new Building(R.drawable.building_farm, "One", 560, 8));
-        bonusesData.add(new Building(R.drawable.building_bank, "Two", 12000, 47));
-        bonusesData.add(new Building(R.drawable.building_mine, "One", 130000, 260));
-        bonusesData.add(new Building(R.drawable.building_rocket, "Two", 1400000, 1400));
-        bonusesData.add(new Building(R.drawable.building_wizard, "One", 20000000, 7800));
-        adapter.setData(bonusesData);
+        adapter.setData(BuildingsRepository.getInstance().getBuildings());
     }
 
     @Override
@@ -168,11 +151,53 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.stats:
-                Toast toast = Toast.makeText(getApplicationContext(), "Кликов в секунду: " + Double.toString(delta) + "\nВсего накликано: " + maximum + "\nВсего собрано: " + (maximumAll + maximum), Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), "Кликов в секунду: " + BuildingsRepository.getInstance().getDeltaPerSecond(), Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.BOTTOM, 0, 5);
                 toast.show();
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        handler.sendEmptyMessage(UpdateHandler.UPDATE_MESSAGE);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        handler.removeMessages(UpdateHandler.UPDATE_MESSAGE);
+    }
+
+    private static class UpdateHandler extends Handler {
+
+        private static final int UPDATE_MESSAGE = 0;
+        private static final int UPDATE_MESSAGE_DELAY = 100;
+
+        WeakReference<MainActivity> mainActivityWeakReference;
+
+        UpdateHandler(MainActivity mainActivity) {
+            mainActivityWeakReference = new WeakReference<>(mainActivity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            MainActivity mainActivity = mainActivityWeakReference.get();
+            if (mainActivity != null) {
+                long previousTs = GlobalPrefs.getInstance().getLastUpdateTs();
+                long currentTs = System.currentTimeMillis();
+                //TODO need prevent date manipulate
+
+                long timeDifferenceInMs = currentTs - previousTs;
+                double moneyDifference = BuildingsRepository.getInstance().getDeltaPerSecond() * timeDifferenceInMs / 1000d;
+                GlobalPrefs.getInstance().increaseBalance(moneyDifference);
+                GlobalPrefs.getInstance().putLastUpdateTs(currentTs);
+
+                mainActivity.countOfClick.setText(String.valueOf(Math.round(GlobalPrefs.getInstance().getBalance())));
+                sendEmptyMessageDelayed(UPDATE_MESSAGE, UPDATE_MESSAGE_DELAY);
+            }
+        }
     }
 }

@@ -12,7 +12,7 @@ import com.example.gfc.gaidelclicker.R;
  * Created by user on 26.12.2016.
  */
 
-public class BonusHolder extends RecyclerView.ViewHolder {
+public class BuildingHolder extends RecyclerView.ViewHolder {
 
     private TextView amount;
     private TextView cost;
@@ -21,7 +21,7 @@ public class BonusHolder extends RecyclerView.ViewHolder {
 
     private Building bonus;
 
-    public BonusHolder(View itemView, final OnBonusClickListener onBonusClickListener) {
+    public BuildingHolder(View itemView, final OnBuildingClickListener onBonusClickListener) {
         super(itemView);
         amount = (TextView) itemView.findViewById(R.id.amount);
         cost = (TextView) itemView.findViewById(R.id.cost);
