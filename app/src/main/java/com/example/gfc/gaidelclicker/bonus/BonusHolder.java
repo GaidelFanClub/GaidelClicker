@@ -16,6 +16,7 @@ public class BonusHolder extends RecyclerView.ViewHolder {
 
     private TextView amount;
     private TextView cost;
+    private TextView name;
     private ImageView image;
 
     private Building bonus;
@@ -25,6 +26,7 @@ public class BonusHolder extends RecyclerView.ViewHolder {
         amount = (TextView) itemView.findViewById(R.id.amount);
         cost = (TextView) itemView.findViewById(R.id.cost);
         image = (ImageView) itemView.findViewById(R.id.image);
+        name = (TextView) itemView.findViewById(R.id.name);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,5 +42,6 @@ public class BonusHolder extends RecyclerView.ViewHolder {
         amount.setText(String.valueOf(bonus.getCount()));
         image.setImageResource(bonus.getImageResourceId());
         cost.setText("Цена: " + String.valueOf(Math.round(bonus.getPrice())));//TODO string format
+        name.setText(bonus.getName());
     }
 }

@@ -146,14 +146,14 @@ public class MainActivity extends AppCompatActivity {
         });
         recyclerView.setAdapter(adapter);
         List<Building> bonusesData = new ArrayList<>();
-        bonusesData.add(new Building(R.drawable.building_click, 20, 0.1));
-        bonusesData.add(new Building(R.drawable.building_factory, 150, 1));
-        bonusesData.add(new Building(R.drawable.building_farm, 560, 8));
-        //todo change next 3 lines
-        bonusesData.add(new Building(R.drawable.building_bank, 12000, 47));
-        bonusesData.add(new Building(R.drawable.building_mine, 130000, 260));
-        bonusesData.add(new Building(R.drawable.building_rocket, 1400000, 1400));
-        bonusesData.add(new Building(R.drawable.building_wizard, 20000000, 7800));
+        //TODO Artem, change names (need to move strings to resources)
+        bonusesData.add(new Building(R.drawable.building_click, "One", 20, 0.1));
+        bonusesData.add(new Building(R.drawable.building_factory, "Two", 150, 1));
+        bonusesData.add(new Building(R.drawable.building_farm, "One", 560, 8));
+        bonusesData.add(new Building(R.drawable.building_bank, "Two", 12000, 47));
+        bonusesData.add(new Building(R.drawable.building_mine, "One", 130000, 260));
+        bonusesData.add(new Building(R.drawable.building_rocket, "Two", 1400000, 1400));
+        bonusesData.add(new Building(R.drawable.building_wizard, "One", 20000000, 7800));
         adapter.setData(bonusesData);
     }
 

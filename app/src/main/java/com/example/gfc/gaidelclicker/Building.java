@@ -10,13 +10,15 @@ import org.w3c.dom.Text;
 
 public class Building {
     private int imageResourceId;
+    private String name;
     private int count = 0;
     private double price = 0;
     private double delta = 0;
 
 
-    public Building(int imageResourceId, double price, double delta) {
+    public Building(int imageResourceId, String name, double price, double delta) {
         this.imageResourceId = imageResourceId;
+        this.name = name;
         this.count = 0;
         this.price = price;
         this.delta = delta;
@@ -26,15 +28,9 @@ public class Building {
         return imageResourceId;
     }
 
-    //    public void UpdateItem() {
-//        if (MainActivity.count >= this.price) {
-//            MainActivity.count -= this.price;
-//            this.price *= 1.1;
-//            this.count++;
-//            MainActivity.delta += this.delta;
-//            MainActivity.countOfClick.setText(Integer.toString((int)MainActivity.count));
-//        }
-//    }
+    public String getName() {
+        return name;
+    }
 
     public int getCount(){
         return count;
