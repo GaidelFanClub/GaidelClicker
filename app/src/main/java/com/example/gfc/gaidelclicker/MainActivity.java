@@ -26,6 +26,7 @@ import com.example.gfc.gaidelclicker.bonus.BuildingsRepository;
 import com.example.gfc.gaidelclicker.bonus.OnBuildingClickListener;
 
 import java.lang.ref.WeakReference;
+import java.math.BigDecimal;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -65,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener clickOnGaidel = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GlobalPrefs.getInstance().increaseBalance(1);
-                countOfClick.setText(String.valueOf(Math.round(GlobalPrefs.getInstance().getBalance())));
+                GlobalPrefs.getInstance().increaseBalance(new BigDecimal(1));
+                countOfClick.setText(GlobalPrefs.getInstance().getBalance().toBigInteger().toString());
             }
         };
 
@@ -129,8 +130,9 @@ public class MainActivity extends AppCompatActivity {
         adapter.setOnBuildingClickListener(new OnBuildingClickListener() {
             @Override
             public void onBonusClick(Building bonus) {
-                if (GlobalPrefs.getInstance().getBalance() > bonus.getPrice()) {
-                    GlobalPrefs.getInstance().increaseBalance(-bonus.getPrice());
+                int res = GlobalPrefs.getInstance().getBalance().compareTo(new BigDecimal(bonus.getPrice()));
+                if (res != -1) {
+                    GlobalPrefs.getInstance().increaseBalance(new BigDecimal("-" + bonus.getPrice()));
                     BuildingsRepository.getInstance().buy(bonus);
                     adapter.notifyDataSetChanged();
                 }
@@ -192,10 +194,10 @@ public class MainActivity extends AppCompatActivity {
 
                 long timeDifferenceInMs = currentTs - previousTs;
                 double moneyDifference = BuildingsRepository.getInstance().getDeltaPerSecond() * timeDifferenceInMs / 1000d;
-                GlobalPrefs.getInstance().increaseBalance(moneyDifference);
+                GlobalPrefs.getInstance().increaseBalance(new BigDecimal(moneyDifference));
                 GlobalPrefs.getInstance().putLastUpdateTs(currentTs);
 
-                mainActivity.countOfClick.setText(String.valueOf(Math.round(GlobalPrefs.getInstance().getBalance())));
+                mainActivity.countOfClick.setText(GlobalPrefs.getInstance().getBalance().toBigInteger().toString());
                 sendEmptyMessageDelayed(UPDATE_MESSAGE, UPDATE_MESSAGE_DELAY);
             }
         }

@@ -2,6 +2,8 @@ package com.example.gfc.gaidelclicker;
 
 import com.tumblr.remember.Remember;
 
+import java.math.BigDecimal;
+
 /**
  * Created by user on 27.12.2016.
  */
@@ -17,16 +19,16 @@ public class GlobalPrefs {
         return instance;
     }
 
-    public double getBalance() {
-        return Remember.getFloat(BALANCE, 0f);
+    public BigDecimal getBalance() {
+        return new BigDecimal(Remember.getString(BALANCE, BigDecimal.ZERO.toString()));
     }
 
-    public void putBalance(double balance) {
-        Remember.putFloat(BALANCE, (float) balance);//TODO migrate to bigdecimal
+    public void putBalance(BigDecimal balance) {
+        Remember.putString(BALANCE, balance.toString());
     }
 
-    public void increaseBalance(double balance) {
-        putBalance(getBalance() + balance);
+    public void increaseBalance(BigDecimal balance) {
+        putBalance(getBalance().add(balance));
     }
 
     public long getLastUpdateTs() {
