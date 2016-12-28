@@ -30,6 +30,7 @@ import com.example.gfc.gaidelclicker.utils.FormatUtils;
 import com.pierfrancescosoffritti.slidingdrawer.SlidingDrawer;
 
 import java.lang.ref.WeakReference;
+import java.math.BigDecimal;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -80,9 +81,9 @@ public class MainActivity extends AppCompatActivity {
 
         gaidel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                GlobalPrefs.getInstance().increaseBalance(1);
-                countOfClicksLabel.setText(String.valueOf(Math.round(GlobalPrefs.getInstance().getBalance())));
+            public void onClick(View v) {
+                GlobalPrefs.getInstance().increaseBalance(BigDecimal.ONE);
+                countOfClicksLabel.setText(GlobalPrefs.getInstance().getBalance().toBigInteger().toString());
             }
         });
         gaidel.setOnTouchListener(new View.OnTouchListener() {
@@ -114,8 +115,9 @@ public class MainActivity extends AppCompatActivity {
         adapter.setOnBuildingClickListener(new OnBuildingClickListener() {
             @Override
             public void onBonusClick(Building bonus) {
-                if (GlobalPrefs.getInstance().getBalance() > bonus.getPrice()) {
-                    GlobalPrefs.getInstance().increaseBalance(-bonus.getPrice());
+                int res = GlobalPrefs.getInstance().getBalance().compareTo(new BigDecimal(bonus.getPrice()));
+                if (res != -1) {
+                    GlobalPrefs.getInstance().increaseBalance(new BigDecimal("-" + bonus.getPrice()));
                     BuildingsRepository.getInstance().buy(bonus);
                     adapter.notifyDataSetChanged();
                 }
@@ -185,11 +187,12 @@ public class MainActivity extends AppCompatActivity {
 
                 long timeDifferenceInMs = currentTs - previousTs;
                 double moneyDifference = BuildingsRepository.getInstance().getDeltaPerSecond() * timeDifferenceInMs / 1000d;
-                GlobalPrefs.getInstance().increaseBalance(moneyDifference);
+                GlobalPrefs.getInstance().increaseBalance(new BigDecimal(moneyDifference));
                 GlobalPrefs.getInstance().putLastUpdateTs(currentTs);
 
-                mainActivity.countOfClicksLabel.setText(String.valueOf(Math.round(GlobalPrefs.getInstance().getBalance())));
+                mainActivity.countOfClicksLabel.setText(GlobalPrefs.getInstance().getBalance().toBigInteger().toString());
                 mainActivity.speedLabel.setText(String.format(mainActivity.getText(R.string.per_second_format).toString(), FormatUtils.formatClicksSpeed(BuildingsRepository.getInstance().getDeltaPerSecond())));
+
                 sendEmptyMessageDelayed(UPDATE_MESSAGE, UPDATE_MESSAGE_DELAY);
             }
         }
