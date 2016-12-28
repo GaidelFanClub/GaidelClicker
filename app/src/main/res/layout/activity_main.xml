@@ -96,4 +96,11 @@
 
         </FrameLayout>
     </com.pierfrancescosoffritti.slidingdrawer.SlidingDrawer>
+
+    <ImageView
+        android:id="@+id/gold_cookie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/gold_gaidel"
+        android:visibility="gone" />
 </RelativeLayout>

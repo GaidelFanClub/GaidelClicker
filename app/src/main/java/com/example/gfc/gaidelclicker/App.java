@@ -1,6 +1,7 @@
 package com.example.gfc.gaidelclicker;
 
 import android.app.Application;
+import android.os.AsyncTask;
 
 import com.tumblr.remember.Remember;
 
