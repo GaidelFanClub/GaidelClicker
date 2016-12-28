@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.example.gfc.gaidelclicker.Building;
 import com.example.gfc.gaidelclicker.R;
+import com.example.gfc.gaidelclicker.utils.FormatUtils;
 
 /**
  * Created by user on 26.12.2016.
@@ -41,7 +42,7 @@ public class BuildingHolder extends RecyclerView.ViewHolder {
         this.bonus = bonus;
         amount.setText(String.valueOf(bonus.getCount()));
         image.setImageResource(bonus.getImageResourceId());
-        cost.setText("Цена: " + String.valueOf(Math.round(bonus.getPrice())));//TODO string format
+        cost.setText(cost.getContext().getString(R.string.cost_format, FormatUtils.formatDecimalAsInteger(bonus.getPrice())));
         name.setText(bonus.getName());
     }
 }

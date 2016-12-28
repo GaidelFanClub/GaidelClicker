@@ -2,19 +2,21 @@ package com.example.gfc.gaidelclicker;
 
 import com.example.gfc.gaidelclicker.bonus.BuildingsRepository;
 
+import java.math.BigDecimal;
+
 /**
  * Created by Artem on 26.12.2016.
  */
 
 public class Building {
 
-    private static final double PRICE_SCALE_FACTOR = 1.1d;
+    private static final BigDecimal PRICE_SCALE_FACTOR = BigDecimal.valueOf(1.1d);
 
     private int id;
     private String stringId;
     private String name;
     private int imageResourceId;
-    private double basePrice;
+    private BigDecimal basePrice;
     private double baseDelta;
 
 
@@ -23,7 +25,7 @@ public class Building {
         this.stringId = String.valueOf(id);
         this.imageResourceId = imageResourceId;
         this.name = name;
-        this.basePrice = price;
+        this.basePrice = BigDecimal.valueOf(price);
         this.baseDelta = delta;
     }
 
@@ -35,8 +37,8 @@ public class Building {
         return BuildingsRepository.getInstance().getCount(this);
     }
 
-    public double getPrice() {
-        return Math.pow(PRICE_SCALE_FACTOR, getCount()) * basePrice;
+    public BigDecimal getPrice() {
+        return PRICE_SCALE_FACTOR.pow(getCount()).multiply(basePrice);
     }
 
     public double getDelta() {

@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 GlobalPrefs.getInstance().increaseBalance(BigDecimal.ONE);
-                countOfClicksLabel.setText(GlobalPrefs.getInstance().getBalance().toBigInteger().toString());
+                countOfClicksLabel.setText(FormatUtils.formatDecimalAsInteger(GlobalPrefs.getInstance().getBalance()));
             }
         });
         gaidel.setOnTouchListener(new View.OnTouchListener() {
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.setOnBuildingClickListener(new OnBuildingClickListener() {
             @Override
             public void onBonusClick(Building bonus) {
-                int res = GlobalPrefs.getInstance().getBalance().compareTo(new BigDecimal(bonus.getPrice()));
+                int res = GlobalPrefs.getInstance().getBalance().compareTo(bonus.getPrice());
                 if (res != -1) {
                     GlobalPrefs.getInstance().increaseBalance(new BigDecimal("-" + bonus.getPrice()));
                     BuildingsRepository.getInstance().buy(bonus);
@@ -164,12 +164,12 @@ public class MainActivity extends AppCompatActivity {
                 //TODO need prevent date manipulate
 
                 long timeDifferenceInMs = currentTs - previousTs;
-                double moneyDifference = BuildingsRepository.getInstance().getDeltaPerSecond() * timeDifferenceInMs / 1000d;
-                GlobalPrefs.getInstance().increaseBalance(new BigDecimal(moneyDifference));
+                BigDecimal moneyDifference = BuildingsRepository.getInstance().getDeltaPerSecond().multiply(BigDecimal.valueOf(timeDifferenceInMs / 1000d));
+                GlobalPrefs.getInstance().increaseBalance(moneyDifference);
                 GlobalPrefs.getInstance().putLastUpdateTs(currentTs);
 
-                mainActivity.countOfClicksLabel.setText(GlobalPrefs.getInstance().getBalance().toBigInteger().toString());
-                mainActivity.speedLabel.setText(String.format(mainActivity.getText(R.string.per_second_format).toString(), FormatUtils.formatClicksSpeed(BuildingsRepository.getInstance().getDeltaPerSecond())));
+                mainActivity.countOfClicksLabel.setText(FormatUtils.formatDecimalAsInteger(GlobalPrefs.getInstance().getBalance()));
+                mainActivity.speedLabel.setText(String.format(mainActivity.getText(R.string.per_second_format).toString(), FormatUtils.formatDecimal(BuildingsRepository.getInstance().getDeltaPerSecond())));
 
                 sendEmptyMessageDelayed(UPDATE_MESSAGE, UPDATE_MESSAGE_DELAY);
             }

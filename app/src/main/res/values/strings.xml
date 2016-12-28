@@ -7,5 +7,6 @@
         <item>Dark</item>
     </string-array>
 
-    <string name="per_second_format" formatted="true">%s в с</string>
+    <string name="per_second_format" formatted="true">%s в секунду</string>
+    <string name="cost_format">Цена: %s</string>
 </resources>

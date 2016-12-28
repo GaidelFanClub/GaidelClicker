@@ -23,7 +23,7 @@
         android:layout_height="wrap_content" />
 
 
-    <TextView
+    <com.example.gfc.gaidelclicker.ui.HTMLTextView
         android:id="@+id/cost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

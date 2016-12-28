@@ -4,6 +4,8 @@ import com.example.gfc.gaidelclicker.Building;
 import com.example.gfc.gaidelclicker.R;
 import com.tumblr.remember.Remember;
 
+import java.math.BigDecimal;
+
 /**
  * Created by user on 27.12.2016.
  */
@@ -17,7 +19,7 @@ public class BuildingsRepository {
     }
 
     private Building[] buildings;
-    private double deltaPerSecond;
+    private BigDecimal deltaPerSecond = BigDecimal.ZERO;
 
     private BuildingsRepository() {
         buildings = new Building[7];
@@ -44,14 +46,14 @@ public class BuildingsRepository {
         return Remember.getInt(building.getStringId(), 0);
     }
 
-    public double getDeltaPerSecond() {
+    public BigDecimal getDeltaPerSecond() {
         return deltaPerSecond;
     }
 
     private void recalculateDelta() {
-        double delta = 0;
+        BigDecimal delta = BigDecimal.ZERO;
         for (Building building : buildings) {
-            delta += building.getDelta() * getCount(building);
+            delta = delta.add(BigDecimal.valueOf(building.getDelta()).multiply(BigDecimal.valueOf(getCount(building))));
         }
         deltaPerSecond = delta;
     }
