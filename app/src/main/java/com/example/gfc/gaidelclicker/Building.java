@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 
 public class Building {
 
-    private static final BigDecimal PRICE_SCALE_FACTOR = BigDecimal.valueOf(1.1d);
+    private static final BigDecimal PRICE_SCALE_FACTOR = BigDecimal.valueOf(1.15d);
 
     private int id;
     private String stringId;
