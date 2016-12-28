@@ -13,7 +13,7 @@
         android:layout_marginTop="16dp"
         android:paddingTop="10dp"
         android:textColor="@color/black"
-        android:textSize="56sp" />
+        android:textSize="42sp" />
 
     <com.example.gfc.gaidelclicker.ui.HTMLTextView
         android:id="@+id/speed"
