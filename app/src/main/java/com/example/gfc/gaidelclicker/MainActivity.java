@@ -4,9 +4,13 @@ import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,6 +27,7 @@ import com.example.gfc.gaidelclicker.bonus.BuildingsAdapter;
 import com.example.gfc.gaidelclicker.bonus.BuildingsRepository;
 import com.example.gfc.gaidelclicker.bonus.OnBuildingClickListener;
 import com.example.gfc.gaidelclicker.utils.FormatUtils;
+import com.pierfrancescosoffritti.slidingdrawer.SlidingDrawer;
 
 import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
@@ -34,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView countOfClicksLabel;
     private TextView speedLabel;
+
+    private SlidingDrawer slidingDrawer;
 
     private RecyclerView recyclerView;
     private BuildingsAdapter adapter;
@@ -47,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
         handler = new UpdateHandler(this);
 
         initViews();
+        setupViewPager(
+                (TabLayout) findViewById(R.id.tab_layout),
+                new Pair<>((Fragment) new BuildingsFragment(), "Здания")
+        );
         initRecycler();
     }
 
@@ -58,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
 
         countOfClicksLabel = (TextView) findViewById(R.id.clicks);
         speedLabel = (TextView) findViewById(R.id.speed);
+
+        slidingDrawer = (SlidingDrawer) findViewById(R.id.sliding_drawer);
+        slidingDrawer.setDragView(findViewById(R.id.tab_layout));
 
         ObjectAnimator anim = ObjectAnimator.ofFloat(svaston, View.ROTATION, 0f, 360f);
         anim.setRepeatCount(-1);
@@ -111,6 +125,14 @@ public class MainActivity extends AppCompatActivity {
         });
         recyclerView.setAdapter(adapter);
         adapter.setData(BuildingsRepository.getInstance().getBuildings());
+    }
+
+    private void setupViewPager(TabLayout tabs, Pair<Fragment, String>... fragments) {
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
+        viewPager.setAdapter(viewPagerAdapter);
+
+        tabs.setupWithViewPager(viewPager);
     }
 
     @Override

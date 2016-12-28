@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
     <com.example.gfc.gaidelclicker.ui.HTMLTextView
         android:id="@+id/clicks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="56dp"
-        android:textColor="@color/black"
-        android:textSize="42sp"
-        android:paddingTop="10dp"/>
+        android:layout_marginTop="16dp"
+        android:paddingTop="10dp"
+        android:textColor="@color/black" />
+    android:textSize="56sp"/>
 
     <com.example.gfc.gaidelclicker.ui.HTMLTextView
         android:id="@+id/speed"
@@ -20,38 +21,79 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/clicks"
         android:layout_centerHorizontal="true"
-        android:textSize="24sp"
-        android:paddingTop="5dp"/>
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/speed"
-        android:layout_marginTop="24dp"
-        android:layout_centerHorizontal="true">
-
-        <ImageView
-            android:id="@+id/svaston"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/svas"/>
-
-        <ImageButton
-            android:id="@+id/buttonGaidel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/gaidel_face_pink"/>
-    </FrameLayout>
-
+        android:layout_marginBottom="8dp"
+        android:paddingTop="5dp"
+        android:textSize="24sp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:overScrollMode="never"/>
+        android:overScrollMode="never"
+        android:visibility="gone" />
 
+    <com.pierfrancescosoffritti.slidingdrawer.SlidingDrawer
+        android:id="@+id/sliding_drawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/speed">
 
+        <FrameLayout
+            android:id="@+id/non_slidable_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="32dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp">
+
+                <ImageView
+                    android:id="@+id/svaston"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/svas" />
+
+                <ImageButton
+                    android:id="@+id/buttonGaidel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/gaidel_face_pink" />
+            </FrameLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@id/slidable_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/expanded_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:background="@color/colorPrimary"
+                    app:tabMode="fixed"
+                    app:tabSelectedTextColor="@android:color/white"
+                    app:tabTextColor="@android:color/white" />
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+    </com.pierfrancescosoffritti.slidingdrawer.SlidingDrawer>
 </RelativeLayout>
