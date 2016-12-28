@@ -4,9 +4,13 @@ import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -49,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
         handler = new UpdateHandler(this);
 
         initViews();
+        setupViewPager(
+                (TabLayout) findViewById(R.id.tab_layout),
+                new Pair<>((Fragment) new BuildingsFragment(), "Здания")
+        );
         initRecycler();
     }
 
@@ -62,17 +70,7 @@ public class MainActivity extends AppCompatActivity {
         speedLabel = (TextView) findViewById(R.id.speed);
 
         slidingDrawer = (SlidingDrawer) findViewById(R.id.sliding_drawer);
-        slidingDrawer.setDragView(findViewById(R.id.button));
-        slidingDrawer.addSlideListener(new SlidingDrawer.OnSlideListener() {
-            @Override
-            public void onSlide(SlidingDrawer slidingDrawer, float v) {
-                if (v == 0) {
-                    slidingDrawer.setDragView(findViewById(R.id.button));
-                } else {
-                    slidingDrawer.setDragView(findViewById(R.id.expanded_view));
-                }
-            }
-        });
+        slidingDrawer.setDragView(findViewById(R.id.tab_layout));
 
         ObjectAnimator anim = ObjectAnimator.ofFloat(svaston, View.ROTATION, 0f, 360f);
         anim.setRepeatCount(-1);
@@ -125,6 +123,14 @@ public class MainActivity extends AppCompatActivity {
         });
         recyclerView.setAdapter(adapter);
         adapter.setData(BuildingsRepository.getInstance().getBuildings());
+    }
+
+    private void setupViewPager(TabLayout tabs, Pair<Fragment, String>... fragments) {
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
+        viewPager.setAdapter(viewPagerAdapter);
+
+        tabs.setupWithViewPager(viewPager);
     }
 
     @Override

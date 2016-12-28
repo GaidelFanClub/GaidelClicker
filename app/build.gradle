@@ -26,4 +26,5 @@ dependencies {
     compile  'com.android.support:recyclerview-v7:25.1.0'
     compile (group: 'com.tumblr', name: 'remember', version: '1.0.0', ext: 'aar')
     compile 'com.github.PierfrancescoSoffritti:SlidingDrawer:0.10'
+    compile "com.android.support:design:25.1.0"
 }

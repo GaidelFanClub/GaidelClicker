@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
+                android:fitsSystemWindows="true"
                 android:layout_height="match_parent">
 
     <TextView
@@ -9,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="16dp"
         android:textColor="@color/black"
         android:textSize="56sp"/>
 
@@ -34,19 +35,19 @@
         android:id="@+id/sliding_drawer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/speed"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/speed">
 
         <FrameLayout
             android:id="@+id/non_slidable_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerHorizontal="true">
+            android:layout_marginBottom="32dp">
 
             <FrameLayout
-                android:layout_marginTop="32dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp">
 
                 <ImageView
                     android:id="@+id/svaston"
@@ -62,29 +63,34 @@
                     android:layout_gravity="center"
                     android:background="@drawable/gaidel_face_pink"/>
             </FrameLayout>
-
-
-            <View
-                android:layout_width="match_parent"
-                android:id="@+id/button"
-                android:layout_height="110dp"
-                android:clickable="true"
-                android:layout_gravity="bottom">
-            </View>
         </FrameLayout>
 
         <FrameLayout
             android:id="@id/slidable_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <FrameLayout
+            <LinearLayout
                 android:id="@+id/expanded_view"
-                android:clickable="true"
-                android:background="@color/colorAccent"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </FrameLayout>
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    app:tabMode="fixed"
+                    android:background="@color/colorPrimary"
+                    app:tabTextColor="@android:color/white"
+                    app:tabSelectedTextColor="@android:color/white" />
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
 
         </FrameLayout>
     </com.pierfrancescosoffritti.slidingdrawer.SlidingDrawer>
