@@ -57,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
         setupViewPager(
                 (TabLayout) findViewById(R.id.tab_layout),
                 new Pair<>((Fragment) new BuildingsFragment(), "Здания"),
-                new Pair<>((Fragment) new AchievementsFragment(), "Ачивки")
+                new Pair<>((Fragment) new AchievementsFragment(), "Ачивки"),
+                new Pair<>((Fragment) new StatisticFragment(), "Статистика")
         );
         initRecycler();
     }
