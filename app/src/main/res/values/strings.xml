@@ -5,6 +5,7 @@
         <item>Gold</item>
         <item>Pale Pink</item>
         <item>Dark</item>
-
     </string-array>
+
+    <string name="per_second_format" formatted="true">%s в с</string>
 </resources>
