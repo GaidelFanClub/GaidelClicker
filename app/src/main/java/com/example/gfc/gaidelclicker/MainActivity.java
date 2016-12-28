@@ -204,6 +204,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void spawnGoldCookie() {
+        
         goldCookieAlphaAnimator = ObjectAnimator.ofFloat(goldCookie, View.ALPHA, 1f, 0f);
         goldCookieAlphaAnimator.setDuration(10 * 1000);
         goldCookieAlphaAnimator.addListener(new AnimatorListenerAdapter() {
