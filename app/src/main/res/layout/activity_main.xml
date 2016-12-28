@@ -11,7 +11,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="56dp"
         android:textColor="@color/black"
-        android:textSize="42sp"/>
+        android:textSize="56sp"/>
 
     <TextView
         android:id="@+id/speed"
@@ -19,37 +19,73 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/clicks"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
         android:textSize="24sp"/>
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/speed"
-        android:layout_marginTop="24dp"
-        android:layout_centerHorizontal="true">
-
-        <ImageView
-            android:id="@+id/svaston"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/svas"/>
-
-        <ImageButton
-            android:id="@+id/buttonGaidel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/gaidel_face_pink"/>
-    </FrameLayout>
-
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:overScrollMode="never"/>
+        android:overScrollMode="never"
+        android:visibility="gone"/>
+
+    <com.pierfrancescosoffritti.slidingdrawer.SlidingDrawer
+        android:id="@+id/sliding_drawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/speed"
+        android:layout_alignParentBottom="true">
+
+        <FrameLayout
+            android:id="@+id/non_slidable_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true">
+
+            <FrameLayout
+                android:layout_marginTop="32dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/svaston"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/svas"/>
+
+                <ImageButton
+                    android:id="@+id/buttonGaidel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/gaidel_face_pink"/>
+            </FrameLayout>
 
 
+            <View
+                android:layout_width="match_parent"
+                android:id="@+id/button"
+                android:layout_height="110dp"
+                android:clickable="true"
+                android:layout_gravity="bottom">
+            </View>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@id/slidable_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/expanded_view"
+                android:clickable="true"
+                android:background="@color/colorAccent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </FrameLayout>
+
+        </FrameLayout>
+    </com.pierfrancescosoffritti.slidingdrawer.SlidingDrawer>
 </RelativeLayout>

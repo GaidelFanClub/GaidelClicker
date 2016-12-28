@@ -23,6 +23,7 @@ import com.example.gfc.gaidelclicker.bonus.BuildingsAdapter;
 import com.example.gfc.gaidelclicker.bonus.BuildingsRepository;
 import com.example.gfc.gaidelclicker.bonus.OnBuildingClickListener;
 import com.example.gfc.gaidelclicker.utils.FormatUtils;
+import com.pierfrancescosoffritti.slidingdrawer.SlidingDrawer;
 
 import java.lang.ref.WeakReference;
 
@@ -33,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView countOfClicksLabel;
     private TextView speedLabel;
+
+    private SlidingDrawer slidingDrawer;
 
     private RecyclerView recyclerView;
     private BuildingsAdapter adapter;
@@ -57,6 +60,19 @@ public class MainActivity extends AppCompatActivity {
 
         countOfClicksLabel = (TextView) findViewById(R.id.clicks);
         speedLabel = (TextView) findViewById(R.id.speed);
+
+        slidingDrawer = (SlidingDrawer) findViewById(R.id.sliding_drawer);
+        slidingDrawer.setDragView(findViewById(R.id.button));
+        slidingDrawer.addSlideListener(new SlidingDrawer.OnSlideListener() {
+            @Override
+            public void onSlide(SlidingDrawer slidingDrawer, float v) {
+                if (v == 0) {
+                    slidingDrawer.setDragView(findViewById(R.id.button));
+                } else {
+                    slidingDrawer.setDragView(findViewById(R.id.expanded_view));
+                }
+            }
+        });
 
         ObjectAnimator anim = ObjectAnimator.ofFloat(svaston, View.ROTATION, 0f, 360f);
         anim.setRepeatCount(-1);
