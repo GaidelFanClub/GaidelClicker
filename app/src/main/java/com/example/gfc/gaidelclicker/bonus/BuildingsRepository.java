@@ -12,6 +12,8 @@ import java.math.BigDecimal;
 
 public class BuildingsRepository {
 
+    private static final BigDecimal GOLD_MODE_BONUS = BigDecimal.valueOf(77);
+
     private static BuildingsRepository instance = new BuildingsRepository();
 
     public static BuildingsRepository getInstance() {
@@ -20,6 +22,8 @@ public class BuildingsRepository {
 
     private Building[] buildings;
     private BigDecimal deltaPerSecond = BigDecimal.ZERO;
+
+    private boolean isGoldMode;
 
     private BuildingsRepository() {
         buildings = new Building[7];
@@ -53,10 +57,22 @@ public class BuildingsRepository {
         return deltaPerSecond;
     }
 
+    public void setGoldMode(boolean isGoldMode) {
+        this.isGoldMode = isGoldMode;
+        recalculateDelta();
+    }
+
+    public BigDecimal getClickProfit() {
+        return isGoldMode ? GOLD_MODE_BONUS : BigDecimal.ONE;
+    }
+
     private void recalculateDelta() {
         BigDecimal delta = BigDecimal.ZERO;
         for (Building building : buildings) {
             delta = delta.add(BigDecimal.valueOf(building.getDelta()*getCoefficient(building)).multiply(BigDecimal.valueOf(getCount(building))));
+        }
+        if (isGoldMode) {
+            delta = delta.multiply(GOLD_MODE_BONUS);
         }
         deltaPerSecond = delta;
     }

@@ -60,9 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
     private Handler handler;
 
-    private boolean isGoldMode;
-    private double goldCoefficient = 77;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         gaidel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GlobalPrefs.getInstance().increaseBalance(isGoldMode ? BigDecimal.valueOf(goldCoefficient) : BigDecimal.ONE);
+                GlobalPrefs.getInstance().increaseBalance(BuildingsRepository.getInstance().getClickProfit());
                 countOfClicksLabel.setText(FormatUtils.formatDecimalAsInteger(GlobalPrefs.getInstance().getBalance()));
             }
         });
@@ -127,9 +124,10 @@ public class MainActivity extends AppCompatActivity {
         goldCookie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                isGoldMode = true;
+                BuildingsRepository.getInstance().setGoldMode(true);
                 hideHoldCookie();
                 handler.sendEmptyMessageDelayed(UpdateHandler.EXPIRED_GOLD_COOKIE, 77 * 1000);
+                Toast.makeText(MainActivity.this, "Прибыль увеличена в 77 раз на 77 секунд!", Toast.LENGTH_SHORT).show();//TODO string resources
             }
         });
     }
@@ -247,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void goldCookieExpired() {
-        isGoldMode = false;
+        BuildingsRepository.getInstance().setGoldMode(false);
         hideHoldCookie();
     }
 
@@ -299,7 +297,7 @@ public class MainActivity extends AppCompatActivity {
             //TODO need prevent date manipulate
 
             long timeDifferenceInMs = currentTs - previousTs;
-            BigDecimal moneyDifference = BuildingsRepository.getInstance().getDeltaPerSecond().multiply(BigDecimal.valueOf((mainActivity.isGoldMode ? mainActivity.goldCoefficient : 1) * timeDifferenceInMs / 1000d));
+            BigDecimal moneyDifference = BuildingsRepository.getInstance().getDeltaPerSecond().multiply(BigDecimal.valueOf(timeDifferenceInMs / 1000d));
             GlobalPrefs.getInstance().increaseBalance(moneyDifference);
             GlobalPrefs.getInstance().putLastUpdateTs(currentTs);
 
