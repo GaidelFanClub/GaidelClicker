@@ -16,7 +16,7 @@ import com.example.gfc.gaidelclicker.bonus.OnBuildingClickListener;
 
 import java.math.BigDecimal;
 
-public class BuildingsFragment extends Fragment {
+public class AchievementsFragment extends Fragment {
 
     private static final int COLUMN_COUNT = 2;
     private RecyclerView recyclerView;
@@ -43,19 +43,21 @@ public class BuildingsFragment extends Fragment {
                 = new GridLayoutManager(context, COLUMN_COUNT);
 
         recyclerView.setLayoutManager(layoutManager);
-        final BuildingsAdapter adapter = new BuildingsAdapter();
-        adapter.setOnBuildingClickListener(new OnBuildingClickListener() {
-            @Override
-            public void onBonusClick(Building bonus) {
-                int res = GlobalPrefs.getInstance().getBalance().compareTo(bonus.getPrice());
-                if (res != -1) {
-                    GlobalPrefs.getInstance().increaseBalance(new BigDecimal("-" + bonus.getPrice()));
-                    BuildingsRepository.getInstance().buy(bonus);
-                    adapter.notifyDataSetChanged();
-                }
-            }
-        });
-        recyclerView.setAdapter(adapter);
-        adapter.setData(BuildingsRepository.getInstance().getBuildings());
+
+        // TODO Change to achievements
+//        final BuildingsAdapter adapter = new BuildingsAdapter();
+//        adapter.setOnBuildingClickListener(new OnBuildingClickListener() {
+//            @Override
+//            public void onBonusClick(Building bonus) {
+//                int res = GlobalPrefs.getInstance().getBalance().compareTo(bonus.getPrice());
+//                if (res != -1) {
+//                    GlobalPrefs.getInstance().increaseBalance(new BigDecimal("-" + bonus.getPrice()));
+//                    BuildingsRepository.getInstance().buy(bonus);
+//                    adapter.notifyDataSetChanged();
+//                }
+//            }
+//        });
+//        recyclerView.setAdapter(adapter);
+//        adapter.setData(BuildingsRepository.getInstance().getBuildings());
     }
 }
