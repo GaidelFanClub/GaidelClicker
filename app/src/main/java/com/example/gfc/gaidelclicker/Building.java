@@ -1,6 +1,7 @@
 package com.example.gfc.gaidelclicker;
 
 import com.example.gfc.gaidelclicker.bonus.BuildingsRepository;
+import com.tumblr.remember.Remember;
 
 import java.math.BigDecimal;
 
@@ -15,6 +16,7 @@ public class Building {
     private int id;
     private String stringId;
     private String name;
+
     private int imageResourceId;
     private BigDecimal basePrice;
     private double baseDelta;
@@ -27,6 +29,7 @@ public class Building {
         this.name = name;
         this.basePrice = BigDecimal.valueOf(price);
         this.baseDelta = delta;
+
     }
 
     public int getImageResourceId() {

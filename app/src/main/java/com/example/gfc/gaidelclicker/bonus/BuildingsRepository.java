@@ -41,6 +41,9 @@ public class BuildingsRepository {
         Remember.putInt(building.getStringId(), getCount(building) + 1);
         recalculateDelta();
     }
+    public int getCoefficient(Building building){
+        return (int)Math.pow(2, Remember.getInt(building.getStringId(), 0) / 50);
+    }
 
     public int getCount(Building building) {
         return Remember.getInt(building.getStringId(), 0);
@@ -53,7 +56,7 @@ public class BuildingsRepository {
     private void recalculateDelta() {
         BigDecimal delta = BigDecimal.ZERO;
         for (Building building : buildings) {
-            delta = delta.add(BigDecimal.valueOf(building.getDelta()).multiply(BigDecimal.valueOf(getCount(building))));
+            delta = delta.add(BigDecimal.valueOf(building.getDelta()*getCoefficient(building)).multiply(BigDecimal.valueOf(getCount(building))));
         }
         deltaPerSecond = delta;
     }
