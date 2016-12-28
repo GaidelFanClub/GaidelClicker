@@ -14,6 +14,8 @@ import com.example.gfc.gaidelclicker.bonus.BuildingsAdapter;
 import com.example.gfc.gaidelclicker.bonus.BuildingsRepository;
 import com.example.gfc.gaidelclicker.bonus.OnBuildingClickListener;
 
+import java.math.BigDecimal;
+
 public class BuildingsFragment extends Fragment {
 
     private static final int COLUMN_COUNT = 2;
@@ -45,8 +47,9 @@ public class BuildingsFragment extends Fragment {
         adapter.setOnBuildingClickListener(new OnBuildingClickListener() {
             @Override
             public void onBonusClick(Building bonus) {
-                if (GlobalPrefs.getInstance().getBalance() > bonus.getPrice()) {
-                    GlobalPrefs.getInstance().increaseBalance(-bonus.getPrice());
+                int res = GlobalPrefs.getInstance().getBalance().compareTo(new BigDecimal(bonus.getPrice()));
+                if (res != -1) {
+                    GlobalPrefs.getInstance().increaseBalance(new BigDecimal("-" + bonus.getPrice()));
                     BuildingsRepository.getInstance().buy(bonus);
                     adapter.notifyDataSetChanged();
                 }
