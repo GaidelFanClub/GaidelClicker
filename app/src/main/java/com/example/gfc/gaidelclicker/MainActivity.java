@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int MIN_GOLD_COOKIE_SPAWN_PERIOD = 10 * 1000;
     private static final int MAX_GOLD_COOKIE_SPAWN_PERIOD = 30 * 1000;
+
+    private static final float GAIDEL_ANIMATION_SCALE = 1.075f;
 
     private final Random random = new Random();
 
@@ -108,13 +111,11 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN: {
-                        gaidel.setScaleX(1f);
-                        gaidel.setScaleY(1f);
+                        gaidel.animate().setInterpolator(new OvershootInterpolator()).scaleX(GAIDEL_ANIMATION_SCALE).scaleY(GAIDEL_ANIMATION_SCALE).start();
                         break;
                     }
                     case MotionEvent.ACTION_UP: {
-                        gaidel.setScaleX(0.99f);
-                        gaidel.setScaleY(0.99f);
+                        gaidel.animate().setInterpolator(new OvershootInterpolator()).scaleX(1).scaleY(1).start();
                         break;
                     }
                 }
