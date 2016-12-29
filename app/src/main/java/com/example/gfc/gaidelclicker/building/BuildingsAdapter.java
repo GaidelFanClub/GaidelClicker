@@ -1,4 +1,4 @@
-package com.example.gfc.gaidelclicker.bonus;
+package com.example.gfc.gaidelclicker.building;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

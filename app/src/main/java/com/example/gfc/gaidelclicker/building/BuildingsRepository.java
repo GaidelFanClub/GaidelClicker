@@ -1,13 +1,11 @@
-package com.example.gfc.gaidelclicker.bonus;
+package com.example.gfc.gaidelclicker.building;
 
 import com.example.gfc.gaidelclicker.Building;
 import com.example.gfc.gaidelclicker.R;
 import com.example.gfc.gaidelclicker.achievment.AchievementsCenter;
 import com.tumblr.remember.Remember;
 
-import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * Created by user on 27.12.2016.

@@ -1,4 +1,4 @@
-package com.example.gfc.gaidelclicker.bonus;
+package com.example.gfc.gaidelclicker.building;
 
 import android.graphics.Color;
 import android.graphics.PorterDuff;

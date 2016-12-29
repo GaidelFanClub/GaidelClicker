@@ -10,9 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.gfc.gaidelclicker.bonus.BuildingsAdapter;
-import com.example.gfc.gaidelclicker.bonus.BuildingsRepository;
-import com.example.gfc.gaidelclicker.bonus.OnBuildingClickListener;
+import com.example.gfc.gaidelclicker.building.BuildingsAdapter;
+import com.example.gfc.gaidelclicker.building.BuildingsRepository;
+import com.example.gfc.gaidelclicker.building.OnBuildingClickListener;
 
 import java.math.BigDecimal;
 

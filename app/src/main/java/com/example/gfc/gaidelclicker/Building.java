@@ -1,7 +1,6 @@
 package com.example.gfc.gaidelclicker;
 
-import com.example.gfc.gaidelclicker.bonus.BuildingsRepository;
-import com.tumblr.remember.Remember;
+import com.example.gfc.gaidelclicker.building.BuildingsRepository;
 
 import java.math.BigDecimal;
 

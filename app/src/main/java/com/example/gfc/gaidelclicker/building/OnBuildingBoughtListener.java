@@ -1,4 +1,4 @@
-package com.example.gfc.gaidelclicker.bonus;
+package com.example.gfc.gaidelclicker.building;
 
 import com.example.gfc.gaidelclicker.Building;
 

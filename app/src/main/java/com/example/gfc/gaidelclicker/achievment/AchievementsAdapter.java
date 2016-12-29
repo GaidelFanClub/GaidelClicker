@@ -5,10 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.gfc.gaidelclicker.Building;
 import com.example.gfc.gaidelclicker.R;
-import com.example.gfc.gaidelclicker.bonus.BuildingHolder;
-import com.example.gfc.gaidelclicker.bonus.OnBuildingClickListener;
 
 /**
  * Created by user on 26.12.2016.
