@@ -72,7 +72,7 @@ public class BuildingsRepository {
     private void recalculateDelta() {
         BigDecimal delta = BigDecimal.ZERO;
         for (Building building : buildings) {
-            delta = delta.add(BigDecimal.valueOf(building.getDelta()).multiply(getCoefficient(building))).multiply(BigDecimal.valueOf(getCount(building)));
+            delta = delta.add((BigDecimal.valueOf(building.getDelta()).multiply(getCoefficient(building))).multiply(BigDecimal.valueOf(getCount(building))));
         }
         if (bonus != null) {
             delta = delta.multiply(bonus.getCoefficient());
