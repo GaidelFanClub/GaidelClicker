@@ -23,9 +23,9 @@ public class BonusRepository {
 
     private BonusRepository() {
         List<Bonus> bonusesList = new ArrayList<>();
-        bonusesList.add(new Bonus(1, R.mipmap.gold_gaidel, "Прибыль увеличена в 7 раз на 77 секунд", false, 77 * 1000, BigDecimal.valueOf(7d), -1));
+        bonusesList.add(new Bonus(1, R.mipmap.silver_gaidel, "Прибыль увеличена в 7 раз на 77 секунд", false, 77 * 1000, BigDecimal.valueOf(7d), -1));
         bonusesList.add(new Bonus(2, R.mipmap.gold_gaidel, "Прибыль увеличена в 777 раз на 7 секунд", false, 7 * 1000, BigDecimal.valueOf(777d), -1));
-        bonusesList.add(new PercentActiveBonus(3, R.mipmap.gold_gaidel, 0.15, 0.2));
+        bonusesList.add(new PercentActiveBonus(3, R.mipmap.bronze_gaidel, 0.15, 0.2));
         bonuses = bonusesList.toArray(new Bonus[bonusesList.size()]);
     }
 
