@@ -63,8 +63,8 @@ public class GlobalPrefs {
     public void registerListener(OnBalanceChangedListener listener) {
         if (!alreadyListener(listener)) {
             listeners.add(new WeakReference<>(listener));
-            listener.onBalanceChanged(getBalance(), getWholeProfit());
         }
+        listener.onBalanceChanged(getBalance(), getWholeProfit());
     }
 
     private void notifyListeners(BigDecimal balance, BigDecimal wholeProfit) {
