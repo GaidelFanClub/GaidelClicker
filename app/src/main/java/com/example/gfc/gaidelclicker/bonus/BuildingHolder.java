@@ -53,7 +53,7 @@ public class BuildingHolder extends RecyclerView.ViewHolder implements GlobalPre
     }
 
     @Override
-    public void onBalanceChanged(BigDecimal currentBalance) {
+    public void onBalanceChanged(BigDecimal currentBalance, BigDecimal wholeProfit) {
         if (bonus != null) {
             if (bonus.getPrice().compareTo(currentBalance) > 0) {
                 image.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
