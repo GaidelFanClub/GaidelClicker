@@ -1,6 +1,7 @@
 package com.example.gfc.gaidelclicker;
 
 import com.example.gfc.gaidelclicker.building.BuildingsRepository;
+import com.example.gfc.gaidelclicker.optimizations.PriceFactorCalculator;
 
 import java.math.BigDecimal;
 
@@ -9,8 +10,6 @@ import java.math.BigDecimal;
  */
 
 public class Building {
-
-    private static final BigDecimal PRICE_SCALE_FACTOR = BigDecimal.valueOf(1.15d);
 
     private int id;
     private String stringId;
@@ -40,7 +39,7 @@ public class Building {
     }
 
     public BigDecimal getPrice() {
-        return PRICE_SCALE_FACTOR.pow(getCount()).multiply(basePrice);
+        return PriceFactorCalculator.getPriceScaleFactor(getCount()).multiply(basePrice);
     }
 
     public double getDelta() {

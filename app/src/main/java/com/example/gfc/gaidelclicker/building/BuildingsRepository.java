@@ -4,6 +4,7 @@ import com.example.gfc.gaidelclicker.Building;
 import com.example.gfc.gaidelclicker.R;
 import com.example.gfc.gaidelclicker.achievment.AchievementsCenter;
 import com.example.gfc.gaidelclicker.bonus.Bonus;
+import com.example.gfc.gaidelclicker.optimizations.TwoPowersCache;
 import com.tumblr.remember.Remember;
 
 import java.math.BigDecimal;
@@ -46,8 +47,9 @@ public class BuildingsRepository {
         AchievementsCenter.getInstance().onBuildingWasBought(building);
     }
 
-    public int getCoefficient(Building building) {
-        return (int) Math.pow(2, Remember.getInt(building.getStringId(), 0) / 50);
+    public BigDecimal getCoefficient(Building building) {
+        int power = getCount(building) / 50;
+        return TwoPowersCache.get(power);
     }
 
     public int getCount(Building building) {
@@ -70,7 +72,7 @@ public class BuildingsRepository {
     private void recalculateDelta() {
         BigDecimal delta = BigDecimal.ZERO;
         for (Building building : buildings) {
-            delta = delta.add(BigDecimal.valueOf(building.getDelta() * getCoefficient(building)).multiply(BigDecimal.valueOf(getCount(building))));
+            delta = delta.add(BigDecimal.valueOf(building.getDelta()).multiply(getCoefficient(building))).multiply(BigDecimal.valueOf(getCount(building)));
         }
         if (bonus != null) {
             delta = delta.multiply(bonus.getCoefficient());
