@@ -3,6 +3,7 @@ package com.example.gfc.gaidelclicker.building;
 import com.example.gfc.gaidelclicker.Building;
 import com.example.gfc.gaidelclicker.R;
 import com.example.gfc.gaidelclicker.achievment.AchievementsCenter;
+import com.example.gfc.gaidelclicker.bonus.Bonus;
 import com.tumblr.remember.Remember;
 
 import java.math.BigDecimal;
@@ -12,9 +13,6 @@ import java.math.BigDecimal;
  */
 
 public class BuildingsRepository {
-
-    private static final BigDecimal GOLD_MODE_BONUS = BigDecimal.valueOf(77);
-
     private static BuildingsRepository instance = new BuildingsRepository();
 
     public static BuildingsRepository getInstance() {
@@ -24,7 +22,7 @@ public class BuildingsRepository {
     private Building[] buildings;
     private BigDecimal deltaPerSecond = BigDecimal.ZERO;
 
-    private boolean isGoldMode;
+    private Bonus bonus;
 
     private BuildingsRepository() {
         buildings = new Building[7];
@@ -47,8 +45,9 @@ public class BuildingsRepository {
         recalculateDelta();
         AchievementsCenter.getInstance().onBuildingWasBought(building);
     }
-    public int getCoefficient(Building building){
-        return (int)Math.pow(2, Remember.getInt(building.getStringId(), 0) / 50);
+
+    public int getCoefficient(Building building) {
+        return (int) Math.pow(2, Remember.getInt(building.getStringId(), 0) / 50);
     }
 
     public int getCount(Building building) {
@@ -59,22 +58,22 @@ public class BuildingsRepository {
         return deltaPerSecond;
     }
 
-    public void setGoldMode(boolean isGoldMode) {
-        this.isGoldMode = isGoldMode;
+    public void setActiveBonus(Bonus bonus) {
+        this.bonus = bonus;
         recalculateDelta();
     }
 
     public BigDecimal getClickProfit() {
-        return isGoldMode ? GOLD_MODE_BONUS : BigDecimal.ONE;
+        return bonus != null ? bonus.getCoefficient() : BigDecimal.ONE;
     }
 
     private void recalculateDelta() {
         BigDecimal delta = BigDecimal.ZERO;
         for (Building building : buildings) {
-            delta = delta.add(BigDecimal.valueOf(building.getDelta()*getCoefficient(building)).multiply(BigDecimal.valueOf(getCount(building))));
+            delta = delta.add(BigDecimal.valueOf(building.getDelta() * getCoefficient(building)).multiply(BigDecimal.valueOf(getCount(building))));
         }
-        if (isGoldMode) {
-            delta = delta.multiply(GOLD_MODE_BONUS);
+        if (bonus != null) {
+            delta = delta.multiply(bonus.getCoefficient());
         }
         deltaPerSecond = delta;
     }

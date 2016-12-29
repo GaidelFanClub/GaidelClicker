@@ -23,6 +23,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gfc.gaidelclicker.bonus.Bonus;
+import com.example.gfc.gaidelclicker.bonus.BonusRepository;
 import com.example.gfc.gaidelclicker.building.BuildingsAdapter;
 import com.example.gfc.gaidelclicker.building.BuildingsRepository;
 import com.example.gfc.gaidelclicker.building.OnBuildingClickListener;
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     private BuildingsAdapter adapter;
 
     private Handler handler;
+    private Bonus currentDisplayedBonus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,10 +130,15 @@ public class MainActivity extends AppCompatActivity {
         goldCookie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BuildingsRepository.getInstance().setGoldMode(true);
                 hideHoldCookie();
-                handler.sendEmptyMessageDelayed(UpdateHandler.EXPIRED_GOLD_COOKIE, 77 * 1000);
-                Toast.makeText(MainActivity.this, "Прибыль увеличена в 77 раз на 77 секунд!", Toast.LENGTH_SHORT).show();//TODO string resources
+                if (currentDisplayedBonus.isImmediate()) {
+                    currentDisplayedBonus.performImmediateAction(GlobalPrefs.getInstance().getBalance(), GlobalPrefs.getInstance().getWholeProfit());
+                    requestGoldCookieSpawn();
+                } else {
+                    BuildingsRepository.getInstance().setActiveBonus(currentDisplayedBonus);
+                    handler.sendEmptyMessageDelayed(UpdateHandler.EXPIRED_GOLD_COOKIE, currentDisplayedBonus.getDurationMillis());
+                }
+                Toast.makeText(MainActivity.this, currentDisplayedBonus.getMessage(), Toast.LENGTH_SHORT).show();//TODO string resources
                 Analytics.getInstance().sendEvent("Golden Cookie Clicked");
             }
         });
@@ -228,7 +236,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void spawnGoldCookie() {
-
         goldCookieAlphaAnimator = ObjectAnimator.ofFloat(goldCookie, View.ALPHA, 0f, 1f);
         goldCookieAlphaAnimator.setDuration(6 * 1000);
         goldCookieAlphaAnimator.setRepeatMode(ValueAnimator.REVERSE);
@@ -258,6 +265,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        currentDisplayedBonus = BonusRepository.getInstance().getRandomBonus();
+        goldCookie.setImageResource(currentDisplayedBonus.getImageResourceId());
         goldCookieAlphaAnimator.start();
         int xRange = Math.round(UIUtils.getWidth(this) - goldCookie.getWidth());
         int yRange = Math.round(UIUtils.getHeight(this) - goldCookie.getHeight());
@@ -273,7 +282,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void goldCookieExpired() {
-        BuildingsRepository.getInstance().setGoldMode(false);
+        BuildingsRepository.getInstance().setActiveBonus(null);
         hideHoldCookie();
     }
 
