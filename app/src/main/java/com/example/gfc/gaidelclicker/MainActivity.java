@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         initViews();
         setupViewPager(
                 (TabLayout) findViewById(R.id.tab_layout),
-                new Pair<>((Fragment) new BuildingsFragment(), "Здания"),
+                new Pair<>((Fragment) new BuildingsFragment(), "Действия"),
                 new Pair<>((Fragment) new AchievementsFragment(), "Ачивки"),
                 new Pair<>((Fragment) new StatisticFragment(), "Статистика")
         );
@@ -159,6 +159,22 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(viewPagerAdapter);
 
         tabs.setupWithViewPager(viewPager);
+        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                slidingDrawer.setState(SlidingDrawer.EXPANDED);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                slidingDrawer.setState(SlidingDrawer.EXPANDED);
+            }
+        });
     }
 
     @Override
@@ -200,6 +216,15 @@ public class MainActivity extends AppCompatActivity {
         if (goldCookieAlphaAnimator != null) {
             goldCookieAlphaAnimator.cancel();
             goldCookieAlphaAnimator = null;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (slidingDrawer.getState() != SlidingDrawer.COLLAPSED) {
+            slidingDrawer.slideTo(0);
+        } else {
+            super.onBackPressed();
         }
     }
 
