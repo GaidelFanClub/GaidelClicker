@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 GlobalPrefs.getInstance().changeBalance(BuildingsRepository.getInstance().getClickProfit());
                 countOfClicksLabel.setText(FormatUtils.formatDecimalAsInteger(GlobalPrefs.getInstance().getBalance()));
+                Analytics.getInstance().sendEvent("Click Gaidel", "Clicks Count", FormatUtils.formatDecimalAsInteger(GlobalPrefs.getInstance().getBalance()).toString());
             }
         });
         gaidel.setOnTouchListener(new View.OnTouchListener() {
@@ -129,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                 hideHoldCookie();
                 handler.sendEmptyMessageDelayed(UpdateHandler.EXPIRED_GOLD_COOKIE, 77 * 1000);
                 Toast.makeText(MainActivity.this, "Прибыль увеличена в 77 раз на 77 секунд!", Toast.LENGTH_SHORT).show();//TODO string resources
+                Analytics.getInstance().sendEvent("Golden Cookie Clicked");
             }
         });
     }
@@ -147,6 +149,9 @@ public class MainActivity extends AppCompatActivity {
                     GlobalPrefs.getInstance().changeBalance(new BigDecimal("-" + bonus.getPrice()));
                     BuildingsRepository.getInstance().buy(bonus);
                     adapter.notifyDataSetChanged();
+                    Analytics.getInstance().sendEvent("Buy Building", "type", bonus.getName(), bonus.getCount());
+                } else {
+                    Analytics.getInstance().sendEvent("Click On Unavailable Building", "type", bonus.getName());
                 }
             }
         });
@@ -164,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 slidingDrawer.setState(SlidingDrawer.EXPANDED);
+                Analytics.getInstance().sendEvent(String.format("Open Tab %s", tab.getText()));
             }
 
             @Override
@@ -179,27 +185,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.stats:
-                Toast toast = Toast.makeText(getApplicationContext(), "Кликов в секунду: " + BuildingsRepository.getInstance().getDeltaPerSecond(), Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.BOTTOM, 0, 5);
-                toast.show();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
+        Analytics.getInstance().sendEvent("On Resume");
         requestGoldCookieSpawn();
         handler.sendEmptyMessage(UpdateHandler.UPDATE_MESSAGE);
     }
@@ -207,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        Analytics.getInstance().sendEvent("On Pause");
         handler.removeMessages(UpdateHandler.UPDATE_MESSAGE);
         handler.removeMessages(UpdateHandler.SPAWN_GOLD_COOKIE);
         handler.removeMessages(UpdateHandler.EXPIRED_GOLD_COOKIE);
@@ -230,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void spawnGoldCookie() {
-        
+
         goldCookieAlphaAnimator = ObjectAnimator.ofFloat(goldCookie, View.ALPHA, 0f, 1f);
         goldCookieAlphaAnimator.setDuration(6 * 1000);
         goldCookieAlphaAnimator.setRepeatMode(ValueAnimator.REVERSE);
@@ -243,6 +232,7 @@ public class MainActivity extends AppCompatActivity {
             public void onAnimationStart(Animator animation) {
                 super.onAnimationStart(animation);
                 goldCookie.setVisibility(View.VISIBLE);
+                Analytics.getInstance().sendEvent("Golden Cookie Shown");
             }
 
             @Override

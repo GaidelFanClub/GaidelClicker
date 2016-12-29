@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "1065574077816",
+    "project_id": "gaidel-clicker"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1065574077816:android:63c19f977411ea66",
+        "android_client_info": {
+          "package_name": "com.example.gfc.gaidelclicker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCZnRHOKQ7i7FsZ8zFZfgYCP3J93bfep4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-89613501-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
