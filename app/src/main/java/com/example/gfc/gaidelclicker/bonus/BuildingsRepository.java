@@ -2,9 +2,12 @@ package com.example.gfc.gaidelclicker.bonus;
 
 import com.example.gfc.gaidelclicker.Building;
 import com.example.gfc.gaidelclicker.R;
+import com.example.gfc.gaidelclicker.achievment.AchievementsCenter;
 import com.tumblr.remember.Remember;
 
+import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Created by user on 27.12.2016.
@@ -44,6 +47,7 @@ public class BuildingsRepository {
     public void buy(Building building) {
         Remember.putInt(building.getStringId(), getCount(building) + 1);
         recalculateDelta();
+        AchievementsCenter.getInstance().onBuildingWasBought(building);
     }
     public int getCoefficient(Building building){
         return (int)Math.pow(2, Remember.getInt(building.getStringId(), 0) / 50);

@@ -19,7 +19,7 @@ public class GlobalPrefs {
 
     private static GlobalPrefs instance = new GlobalPrefs();
     public interface OnBalanceChangedListener {
-        void onBalanceChanged(BigDecimal currentBalance);
+        void onBalanceChanged(BigDecimal currentBalance, BigDecimal wholeProfit);
     }
 
     private List<WeakReference<OnBalanceChangedListener>> listeners = new ArrayList<>();
@@ -49,7 +49,7 @@ public class GlobalPrefs {
         if (difference.compareTo(BigDecimal.ZERO) >= 0) {
             putWholeProfit(getWholeProfit().add(difference));
         }
-        notifyListeners(getBalance());
+        notifyListeners(getBalance(), getWholeProfit());
     }
 
     public long getLastUpdateTs() {
@@ -63,15 +63,15 @@ public class GlobalPrefs {
     public void registerListener(OnBalanceChangedListener listener) {
         if (!alreadyListener(listener)) {
             listeners.add(new WeakReference<>(listener));
-            listener.onBalanceChanged(getBalance());
+            listener.onBalanceChanged(getBalance(), getWholeProfit());
         }
     }
 
-    private void notifyListeners(BigDecimal balance) {
+    private void notifyListeners(BigDecimal balance, BigDecimal wholeProfit) {
         for (WeakReference<OnBalanceChangedListener> weakListener : listeners) {
             OnBalanceChangedListener listener = weakListener.get();
             if (listener != null) {
-                listener.onBalanceChanged(balance);
+                listener.onBalanceChanged(balance, wholeProfit);
             }
         }
     }

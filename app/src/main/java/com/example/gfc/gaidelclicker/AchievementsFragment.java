@@ -10,16 +10,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.gfc.gaidelclicker.bonus.BuildingsAdapter;
-import com.example.gfc.gaidelclicker.bonus.BuildingsRepository;
-import com.example.gfc.gaidelclicker.bonus.OnBuildingClickListener;
+import com.example.gfc.gaidelclicker.achievment.AchievementsAdapter;
+import com.example.gfc.gaidelclicker.achievment.AchievementsRepository;
+import com.example.gfc.gaidelclicker.event.AchievementUnlockedEvent;
 
-import java.math.BigDecimal;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class AchievementsFragment extends Fragment {
 
-    private static final int COLUMN_COUNT = 2;
+    private static final int COLUMN_COUNT = 1;
     private RecyclerView recyclerView;
+    private AchievementsAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,20 +47,26 @@ public class AchievementsFragment extends Fragment {
 
         recyclerView.setLayoutManager(layoutManager);
 
-        // TODO Change to achievements
-//        final BuildingsAdapter adapter = new BuildingsAdapter();
-//        adapter.setOnBuildingClickListener(new OnBuildingClickListener() {
-//            @Override
-//            public void onBonusClick(Building bonus) {
-//                int res = GlobalPrefs.getInstance().getBalance().compareTo(bonus.getPrice());
-//                if (res != -1) {
-//                    GlobalPrefs.getInstance().changeBalance(new BigDecimal("-" + bonus.getPrice()));
-//                    BuildingsRepository.getInstance().buy(bonus);
-//                    adapter.notifyDataSetChanged();
-//                }
-//            }
-//        });
-//        recyclerView.setAdapter(adapter);
-//        adapter.setData(BuildingsRepository.getInstance().getBuildings());
+        adapter = new AchievementsAdapter();
+        recyclerView.setAdapter(adapter);
+        adapter.setData(AchievementsRepository.getInstance().getAchievements());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onAchievementUnlocked(AchievementUnlockedEvent event) {
+        adapter.notifyDataSetChanged();
     }
 }

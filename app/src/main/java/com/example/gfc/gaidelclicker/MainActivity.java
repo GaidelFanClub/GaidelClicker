@@ -30,9 +30,14 @@ import android.widget.Toast;
 import com.example.gfc.gaidelclicker.bonus.BuildingsAdapter;
 import com.example.gfc.gaidelclicker.bonus.BuildingsRepository;
 import com.example.gfc.gaidelclicker.bonus.OnBuildingClickListener;
+import com.example.gfc.gaidelclicker.event.AchievementUnlockedEvent;
 import com.example.gfc.gaidelclicker.utils.FormatUtils;
 import com.example.gfc.gaidelclicker.utils.UIUtils;
 import com.pierfrancescosoffritti.slidingdrawer.SlidingDrawer;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
@@ -190,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
         Analytics.getInstance().sendEvent("On Resume");
         requestGoldCookieSpawn();
         handler.sendEmptyMessage(UpdateHandler.UPDATE_MESSAGE);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -199,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
         handler.removeMessages(UpdateHandler.UPDATE_MESSAGE);
         handler.removeMessages(UpdateHandler.SPAWN_GOLD_COOKIE);
         handler.removeMessages(UpdateHandler.EXPIRED_GOLD_COOKIE);
+        EventBus.getDefault().unregister(this);
     }
 
     private void hideHoldCookie() {
@@ -207,6 +214,12 @@ public class MainActivity extends AppCompatActivity {
             goldCookieAlphaAnimator.cancel();
             goldCookieAlphaAnimator = null;
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onAchievementUnlocked(AchievementUnlockedEvent event) {
+        //todo string resources
+        Toast.makeText(this, "Achievement unlocked: " + event.getAchievement().getMessage(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
