@@ -3,6 +3,7 @@ package com.example.gfc.gaidelclicker;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -204,7 +205,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void spawnGoldCookie() {
-        
+        Bonus[] bonus = new Bonus[3];
+
+
+        bonus[0] = new Bonus(0, R.drawable.gaidel_face, 0, 77, 77, 0);
+        bonus[1] = new Bonus(1, R.drawable.gaidel_face_gold, 0, 77, 77, 0);
+        bonus[2] = new Bonus(2, R.drawable.gaidel_face_dark, 0, 77, 77, 0);
+
+        int randomBonus = random.nextInt(bonus.length);
+
+        goldCookie.setBackground(getResources().getDrawable(bonus[randomBonus].getImageResourceId()));
+
+
         goldCookieAlphaAnimator = ObjectAnimator.ofFloat(goldCookie, View.ALPHA, 1f, 0f);
         goldCookieAlphaAnimator.setDuration(10 * 1000);
         goldCookieAlphaAnimator.addListener(new AnimatorListenerAdapter() {

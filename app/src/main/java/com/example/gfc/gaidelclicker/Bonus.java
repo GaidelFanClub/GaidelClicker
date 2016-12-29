@@ -22,4 +22,12 @@ public class Bonus {
         this.coefficient = coefficient;
         this.buf = buf;
     }
+
+    public int getId(){ return id; }
+
+    public int getImageResourceId(){return imageResourceId; }
+
+
+
+
 }

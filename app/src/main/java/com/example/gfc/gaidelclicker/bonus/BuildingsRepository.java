@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 
 public class BuildingsRepository {
 
-    private static final BigDecimal GOLD_MODE_BONUS = BigDecimal.valueOf(77);
+    private static BigDecimal GOLD_MODE_BONUS = BigDecimal.valueOf(77);
 
     private static BuildingsRepository instance = new BuildingsRepository();
 
