@@ -49,7 +49,7 @@ public class BuildingsFragment extends Fragment {
             public void onBonusClick(Building bonus) {
                 int res = GlobalPrefs.getInstance().getBalance().compareTo(bonus.getPrice());
                 if (res != -1) {
-                    GlobalPrefs.getInstance().increaseBalance(new BigDecimal("-" + bonus.getPrice()));
+                    GlobalPrefs.getInstance().changeBalance(new BigDecimal("-" + bonus.getPrice()));
                     BuildingsRepository.getInstance().buy(bonus);
                     adapter.notifyDataSetChanged();
                 }

@@ -13,7 +13,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
@@ -103,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         gaidel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GlobalPrefs.getInstance().increaseBalance(BuildingsRepository.getInstance().getClickProfit());
+                GlobalPrefs.getInstance().changeBalance(BuildingsRepository.getInstance().getClickProfit());
                 countOfClicksLabel.setText(FormatUtils.formatDecimalAsInteger(GlobalPrefs.getInstance().getBalance()));
             }
         });
@@ -145,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
             public void onBonusClick(Building bonus) {
                 int res = GlobalPrefs.getInstance().getBalance().compareTo(bonus.getPrice());
                 if (res != -1) {
-                    GlobalPrefs.getInstance().increaseBalance(new BigDecimal("-" + bonus.getPrice()));
+                    GlobalPrefs.getInstance().changeBalance(new BigDecimal("-" + bonus.getPrice()));
                     BuildingsRepository.getInstance().buy(bonus);
                     adapter.notifyDataSetChanged();
                 }
@@ -328,7 +327,7 @@ public class MainActivity extends AppCompatActivity {
 
             long timeDifferenceInMs = currentTs - previousTs;
             BigDecimal moneyDifference = BuildingsRepository.getInstance().getDeltaPerSecond().multiply(BigDecimal.valueOf(timeDifferenceInMs / 1000d));
-            GlobalPrefs.getInstance().increaseBalance(moneyDifference);
+            GlobalPrefs.getInstance().changeBalance(moneyDifference);
             GlobalPrefs.getInstance().putLastUpdateTs(currentTs);
 
             mainActivity.countOfClicksLabel.setText(FormatUtils.formatDecimalAsInteger(GlobalPrefs.getInstance().getBalance()));
