@@ -23,7 +23,7 @@ public class AchievementsRepository {
     private AchievementsRepository() {
         List<Achievement> achievementList = new ArrayList<>();
         Building[] buildings = BuildingsRepository.getInstance().getBuildings();
-        int[] counts = {1, 10, 100, 250};
+        int[] counts = {1, 10, 50, 100, 150, 200, 250, 300};
         for (Building building : buildings) {
             for (int count : counts) {
                 achievementList.add(new BuildingCountAchievement(building, count, building.getImageResourceId(), building.getName() + " x" + count));
