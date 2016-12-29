@@ -15,8 +15,6 @@ public class Analytics {
         return instance;
     }
 
-    public void 
-
     public void sendEvent(String action) {
         Map<String, String> eventParams = new HitBuilders.EventBuilder()
                 .setAction(action)
