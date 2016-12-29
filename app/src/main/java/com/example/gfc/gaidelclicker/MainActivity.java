@@ -3,6 +3,7 @@ package com.example.gfc.gaidelclicker;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -231,8 +232,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void spawnGoldCookie() {
         
-        goldCookieAlphaAnimator = ObjectAnimator.ofFloat(goldCookie, View.ALPHA, 1f, 0f);
-        goldCookieAlphaAnimator.setDuration(10 * 1000);
+        goldCookieAlphaAnimator = ObjectAnimator.ofFloat(goldCookie, View.ALPHA, 0f, 1f);
+        goldCookieAlphaAnimator.setDuration(6 * 1000);
+        goldCookieAlphaAnimator.setRepeatMode(ValueAnimator.REVERSE);
+        goldCookieAlphaAnimator.setRepeatCount(1);
         goldCookieAlphaAnimator.addListener(new AnimatorListenerAdapter() {
 
             private boolean isCanceled;
