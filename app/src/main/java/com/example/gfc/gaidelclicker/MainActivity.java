@@ -48,8 +48,8 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int MIN_GOLD_COOKIE_SPAWN_PERIOD = 10 * 1000;
-    private static final int MAX_GOLD_COOKIE_SPAWN_PERIOD = 30 * 1000;
+    private static final int MIN_GOLD_COOKIE_SPAWN_PERIOD = 1 * 60 * 1000;
+    private static final int MAX_GOLD_COOKIE_SPAWN_PERIOD = 3 * 60 * 1000;
 
     private static final float GAIDEL_ANIMATION_SCALE = 1.075f;
 
