@@ -30,15 +30,18 @@ public class BuildingsRepository {
     private BuildingsRepository() {
         List<Building> buildingList = new ArrayList<>();
         buildingList.add(new Building(1, R.mipmap.click, "Кликер", 20, 0.1));
-        buildingList.add(new Building(2, R.mipmap.lector, "Сходить на лекции", 150, 1));
-        buildingList.add(new Building(3, R.mipmap.practice, "Сделать идз", 1100, 8));
-        buildingList.add(new Building(4, R.mipmap.circle, "Сходить на кружок", 12000, 47));
-        buildingList.add(new Building(5, R.mipmap.task, "Порешать тимус", 130000, 260));
-        buildingList.add(new Building(6, R.mipmap.code_forces, "Написать раунд CF", 1400000, 1400));
-        buildingList.add(new Building(7, R.mipmap.beer_factory, "Построить пивзавод", 20000000, 7800));
-        buildingList.add(new Building(8, R.mipmap.go_to_final, "Выйти в финал", 330000000, 44000));
-        buildingList.add(new Building(9, R.mipmap.dota, "Сыграть с Гайделем", 5100000000L, 100000));
-        //buildingList.add(new Building(10, R.mipmap.chupa, "Слить финал", 999999999999L, -100000000000d));
+        buildingList.add(new Building(2, R.mipmap.twitch, "Посмотреть стрим Гайделя", 50, 0.5));
+        buildingList.add(new Building(3, R.mipmap.lector, "Сходить на лекции", 150, 1));
+        buildingList.add(new Building(4, R.mipmap.labaratory, "Сдать лабу", 560, 3));
+        buildingList.add(new Building(5, R.mipmap.practice, "Сделать идз", 1100, 8));
+        buildingList.add(new Building(6, R.mipmap.circle, "Сходить на кружок", 12000, 47));
+        buildingList.add(new Building(7, R.mipmap.cormen, "Почитать кормена", 5600, 68));
+        buildingList.add(new Building(8, R.mipmap.task, "Порешать тимус", 130000, 260));
+        buildingList.add(new Building(9, R.mipmap.code_forces, "Написать раунд CF", 1400000, 1400));
+        buildingList.add(new Building(10, R.mipmap.beer_factory, "Построить пивзавод", 20000000, 7800));
+        buildingList.add(new Building(11, R.mipmap.go_to_final, "Выйти в финал", 330000000, 44000));
+        buildingList.add(new Building(12, R.mipmap.dota, "Сыграть с Гайделем", 5100000000L, 100000));
+
         buildings = buildingList.toArray(new Building[buildingList.size()]);
 
         recalculateDelta();
