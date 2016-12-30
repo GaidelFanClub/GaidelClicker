@@ -170,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
                     BuildingsRepository.getInstance().setActiveBonus(currentDisplayedBonus);
                     handler.sendEmptyMessageDelayed(UpdateHandler.EXPIRED_GOLD_COOKIE, currentDisplayedBonus.getDurationMillis());
                 }
+                GlobalPrefs.getInstance().addGoldenCookie();
                 Toast.makeText(MainActivity.this, currentDisplayedBonus.getMessage(), Toast.LENGTH_SHORT).show();//TODO string resources
                 Analytics.getInstance().sendEvent("Golden Cookie Clicked");
             }
