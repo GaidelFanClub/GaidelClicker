@@ -41,6 +41,9 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -104,6 +107,15 @@ public class MainActivity extends AppCompatActivity {
         slidingDrawer.setDragView(findViewById(R.id.tab_layout));
         colorAccent = ContextCompat.getColor(MainActivity.this, R.color.colorAccent);
         colorPrimary = ContextCompat.getColor(MainActivity.this, R.color.colorPrimary);
+
+        GregorianCalendar calendar = new GregorianCalendar();
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        if((day >= 15 && month == 11) || (day <= 5 && month == 0)){
+            gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_pink_ny));
+            svaston.setBackground(getResources().getDrawable(R.drawable.svas_ny));
+        }
+
         slidingDrawer.addSlideListener(new SlidingDrawer.OnSlideListener() {
             @Override
             public void onSlide(SlidingDrawer slidingDrawer, float v) {
