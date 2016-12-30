@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         if((day >= 15 && month == 11) || (day <= 5 && month == 0)){
-            gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_pink_ny));
+            gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_gold_ny));
             svaston.setBackground(getResources().getDrawable(R.drawable.svas_ny));
         }
 
