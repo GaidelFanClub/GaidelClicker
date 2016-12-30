@@ -7,8 +7,10 @@ import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.ColorInt;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -53,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton gaidel;
     private ImageView svaston;
 
+    private TabLayout tabs;
+    @ColorInt private int colorPrimary;
+    @ColorInt private int colorAccent;
+
     private TextView countOfClicksLabel;
     private TextView speedLabel;
 
@@ -75,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
         initViews();
         setupViewPager(
-                (TabLayout) findViewById(R.id.tab_layout),
+                tabs,
                 new Pair<>((Fragment) new BuildingsFragment(), "Действия"),
                 new Pair<>((Fragment) new AchievementsFragment(), "Ачивки"),
                 new Pair<>((Fragment) new StatisticFragment(), "Статистика")
@@ -89,11 +95,25 @@ public class MainActivity extends AppCompatActivity {
 
         svaston = (ImageView) findViewById(R.id.svaston);
 
+        tabs = (TabLayout) findViewById(R.id.tab_layout);
+
         countOfClicksLabel = (TextView) findViewById(R.id.clicks);
         speedLabel = (TextView) findViewById(R.id.speed);
 
         slidingDrawer = (SlidingDrawer) findViewById(R.id.sliding_drawer);
         slidingDrawer.setDragView(findViewById(R.id.tab_layout));
+        colorAccent = ContextCompat.getColor(MainActivity.this, R.color.colorAccent);
+        colorPrimary = ContextCompat.getColor(MainActivity.this, R.color.colorPrimary);
+        slidingDrawer.addSlideListener(new SlidingDrawer.OnSlideListener() {
+            @Override
+            public void onSlide(SlidingDrawer slidingDrawer, float v) {
+                if (v == 0) {
+                    tabs.setSelectedTabIndicatorColor(colorPrimary);
+                } else {
+                    tabs.setSelectedTabIndicatorColor(colorAccent);
+                }
+            }
+        });
 
         goldCookie = (ImageView) findViewById(R.id.gold_cookie);
 

@@ -84,6 +84,7 @@
                     android:layout_height="64dp"
                     android:background="@color/colorPrimary"
                     app:tabMode="fixed"
+                    app:tabIndicatorColor="@color/colorPrimary"
                     app:tabSelectedTextColor="@android:color/white"
                     app:tabTextColor="@android:color/white" />
 
