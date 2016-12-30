@@ -40,7 +40,7 @@ public class BuildingsRepository {
         buildingList.add(new Building(9, R.mipmap.code_forces, "Написать раунд CF", 1400000, 1400));
         buildingList.add(new Building(10, R.mipmap.beer_factory, "Построить пивзавод", 20000000, 7800));
         buildingList.add(new Building(11, R.mipmap.go_to_final, "Выйти в финал", 330000000, 44000));
-        buildingList.add(new Building(12, R.mipmap.dota, "Сыграть с Гайделем", 5100000000L, 100000));
+        buildingList.add(new Building(12, R.mipmap.dota, "Сыграть с Гайделем в доту", 5100000000L, 100000));
 
         buildings = buildingList.toArray(new Building[buildingList.size()]);
 
