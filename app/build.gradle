@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "com.example.gfc.gaidelclicker"
+        applicationId "com.gaidelfanclub.clicker"
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
