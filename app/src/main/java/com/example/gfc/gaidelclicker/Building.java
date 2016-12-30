@@ -20,7 +20,7 @@ public class Building {
     private double baseDelta;
 
 
-    public Building(int id, int imageResourceId, String name, double price, double delta) {
+    public Building(int id, int imageResourceId, String name, long price, double delta) {
         this.id = id;
         this.stringId = String.valueOf(id);
         this.imageResourceId = imageResourceId;
