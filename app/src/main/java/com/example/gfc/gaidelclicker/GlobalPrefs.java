@@ -17,6 +17,7 @@ public class GlobalPrefs {
     private static final String BALANCE = "LAST_BALANCE";
     private static final String WHOLE_PROFIT = "WHOLE_PROFIT";
     private static final String GOLDEN_COOKIES = "GOLDEN_COOKIES";
+    private static final String COUNT_OF_CLICK = "COUNT_OF_CLICK";
 
     private static GlobalPrefs instance = new GlobalPrefs();
     public interface OnBalanceChangedListener {
@@ -67,6 +68,14 @@ public class GlobalPrefs {
 
     public void addGoldenCookie() {
         Remember.putInt(GOLDEN_COOKIES, getGoldenCookies() + 1);
+    }
+
+    public int getCountOfClicks() {
+        return Remember.getInt(COUNT_OF_CLICK, 0);
+    }
+
+    public void increaseClickCount(int delta) {
+        Remember.putInt(COUNT_OF_CLICK, getCountOfClicks() + delta);
     }
 
     public void registerListener(OnBalanceChangedListener listener) {

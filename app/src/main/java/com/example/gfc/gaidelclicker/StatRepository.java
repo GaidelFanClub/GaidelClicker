@@ -23,26 +23,21 @@ public class StatRepository {
         return instance;
     }
 
-    private static final String COUNT_OF_CLICK = "COUNT_OF_CLICK";
-
     private ArrayList<String> stat;
 
     private StatRepository() {
         stat = new ArrayList<>();
         stat.add("Текущий баланс: " + GlobalPrefs.getInstance().getBalance());
-        stat.add("Количество автокликов в секунду: "+ GlobalPrefs.getInstance().getWholeProfit());
+        stat.add("Количество автокликов в секунду: " + GlobalPrefs.getInstance().getWholeProfit());
         stat.add("Количество пойманных золотых Гайделей: " + GlobalPrefs.getInstance().getGoldenCookies());
-
-
-
     }
 
     public ArrayList<String> getStat() {
         stat.clear();
         stat = new ArrayList<>();
         stat.add("Текущий баланс: " + FormatUtils.formatDecimalAsInteger(GlobalPrefs.getInstance().getBalance()));
-        stat.add("Накликано за все время: "+ FormatUtils.formatDecimalAsInteger(new BigDecimal(Remember.getString(COUNT_OF_CLICK, ""))));
-        stat.add("Собрано за все время: "+ FormatUtils.formatDecimalAsInteger(GlobalPrefs.getInstance().getWholeProfit()));
+        stat.add("Накликано за все время: " + GlobalPrefs.getInstance().getCountOfClicks());
+        stat.add("Собрано за все время: " + FormatUtils.formatDecimalAsInteger(GlobalPrefs.getInstance().getWholeProfit()));
         stat.add("Количество пойманных золотых Гайделей: " + GlobalPrefs.getInstance().getGoldenCookies());
         return stat;
     }

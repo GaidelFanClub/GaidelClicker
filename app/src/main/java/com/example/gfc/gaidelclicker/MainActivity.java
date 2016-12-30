@@ -55,10 +55,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final float GAIDEL_ANIMATION_SCALE = 1.075f;
 
-    private BigDecimal count = BigDecimal.ZERO;
-
-    private static final String COUNT_OF_CLICK = "COUNT_OF_CLICK";
-
     private final Random random = new Random();
 
     RelativeLayout relativeLayout;
@@ -144,15 +140,13 @@ public class MainActivity extends AppCompatActivity {
         anim.setInterpolator(new LinearInterpolator());
         anim.setDuration(2000);
         anim.start();
-        //Remember.putString(COUNT_OF_CLICK, count.toString());
 
         gaidel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 GlobalPrefs.getInstance().changeBalance(BuildingsRepository.getInstance().getClickProfit());
                 countOfClicksLabel.setText(FormatUtils.formatDecimalAsInteger(GlobalPrefs.getInstance().getBalance()));
-                BigDecimal count = new BigDecimal(Remember.getString(COUNT_OF_CLICK, ""));
-                Remember.putString(COUNT_OF_CLICK, count.add(BigDecimal.valueOf(1)).toString());
+                GlobalPrefs.getInstance().increaseClickCount(1);
                 Analytics.getInstance().sendEvent("Click Gaidel", "Clicks Count", FormatUtils.formatDecimalAsInteger(GlobalPrefs.getInstance().getBalance()).toString());
             }
         });
