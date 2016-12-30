@@ -8,6 +8,8 @@ import com.example.gfc.gaidelclicker.optimizations.TwoPowersCache;
 import com.tumblr.remember.Remember;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by user on 27.12.2016.
@@ -26,21 +28,18 @@ public class BuildingsRepository {
     private Bonus bonus;
 
     private BuildingsRepository() {
-        buildings = new Building[10];
-        buildings[0] = new Building(1, R.mipmap.click, "Кликер", 20, 0.1);
-        buildings[1] = new Building(2, R.mipmap.lector, "Сходить на лекции", 150, 1);
-        buildings[2] = new Building(3, R.mipmap.practice, "Сделать идз", 1100, 8);
-        buildings[3] = new Building(4, R.mipmap.circle, "Сходить на кружок", 12000, 47);
-        buildings[4] = new Building(5, R.mipmap.task, "Порешать тимус", 130000, 260);
-        buildings[5] = new Building(6, R.mipmap.code_forces, "Написать раунд CF", 1400000, 1400);
-        buildings[6] = new Building(7, R.mipmap.beer_factory, "Построить пивзавод", 20000000, 7800);
-        buildings[7] = new Building(8, R.mipmap.go_to_final, "Выйти в финал", 330000000, 44000);
-<<<<<<< HEAD
-        buildings[8] = new Building(9, R.mipmap.dota, "Сыграть с Гайделем", 5100000000L, 100000);
-        buildings[9] = new Building(10, R.mipmap.chupa, "Слить финал", 999999999999L, -100000000000d);
-=======
-        buildings[8] = new Building(9, R.mipmap.dota, "Сыграть с Гайделем в доту", 5100000000L, 100000);
->>>>>>> 50c590cd52ff0e997afe649cabdf50b14893ba78
+        List<Building> buildingList = new ArrayList<>();
+        buildingList.add(new Building(1, R.mipmap.click, "Кликер", 20, 0.1));
+        buildingList.add(new Building(2, R.mipmap.lector, "Сходить на лекции", 150, 1));
+        buildingList.add(new Building(3, R.mipmap.practice, "Сделать идз", 1100, 8));
+        buildingList.add(new Building(4, R.mipmap.circle, "Сходить на кружок", 12000, 47));
+        buildingList.add(new Building(5, R.mipmap.task, "Порешать тимус", 130000, 260));
+        buildingList.add(new Building(6, R.mipmap.code_forces, "Написать раунд CF", 1400000, 1400));
+        buildingList.add(new Building(7, R.mipmap.beer_factory, "Построить пивзавод", 20000000, 7800));
+        buildingList.add(new Building(8, R.mipmap.go_to_final, "Выйти в финал", 330000000, 44000));
+        buildingList.add(new Building(9, R.mipmap.dota, "Сыграть с Гайделем", 5100000000L, 100000));
+        //buildingList.add(new Building(10, R.mipmap.chupa, "Слить финал", 999999999999L, -100000000000d));
+        buildings = buildingList.toArray(new Building[buildingList.size()]);
 
         recalculateDelta();
     }
