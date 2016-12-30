@@ -26,16 +26,17 @@ public class BuildingsRepository {
     private Bonus bonus;
 
     private BuildingsRepository() {
-        buildings = new Building[9];
+        buildings = new Building[10];
         buildings[0] = new Building(1, R.mipmap.click, "Кликер", 20, 0.1);
         buildings[1] = new Building(2, R.mipmap.lector, "Сходить на лекции", 150, 1);
-        buildings[2] = new Building(3, R.mipmap.practice, "Сделать идз", 560, 8);
+        buildings[2] = new Building(3, R.mipmap.practice, "Сделать идз", 1100, 8);
         buildings[3] = new Building(4, R.mipmap.circle, "Сходить на кружок", 12000, 47);
         buildings[4] = new Building(5, R.mipmap.task, "Порешать тимус", 130000, 260);
         buildings[5] = new Building(6, R.mipmap.code_forces, "Написать раунд CF", 1400000, 1400);
         buildings[6] = new Building(7, R.mipmap.beer_factory, "Построить пив.завод", 20000000, 7800);
         buildings[7] = new Building(8, R.mipmap.go_to_final, "Выйти в финал", 330000000, 44000);
         buildings[8] = new Building(9, R.mipmap.dota, "Сыграть с Гайделем", 5100000000L, 100000);
+        buildings[9] = new Building(10, R.mipmap.chupa, "Слить финал", 999999999999L, -100000000000d);
 
         recalculateDelta();
     }
