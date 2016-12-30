@@ -22,6 +22,7 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ import com.example.gfc.gaidelclicker.event.AchievementUnlockedEvent;
 import com.example.gfc.gaidelclicker.utils.FormatUtils;
 import com.example.gfc.gaidelclicker.utils.UIUtils;
 import com.pierfrancescosoffritti.slidingdrawer.SlidingDrawer;
+import com.tumblr.remember.Remember;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -53,7 +55,13 @@ public class MainActivity extends AppCompatActivity {
 
     private static final float GAIDEL_ANIMATION_SCALE = 1.075f;
 
+    private BigDecimal count = BigDecimal.ZERO;
+
+    private static final String COUNT_OF_CLICK = "COUNT_OF_CLICK";
+
     private final Random random = new Random();
+
+    RelativeLayout relativeLayout;
 
     private ImageButton gaidel;
     private ImageView svaston;
@@ -95,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
     private void initViews() {
         gaidel = (ImageButton) findViewById(R.id.buttonGaidel);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        relativeLayout = (RelativeLayout) findViewById(R.id.main_layout);
 
         svaston = (ImageView) findViewById(R.id.svaston);
 
@@ -114,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
         if((day >= 15 && month == 11) || (day <= 5 && month == 0)){
             gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_gold_ny));
             svaston.setBackground(getResources().getDrawable(R.drawable.svas_ny));
+            relativeLayout.setBackground(getResources().getDrawable(R.drawable.background_ny));
         }
 
         slidingDrawer.addSlideListener(new SlidingDrawer.OnSlideListener() {
@@ -134,12 +144,15 @@ public class MainActivity extends AppCompatActivity {
         anim.setInterpolator(new LinearInterpolator());
         anim.setDuration(2000);
         anim.start();
+        //Remember.putString(COUNT_OF_CLICK, count.toString());
 
         gaidel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 GlobalPrefs.getInstance().changeBalance(BuildingsRepository.getInstance().getClickProfit());
                 countOfClicksLabel.setText(FormatUtils.formatDecimalAsInteger(GlobalPrefs.getInstance().getBalance()));
+                BigDecimal count = new BigDecimal(Remember.getString(COUNT_OF_CLICK, ""));
+                Remember.putString(COUNT_OF_CLICK, count.add(BigDecimal.valueOf(1)).toString());
                 Analytics.getInstance().sendEvent("Click Gaidel", "Clicks Count", FormatUtils.formatDecimalAsInteger(GlobalPrefs.getInstance().getBalance()).toString());
             }
         });

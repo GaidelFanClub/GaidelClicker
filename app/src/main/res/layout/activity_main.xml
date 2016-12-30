@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@drawable/background_ny">
+    android:background="@drawable/background_ny"
+    android:id="@+id/main_layout">
 
     <com.example.gfc.gaidelclicker.ui.HTMLTextView
         android:id="@+id/clicks"
