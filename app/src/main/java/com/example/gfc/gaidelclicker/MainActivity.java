@@ -256,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onAchievementUnlocked(AchievementUnlockedEvent event) {
         //todo string resources
-        Toast.makeText(this, "Achievement unlocked: " + event.getAchievement().getMessage(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Новое достижение: " + event.getAchievement().getMessage(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
