@@ -16,6 +16,7 @@ public class GlobalPrefs {
     private static final String LAST_UPDATE_TIMESTAMP = "LAST_UPDATE_TIMESTAMP";
     private static final String BALANCE = "LAST_BALANCE";
     private static final String WHOLE_PROFIT = "WHOLE_PROFIT";
+    private static final String GOLDEN_COOKIES = "GOLDEN_COOKIES";
 
     private static GlobalPrefs instance = new GlobalPrefs();
     public interface OnBalanceChangedListener {
@@ -58,6 +59,14 @@ public class GlobalPrefs {
 
     public void putLastUpdateTs(long ts) {
         Remember.putLong(LAST_UPDATE_TIMESTAMP, ts);
+    }
+
+    public int getGoldenCookies() {
+        return Remember.getInt(GOLDEN_COOKIES, 0);
+    }
+
+    public void addGoldenCookie() {
+        Remember.putInt(GOLDEN_COOKIES, getGoldenCookies() + 1);
     }
 
     public void registerListener(OnBalanceChangedListener listener) {
