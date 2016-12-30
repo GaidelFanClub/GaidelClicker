@@ -11,28 +11,30 @@ import android.view.ViewGroup;
 import com.example.gfc.gaidelclicker.stat.StatHolder;
 import com.example.gfc.gaidelclicker.R;
 
-public class StatisticAdapter extends RecyclerView.Adapter<StatHolder> {
-    private String[] data;
+import java.util.ArrayList;
 
-    public void setData(String[] data) {
+public class StatisticAdapter extends RecyclerView.Adapter<StatHolder> {
+    private ArrayList<String> data;
+
+    public void setData(ArrayList<String> data) {
         this.data = data;
         notifyDataSetChanged();
     }
 
     @Override
     public StatHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_achievement, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_stat, parent, false);
         return new StatHolder(view);
     }
 
     @Override
     public void onBindViewHolder(StatHolder holder, int position) {
-        holder.bind(data[position]);
+        holder.bind(data.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return data.length;
+        return data.size();
     }
 }
 

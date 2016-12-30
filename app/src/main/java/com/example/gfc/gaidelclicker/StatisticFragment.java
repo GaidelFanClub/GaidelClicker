@@ -1,8 +1,7 @@
 package com.example.gfc.gaidelclicker;
-
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,14 +9,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.gfc.gaidelclicker.event.AchievementUnlockedEvent;
+import com.example.gfc.gaidelclicker.stat.StatisticAdapter;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.math.BigDecimal;
+
+
 /**
  * Created by Artem on 29.12.2016.
  */
 
-public class StatisticFragment extends Fragment{
-    TextView textView;
-    private static final int COLUMN_COUNT = 2;
+public class StatisticFragment extends Fragment implements GlobalPrefs.OnBalanceChangedListener{
+    private static final int COLUMN_COUNT = 1;
     RecyclerView recyclerView;
+    private StatisticAdapter adapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,10 +36,10 @@ public class StatisticFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.stat, container, false);
+        View view = inflater.inflate(R.layout.item, container, false);
         recyclerView = (RecyclerView) view;
         Context context = view.getContext();
-        //textView = (TextView) view;
+
         initRecycler(context);
 
         return view;
@@ -37,8 +47,29 @@ public class StatisticFragment extends Fragment{
     private void initRecycler(Context context) {
         GridLayoutManager layoutManager = new GridLayoutManager(context, COLUMN_COUNT);
         recyclerView.setLayoutManager(layoutManager);
+        adapter = new StatisticAdapter();
+        recyclerView.setAdapter(adapter);
+        adapter.setData(StatRepository.getInstance().getStat());
 
 
 
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        GlobalPrefs.getInstance().registerListener(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+    }
+
+
+    @Override
+    public void onBalanceChanged(BigDecimal currentBalance, BigDecimal wholeProfit) {
+        adapter.setData(StatRepository.getInstance().getStat());
+        adapter.notifyDataSetChanged();
     }
 }

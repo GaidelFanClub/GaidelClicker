@@ -19,18 +19,19 @@ public class StatRepository {
         return instance;
     }
 
-    private String[] stat;
+    private ArrayList<String> stat;
 
     private StatRepository() {
-        List<String> stat = new ArrayList<>();
+        stat = new ArrayList<>();
         stat.add("Текущий баланс: " + GlobalPrefs.getInstance().getBalance());
         stat.add("Количество автокликов в секунду: "+ GlobalPrefs.getInstance().getWholeProfit());
         stat.add("Количество пойманных золотых Гайделей: " + GlobalPrefs.getInstance().getGoldenCookies());
 
 
+
     }
 
-    public String[] getStat() {
+    public ArrayList<String> getStat() {
         return stat;
     }
 }

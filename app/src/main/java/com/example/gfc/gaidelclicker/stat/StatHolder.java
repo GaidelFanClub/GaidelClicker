@@ -21,12 +21,12 @@ public class StatHolder extends RecyclerView.ViewHolder  {
 
     public StatHolder(View itemView) {
         super(itemView);
-        string = (TextView) itemView.findViewById(R.id.text);
+        string = (TextView) itemView.findViewById(R.id.name);
 
     }
 
     public void bind(String stat) {
-
+        string.setText(stat);
 
     }
 }
