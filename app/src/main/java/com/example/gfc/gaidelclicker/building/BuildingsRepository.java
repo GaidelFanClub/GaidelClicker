@@ -35,7 +35,7 @@ public class BuildingsRepository {
         buildingList.add(new Building(4, R.mipmap.labaratory, "Сдать лабу", 560, 3));
         buildingList.add(new Building(5, R.mipmap.practice, "Сделать идз", 1100, 8));
         buildingList.add(new Building(6, R.mipmap.circle, "Сходить на кружок", 12000, 47));
-        buildingList.add(new Building(7, R.mipmap.cormen, "Почитать кормена", 5600, 68));
+        buildingList.add(new Building(7, R.mipmap.cormen, "Почитать кормена", 56000, 68));
         buildingList.add(new Building(8, R.mipmap.task, "Порешать тимус", 130000, 260));
         buildingList.add(new Building(9, R.mipmap.code_forces, "Написать раунд CF", 1400000, 1400));
         buildingList.add(new Building(10, R.mipmap.beer_factory, "Построить пивзавод", 20000000, 7800));
