@@ -172,6 +172,14 @@ public class MainActivity extends AppCompatActivity {
                 Analytics.getInstance().sendEvent("Golden Cookie Clicked");
             }
         });
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (slidingDrawer.getState() != SlidingDrawer.COLLAPSED) {
+                    slidingDrawer.slideTo(0);
+                }
+            }
+        });
     }
 
     private void setupViewPager(TabLayout tabs, Pair<Fragment, String>... fragments) {
