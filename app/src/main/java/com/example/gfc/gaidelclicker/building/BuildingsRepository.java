@@ -1,10 +1,10 @@
 package com.example.gfc.gaidelclicker.building;
 
+import com.example.gfc.gaidelclicker.Prefs;
 import com.example.gfc.gaidelclicker.R;
 import com.example.gfc.gaidelclicker.achievment.AchievementsCenter;
 import com.example.gfc.gaidelclicker.bonus.Bonus;
 import com.example.gfc.gaidelclicker.optimizations.TwoPowersCache;
-import com.tumblr.remember.Remember;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class BuildingsRepository {
     }
 
     public void buy(Building building) {
-        Remember.putInt(building.getStringId(), getCount(building) + 1);
+        Prefs.putInt(building.getStringId(), getCount(building) + 1);
         recalculateDelta();
         AchievementsCenter.getInstance().onBuildingWasBought(building);
     }
@@ -62,7 +62,7 @@ public class BuildingsRepository {
     }
 
     public int getCount(Building building) {
-        return Remember.getInt(building.getStringId(), 0);
+        return Prefs.getInt(building.getStringId(), 0);
     }
 
     public BigDecimal getDeltaPerSecond() {

@@ -1,9 +1,9 @@
 package com.example.gfc.gaidelclicker.achievment;
 
 import com.example.gfc.gaidelclicker.GlobalPrefs;
+import com.example.gfc.gaidelclicker.Prefs;
 import com.example.gfc.gaidelclicker.building.Building;
 import com.example.gfc.gaidelclicker.event.AchievementUnlockedEvent;
-import com.tumblr.remember.Remember;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -40,8 +40,8 @@ public class AchievementsCenter implements GlobalPrefs.OnBalanceChangedListener 
     private void checkNewUnlockedAchievement() {
         for (Achievement achievement : achievements) {
             if (achievement.isUnlocked()) {
-                if (!Remember.getBoolean(achievement.getKey(), false)) {
-                    Remember.putBoolean(achievement.getKey(), true);
+                if (!Prefs.getBoolean(achievement.getKey(), false)) {
+                    Prefs.putBoolean(achievement.getKey(), true);
                     EventBus.getDefault().post(new AchievementUnlockedEvent(achievement));
                 }
             }

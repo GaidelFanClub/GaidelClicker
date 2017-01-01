@@ -1,7 +1,5 @@
 package com.example.gfc.gaidelclicker;
 
-import com.tumblr.remember.Remember;
-
 import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -31,19 +29,19 @@ public class GlobalPrefs {
     }
 
     public BigDecimal getBalance() {
-        return new BigDecimal(Remember.getString(BALANCE, BigDecimal.ZERO.toString()));
+        return new BigDecimal(Prefs.getString(BALANCE, BigDecimal.ZERO.toString()));
     }
 
     public BigDecimal getWholeProfit() {
-        return new BigDecimal(Remember.getString(WHOLE_PROFIT, BigDecimal.ZERO.toString()));
+        return new BigDecimal(Prefs.getString(WHOLE_PROFIT, BigDecimal.ZERO.toString()));
     }
 
     public void putWholeProfit(BigDecimal wholeProfit) {
-        Remember.putString(WHOLE_PROFIT, wholeProfit.toString());
+        Prefs.putString(WHOLE_PROFIT, wholeProfit.toString());
     }
 
     public void putBalance(BigDecimal balance) {
-        Remember.putString(BALANCE, balance.toString());
+        Prefs.putString(BALANCE, balance.toString());
     }
 
     public void changeBalance(BigDecimal difference) {
@@ -55,27 +53,27 @@ public class GlobalPrefs {
     }
 
     public long getLastUpdateTs() {
-        return Remember.getLong(LAST_UPDATE_TIMESTAMP, System.currentTimeMillis());
+        return Prefs.getLong(LAST_UPDATE_TIMESTAMP, System.currentTimeMillis());
     }
 
     public void putLastUpdateTs(long ts) {
-        Remember.putLong(LAST_UPDATE_TIMESTAMP, ts);
+        Prefs.putLong(LAST_UPDATE_TIMESTAMP, ts);
     }
 
     public int getGoldenCookies() {
-        return Remember.getInt(GOLDEN_COOKIES, 0);
+        return Prefs.getInt(GOLDEN_COOKIES, 0);
     }
 
     public void addGoldenCookie() {
-        Remember.putInt(GOLDEN_COOKIES, getGoldenCookies() + 1);
+        Prefs.putInt(GOLDEN_COOKIES, getGoldenCookies() + 1);
     }
 
     public int getCountOfClicks() {
-        return Remember.getInt(COUNT_OF_CLICK, 0);
+        return Prefs.getInt(COUNT_OF_CLICK, 0);
     }
 
     public void increaseClickCount(int delta) {
-        Remember.putInt(COUNT_OF_CLICK, getCountOfClicks() + delta);
+        Prefs.putInt(COUNT_OF_CLICK, getCountOfClicks() + delta);
     }
 
     public void registerListener(OnBalanceChangedListener listener) {

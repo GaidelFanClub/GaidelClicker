@@ -5,7 +5,6 @@ import android.app.Application;
 import com.example.gfc.gaidelclicker.achievment.AchievementsCenter;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
-import com.tumblr.remember.Remember;
 
 public class GaidelClickerApplication extends Application {
 
@@ -23,7 +22,7 @@ public class GaidelClickerApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Remember.init(this, getPackageName());
+        Prefs.init(this, getPackageName());
         AchievementsCenter.getInstance();
     }
 

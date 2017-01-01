@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int MIN_GOLD_COOKIE_SPAWN_PERIOD = 1 * 60 * 1000;
     private static final int MAX_GOLD_COOKIE_SPAWN_PERIOD = 3 * 60 * 1000;
+    private static final int DATA_SYNC_PERIOD = 15 * 1000; // 15 sec
 
     private static final float GAIDEL_ANIMATION_SCALE = 1.075f;
     private final OvershootInterpolator overshootInterpolator = new OvershootInterpolator();
@@ -215,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
         handler.removeMessages(UpdateHandler.SPAWN_GOLD_COOKIE);
         handler.removeMessages(UpdateHandler.EXPIRED_GOLD_COOKIE);
         EventBus.getDefault().unregister(this);
+        Prefs.syncAll();
     }
 
     private void hideHoldCookie() {
@@ -299,6 +301,21 @@ public class MainActivity extends AppCompatActivity {
         handler.sendEmptyMessageDelayed(UpdateHandler.SPAWN_GOLD_COOKIE, spawnDelay);
     }
 
+    private long lastSyncTime = -1;
+
+    private void syncPreferencesIfNeed() {
+        long currentTime = System.currentTimeMillis();
+        if (lastSyncTime == -1) {
+            lastSyncTime = currentTime;
+        } else {
+            long difference = currentTime - lastSyncTime;
+            if (difference > DATA_SYNC_PERIOD) {
+                Prefs.syncAll();
+                lastSyncTime = currentTime;
+            }
+        }
+    }
+
     private void update() {
         long previousTs = GlobalPrefs.getInstance().getLastUpdateTs();
         long currentTs = System.currentTimeMillis();
@@ -313,6 +330,7 @@ public class MainActivity extends AppCompatActivity {
         speedLabel.setText(String.format(getText(R.string.per_second_format).toString(), FormatUtils.formatDecimal(BuildingsRepository.getInstance().getDeltaPerSecond())));
 
         handler.sendEmptyMessageDelayed(UpdateHandler.UPDATE_MESSAGE, UpdateHandler.UPDATE_MESSAGE_DELAY);
+        syncPreferencesIfNeed();
     }
 
     private static class UpdateHandler extends Handler {
