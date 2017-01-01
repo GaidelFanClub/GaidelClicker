@@ -13,8 +13,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,14 +26,12 @@ import android.widget.Toast;
 
 import com.example.gfc.gaidelclicker.bonus.Bonus;
 import com.example.gfc.gaidelclicker.bonus.BonusRepository;
-import com.example.gfc.gaidelclicker.building.BuildingsAdapter;
 import com.example.gfc.gaidelclicker.building.BuildingsRepository;
-import com.example.gfc.gaidelclicker.building.OnBuildingClickListener;
 import com.example.gfc.gaidelclicker.event.AchievementUnlockedEvent;
 import com.example.gfc.gaidelclicker.utils.FormatUtils;
+import com.example.gfc.gaidelclicker.utils.RandomUtils;
 import com.example.gfc.gaidelclicker.utils.UIUtils;
 import com.pierfrancescosoffritti.slidingdrawer.SlidingDrawer;
-import com.tumblr.remember.Remember;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -44,9 +40,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,17 +48,18 @@ public class MainActivity extends AppCompatActivity {
     private static final int MAX_GOLD_COOKIE_SPAWN_PERIOD = 3 * 60 * 1000;
 
     private static final float GAIDEL_ANIMATION_SCALE = 1.075f;
+    private final OvershootInterpolator overshootInterpolator = new OvershootInterpolator();
 
-    private final Random random = new Random();
-
-    RelativeLayout relativeLayout;
+    private RelativeLayout relativeLayout;
 
     private ImageButton gaidel;
     private ImageView svaston;
 
     private TabLayout tabs;
-    @ColorInt private int colorPrimary;
-    @ColorInt private int colorAccent;
+    @ColorInt
+    private int colorPrimary;
+    @ColorInt
+    private int colorAccent;
 
     private TextView countOfClicksLabel;
     private TextView speedLabel;
@@ -73,9 +68,6 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView goldCookie;
     private ObjectAnimator goldCookieAlphaAnimator;
-
-    private RecyclerView recyclerView;
-    private BuildingsAdapter adapter;
 
     private Handler handler;
     private Bonus currentDisplayedBonus;
@@ -93,12 +85,10 @@ public class MainActivity extends AppCompatActivity {
                 new Pair<>((Fragment) new AchievementsFragment(), "Ачивки"),
                 new Pair<>((Fragment) new StatisticFragment(), "Статистика")
         );
-        initRecycler();
     }
 
     private void initViews() {
         gaidel = (ImageButton) findViewById(R.id.buttonGaidel);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler);
         relativeLayout = (RelativeLayout) findViewById(R.id.main_layout);
 
         svaston = (ImageView) findViewById(R.id.svaston);
@@ -116,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         GregorianCalendar calendar = new GregorianCalendar();
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        if((day >= 15 && month == 11) || (day <= 5 && month == 0)){
+        if ((day >= 15 && month == 11) || (day <= 5 && month == 0)) {
             gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_gold_ny));
             svaston.setBackground(getResources().getDrawable(R.drawable.svas_ny));
             relativeLayout.setBackground(getResources().getDrawable(R.drawable.background_ny));
@@ -154,14 +144,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-                        gaidel.animate().setInterpolator(new OvershootInterpolator()).scaleX(GAIDEL_ANIMATION_SCALE).scaleY(GAIDEL_ANIMATION_SCALE).start();
+                    case MotionEvent.ACTION_DOWN:
+                        gaidel.animate().setInterpolator(overshootInterpolator).scaleX(GAIDEL_ANIMATION_SCALE).scaleY(GAIDEL_ANIMATION_SCALE).start();
                         break;
-                    }
-                    case MotionEvent.ACTION_UP: {
-                        gaidel.animate().setInterpolator(new OvershootInterpolator()).scaleX(1).scaleY(1).start();
+                    case MotionEvent.ACTION_CANCEL:
+                    case MotionEvent.ACTION_UP:
+                        gaidel.animate().setInterpolator(overshootInterpolator).scaleX(1).scaleY(1).start();
                         break;
-                    }
                 }
                 return false;
             }
@@ -182,30 +171,6 @@ public class MainActivity extends AppCompatActivity {
                 Analytics.getInstance().sendEvent("Golden Cookie Clicked");
             }
         });
-    }
-
-    private void initRecycler() {
-        LinearLayoutManager layoutManager
-                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new BuildingsAdapter();
-        adapter.setOnBuildingClickListener(new OnBuildingClickListener() {
-            @Override
-            public void onBonusClick(Building bonus) {
-                int res = GlobalPrefs.getInstance().getBalance().compareTo(bonus.getPrice());
-                if (res != -1) {
-                    GlobalPrefs.getInstance().changeBalance(new BigDecimal("-" + bonus.getPrice()));
-                    BuildingsRepository.getInstance().buy(bonus);
-                    adapter.notifyDataSetChanged();
-                    Analytics.getInstance().sendEvent("Buy Building", "type", bonus.getName(), bonus.getCount());
-                } else {
-                    Analytics.getInstance().sendEvent("Click On Unavailable Building", "type", bonus.getName());
-                }
-            }
-        });
-        recyclerView.setAdapter(adapter);
-        adapter.setData(BuildingsRepository.getInstance().getBuildings());
     }
 
     private void setupViewPager(TabLayout tabs, Pair<Fragment, String>... fragments) {
@@ -315,8 +280,8 @@ public class MainActivity extends AppCompatActivity {
             yRange /= 2;
             //TODO need fix it correct (now first time w,h equals to zero because visibility is gone)
         }
-        int xCord = random.nextInt(xRange);
-        int yCord = random.nextInt(yRange);
+        int xCord = RandomUtils.nextInt(xRange);
+        int yCord = RandomUtils.nextInt(yRange);
         goldCookie.setTranslationX(xCord);
         goldCookie.setTranslationY(yCord);
     }
@@ -330,8 +295,24 @@ public class MainActivity extends AppCompatActivity {
         handler.removeMessages(UpdateHandler.SPAWN_GOLD_COOKIE);
         handler.removeMessages(UpdateHandler.EXPIRED_GOLD_COOKIE);
         goldCookieExpired();
-        int spawnDelay = MIN_GOLD_COOKIE_SPAWN_PERIOD + random.nextInt(MAX_GOLD_COOKIE_SPAWN_PERIOD - MIN_GOLD_COOKIE_SPAWN_PERIOD);
+        int spawnDelay = RandomUtils.nextInt(MIN_GOLD_COOKIE_SPAWN_PERIOD, MAX_GOLD_COOKIE_SPAWN_PERIOD);
         handler.sendEmptyMessageDelayed(UpdateHandler.SPAWN_GOLD_COOKIE, spawnDelay);
+    }
+
+    private void update() {
+        long previousTs = GlobalPrefs.getInstance().getLastUpdateTs();
+        long currentTs = System.currentTimeMillis();
+        //TODO need prevent date manipulate
+
+        long timeDifferenceInMs = currentTs - previousTs;
+        BigDecimal moneyDifference = BuildingsRepository.getInstance().getDeltaPerSecond().multiply(BigDecimal.valueOf(timeDifferenceInMs / 1000d));
+        GlobalPrefs.getInstance().changeBalance(moneyDifference);
+        GlobalPrefs.getInstance().putLastUpdateTs(currentTs);
+
+        countOfClicksLabel.setText(FormatUtils.formatDecimalAsInteger(GlobalPrefs.getInstance().getBalance()));
+        speedLabel.setText(String.format(getText(R.string.per_second_format).toString(), FormatUtils.formatDecimal(BuildingsRepository.getInstance().getDeltaPerSecond())));
+
+        handler.sendEmptyMessageDelayed(UpdateHandler.UPDATE_MESSAGE, UpdateHandler.UPDATE_MESSAGE_DELAY);
     }
 
     private static class UpdateHandler extends Handler {
@@ -355,7 +336,7 @@ public class MainActivity extends AppCompatActivity {
             }
             switch (msg.what) {
                 case UPDATE_MESSAGE:
-                    performUpdate(mainActivity);
+                    mainActivity.update();
                     return;
                 case SPAWN_GOLD_COOKIE:
                     mainActivity.spawnGoldCookie();
@@ -364,24 +345,7 @@ public class MainActivity extends AppCompatActivity {
                     mainActivity.goldCookieExpired();
                     mainActivity.requestGoldCookieSpawn();
                     break;
-
             }
-        }
-
-        private void performUpdate(MainActivity mainActivity) {
-            long previousTs = GlobalPrefs.getInstance().getLastUpdateTs();
-            long currentTs = System.currentTimeMillis();
-            //TODO need prevent date manipulate
-
-            long timeDifferenceInMs = currentTs - previousTs;
-            BigDecimal moneyDifference = BuildingsRepository.getInstance().getDeltaPerSecond().multiply(BigDecimal.valueOf(timeDifferenceInMs / 1000d));
-            GlobalPrefs.getInstance().changeBalance(moneyDifference);
-            GlobalPrefs.getInstance().putLastUpdateTs(currentTs);
-
-            mainActivity.countOfClicksLabel.setText(FormatUtils.formatDecimalAsInteger(GlobalPrefs.getInstance().getBalance()));
-            mainActivity.speedLabel.setText(String.format(mainActivity.getText(R.string.per_second_format).toString(), FormatUtils.formatDecimal(BuildingsRepository.getInstance().getDeltaPerSecond())));
-
-            sendEmptyMessageDelayed(UPDATE_MESSAGE, UPDATE_MESSAGE_DELAY);
         }
     }
 }

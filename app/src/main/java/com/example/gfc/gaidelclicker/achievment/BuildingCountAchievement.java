@@ -1,6 +1,6 @@
 package com.example.gfc.gaidelclicker.achievment;
 
-import com.example.gfc.gaidelclicker.Building;
+import com.example.gfc.gaidelclicker.building.Building;
 
 /**
  * Created by user on 29.12.2016.

@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.gfc.gaidelclicker.Building;
 import com.example.gfc.gaidelclicker.GlobalPrefs;
 import com.example.gfc.gaidelclicker.R;
 import com.example.gfc.gaidelclicker.utils.FormatUtils;
@@ -37,7 +36,7 @@ public class BuildingHolder extends RecyclerView.ViewHolder implements GlobalPre
             @Override
             public void onClick(View view) {
                 if (bonus != null) {
-                    onBonusClickListener.onBonusClick(bonus);
+                    onBonusClickListener.onBuildingClick(bonus);
                 }
             }
         });

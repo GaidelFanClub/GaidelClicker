@@ -1,7 +1,7 @@
 package com.example.gfc.gaidelclicker.achievment;
 
-import com.example.gfc.gaidelclicker.Building;
 import com.example.gfc.gaidelclicker.GlobalPrefs;
+import com.example.gfc.gaidelclicker.building.Building;
 import com.example.gfc.gaidelclicker.event.AchievementUnlockedEvent;
 import com.tumblr.remember.Remember;
 

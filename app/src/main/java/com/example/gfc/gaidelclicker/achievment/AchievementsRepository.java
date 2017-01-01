@@ -1,6 +1,6 @@
 package com.example.gfc.gaidelclicker.achievment;
 
-import com.example.gfc.gaidelclicker.Building;
+import com.example.gfc.gaidelclicker.building.Building;
 import com.example.gfc.gaidelclicker.building.BuildingsRepository;
 
 import java.util.ArrayList;

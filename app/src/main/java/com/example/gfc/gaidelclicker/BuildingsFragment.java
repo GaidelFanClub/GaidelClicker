@@ -10,11 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.gfc.gaidelclicker.building.Building;
 import com.example.gfc.gaidelclicker.building.BuildingsAdapter;
 import com.example.gfc.gaidelclicker.building.BuildingsRepository;
 import com.example.gfc.gaidelclicker.building.OnBuildingClickListener;
-
-import java.math.BigDecimal;
 
 public class BuildingsFragment extends Fragment {
 
@@ -46,10 +45,10 @@ public class BuildingsFragment extends Fragment {
         final BuildingsAdapter adapter = new BuildingsAdapter();
         adapter.setOnBuildingClickListener(new OnBuildingClickListener() {
             @Override
-            public void onBonusClick(Building bonus) {
+            public void onBuildingClick(Building bonus) {
                 int res = GlobalPrefs.getInstance().getBalance().compareTo(bonus.getPrice());
                 if (res != -1) {
-                    GlobalPrefs.getInstance().changeBalance(new BigDecimal("-" + bonus.getPrice()));
+                    GlobalPrefs.getInstance().changeBalance(bonus.getPrice().negate());
                     BuildingsRepository.getInstance().buy(bonus);
                     adapter.notifyDataSetChanged();
                 }

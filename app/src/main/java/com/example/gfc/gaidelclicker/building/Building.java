@@ -1,6 +1,5 @@
-package com.example.gfc.gaidelclicker;
+package com.example.gfc.gaidelclicker.building;
 
-import com.example.gfc.gaidelclicker.building.BuildingsRepository;
 import com.example.gfc.gaidelclicker.optimizations.PriceFactorCalculator;
 
 import java.math.BigDecimal;

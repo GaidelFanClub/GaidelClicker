@@ -24,6 +24,10 @@ public class RandomUtils {
         return from + random.nextDouble() * len;
     }
 
+    public static final int nextInt(int limit) {
+        return random.nextInt(limit);
+    }
+
     public static final int nextIndex(int arrayLength) {
         return random.nextInt(arrayLength);
     }

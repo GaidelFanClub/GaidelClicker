@@ -1,7 +1,5 @@
 package com.example.gfc.gaidelclicker.building;
 
-import com.example.gfc.gaidelclicker.Building;
-
 /**
  * Created by user on 29.12.2016.
  */

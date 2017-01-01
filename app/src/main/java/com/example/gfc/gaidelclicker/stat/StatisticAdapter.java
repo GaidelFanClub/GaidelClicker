@@ -3,12 +3,12 @@ package com.example.gfc.gaidelclicker.stat;
 /**
  * Created by Artem on 31.12.2016.
  */
+
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.gfc.gaidelclicker.stat.StatHolder;
 import com.example.gfc.gaidelclicker.R;
 
 import java.util.ArrayList;

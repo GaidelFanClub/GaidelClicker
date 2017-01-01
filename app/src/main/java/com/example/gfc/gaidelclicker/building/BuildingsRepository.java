@@ -1,6 +1,5 @@
 package com.example.gfc.gaidelclicker.building;
 
-import com.example.gfc.gaidelclicker.Building;
 import com.example.gfc.gaidelclicker.R;
 import com.example.gfc.gaidelclicker.achievment.AchievementsCenter;
 import com.example.gfc.gaidelclicker.bonus.Bonus;
