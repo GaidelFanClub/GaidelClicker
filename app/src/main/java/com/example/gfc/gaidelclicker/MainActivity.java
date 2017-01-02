@@ -137,10 +137,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 BigDecimal clickProfit = BuildingsRepository.getInstance().getClickProfit();
-                Toast.makeText(MainActivity.this, "click +" + clickProfit.toBigInteger(), Toast.LENGTH_SHORT).show();
                 GlobalPrefs.getInstance().changeBalance(clickProfit);
                 countOfClicksLabel.setText(FormatUtils.formatDecimalAsInteger(GlobalPrefs.getInstance().getBalance()));
                 GlobalPrefs.getInstance().increaseClickCount(1);
+                GlobalPrefs.getInstance().increaseProfitFromClicks(clickProfit);
                 Analytics.getInstance().sendEvent("Click Gaidel", "Clicks Count", FormatUtils.formatDecimalAsInteger(GlobalPrefs.getInstance().getBalance()).toString());
             }
         });
