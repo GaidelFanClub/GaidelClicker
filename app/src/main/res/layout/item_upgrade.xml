@@ -4,12 +4,12 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:padding="16dp">
+    android:padding="8dp">
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:src="@mipmap/gold_gaidel" />
 
     <LinearLayout

@@ -1,6 +1,7 @@
-package com.example.gfc.gaidelclicker.upgrade;
+package com.example.gfc.gaidelclicker.upgrade.impl;
 
 import com.example.gfc.gaidelclicker.building.BuildingsRepository;
+import com.example.gfc.gaidelclicker.upgrade.Upgrade;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
