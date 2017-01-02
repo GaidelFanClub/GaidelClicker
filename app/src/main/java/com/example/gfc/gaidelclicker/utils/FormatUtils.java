@@ -27,7 +27,7 @@ public class FormatUtils {
         return formatInteger(value.toBigInteger());
     }
 
-    private static CharSequence formatInteger(BigInteger value) {
+    public static CharSequence formatInteger(BigInteger value) {
         if (value.compareTo(SIMPLE_INTEGER_VALUE_THRESHOLD) <= 0) return value.toString();
         return formatIntegerNaive(value);
     }

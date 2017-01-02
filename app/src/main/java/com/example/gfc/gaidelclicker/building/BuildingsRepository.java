@@ -1,10 +1,14 @@
 package com.example.gfc.gaidelclicker.building;
 
+import android.util.SparseArray;
+
 import com.example.gfc.gaidelclicker.Prefs;
 import com.example.gfc.gaidelclicker.R;
 import com.example.gfc.gaidelclicker.achievment.AchievementsCenter;
 import com.example.gfc.gaidelclicker.bonus.Bonus;
 import com.example.gfc.gaidelclicker.optimizations.TwoPowersCache;
+import com.example.gfc.gaidelclicker.upgrade.Upgrade;
+import com.example.gfc.gaidelclicker.upgrade.UpgradesRepository;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -15,6 +19,22 @@ import java.util.List;
  */
 
 public class BuildingsRepository {
+
+    public static final int ID_ALL = -2;
+    public static final int ID_TAP = -1;
+    public static final int ID_CLICK = 1;
+    public static final int ID_TWITCH = 2;
+    public static final int ID_LECTOR = 3;
+    public static final int ID_LABARATORY = 4;
+    public static final int ID_PRACTICE = 5;
+    public static final int ID_CIRCLE = 6;
+    public static final int ID_CORMEN = 7;
+    public static final int ID_TIMUS = 8;
+    public static final int ID_CF = 9;
+    public static final int ID_BEER = 10;
+    public static final int ID_FINAL = 11;
+    public static final int ID_DOTA = 12;
+
     private static BuildingsRepository instance = new BuildingsRepository();
 
     public static BuildingsRepository getInstance() {
@@ -24,26 +44,39 @@ public class BuildingsRepository {
     private Building[] buildings;
     private BigDecimal deltaPerSecond = BigDecimal.ZERO;
 
+    private SparseArray<BigDecimal> addBonus = new SparseArray<>();
+    private SparseArray<BigDecimal> mulBonus = new SparseArray<>();
+
     private Bonus bonus;
 
     private BuildingsRepository() {
         List<Building> buildingList = new ArrayList<>();
-        buildingList.add(new Building(1, R.mipmap.click, "Кликер", 20, 0.1));
-        buildingList.add(new Building(2, R.mipmap.twitch, "Посмотреть стрим Гайделя", 50, 0.5));
-        buildingList.add(new Building(3, R.mipmap.lector, "Сходить на лекции", 150, 1));
-        buildingList.add(new Building(4, R.mipmap.labaratory, "Сдать лабу", 560, 3));
-        buildingList.add(new Building(5, R.mipmap.practice, "Сделать идз", 1100, 8));
-        buildingList.add(new Building(6, R.mipmap.circle, "Сходить на кружок", 12000, 47));
-        buildingList.add(new Building(7, R.mipmap.cormen, "Почитать кормена", 56000, 68));
-        buildingList.add(new Building(8, R.mipmap.task, "Порешать тимус", 130000, 260));
-        buildingList.add(new Building(9, R.mipmap.code_forces, "Написать раунд CF", 1400000, 1400));
-        buildingList.add(new Building(10, R.mipmap.beer_factory, "Построить пивзавод", 20000000, 7800));
-        buildingList.add(new Building(11, R.mipmap.go_to_final, "Выйти в финал", 330000000, 44000));
-        buildingList.add(new Building(12, R.mipmap.dota, "Сыграть с Гайделем в доту", 5100000000L, 100000));
+        buildingList.add(new Building(ID_CLICK, R.mipmap.click, "Кликер", 20, 0.1));
+        buildingList.add(new Building(ID_TWITCH, R.mipmap.twitch, "Посмотреть стрим Гайделя", 50, 0.5));
+        buildingList.add(new Building(ID_LECTOR, R.mipmap.lector, "Сходить на лекции", 150, 1));
+        buildingList.add(new Building(ID_LABARATORY, R.mipmap.labaratory, "Сдать лабу", 560, 3));
+        buildingList.add(new Building(ID_PRACTICE, R.mipmap.practice, "Сделать идз", 1100, 8));
+        buildingList.add(new Building(ID_CIRCLE, R.mipmap.circle, "Сходить на кружок", 12000, 47));
+        buildingList.add(new Building(ID_CORMEN, R.mipmap.cormen, "Почитать кормена", 56000, 68));
+        buildingList.add(new Building(ID_TIMUS, R.mipmap.task, "Порешать тимус", 130000, 260));
+        buildingList.add(new Building(ID_CF, R.mipmap.code_forces, "Написать раунд CF", 1400000, 1400));
+        buildingList.add(new Building(ID_BEER, R.mipmap.beer_factory, "Построить пивзавод", 20000000, 7800));
+        buildingList.add(new Building(ID_FINAL, R.mipmap.go_to_final, "Выйти в финал", 330000000, 44000));
+        buildingList.add(new Building(ID_DOTA, R.mipmap.dota, "Сыграть с Гайделем в доту", 5100000000L, 100000));
 
         buildings = buildingList.toArray(new Building[buildingList.size()]);
+    }
 
-        recalculateDelta();
+    public void changeAddBonus(int id, BigDecimal add) {
+        BigDecimal current = addBonus.get(id, BigDecimal.ZERO);
+        current = current.add(add);
+        addBonus.put(id, current);
+    }
+
+    public void changeMulBonus(int id, BigDecimal mul) {
+        BigDecimal current = mulBonus.get(id, BigDecimal.ONE);
+        current = current.multiply(mul);
+        mulBonus.put(id, current);
     }
 
     public Building[] getBuildings() {
@@ -75,10 +108,17 @@ public class BuildingsRepository {
     }
 
     public BigDecimal getClickProfit() {
-        return bonus != null ? bonus.getCoefficient() : BigDecimal.ONE;
+        BigDecimal value = BigDecimal.ONE;
+        value = value.add(addBonus.get(ID_TAP, BigDecimal.ZERO));
+        value = value.multiply(mulBonus.get(ID_TAP, BigDecimal.ONE));
+        if (bonus != null) {
+            value = value.multiply(bonus.getCoefficient());
+        }
+        return value;
     }
 
-    private void recalculateDelta() {
+    public void recalculateDelta() {
+        reactivateAllUpgrades();
         BigDecimal delta = BigDecimal.ZERO;
         for (Building building : buildings) {
             delta = delta.add((BigDecimal.valueOf(building.getDelta()).multiply(getCoefficient(building))).multiply(BigDecimal.valueOf(getCount(building))));
@@ -87,6 +127,16 @@ public class BuildingsRepository {
             delta = delta.multiply(bonus.getCoefficient());
         }
         deltaPerSecond = delta;
+    }
+
+    private void reactivateAllUpgrades() {
+        addBonus.clear();
+        mulBonus.clear();
+        for (Upgrade upgrade : UpgradesRepository.getInstance().getAllUpgrades()) {
+            if (upgrade.isBought()) {
+                upgrade.activateBonus();
+            }
+        }
     }
 
 }

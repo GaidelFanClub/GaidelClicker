@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         setupViewPager(
                 tabs,
                 new Pair<>((Fragment) new BuildingsFragment(), "Действия"),
+                new Pair<>((Fragment) new UpgradesFragment(), "Апгрейды"),
                 new Pair<>((Fragment) new AchievementsFragment(), "Ачивки"),
                 new Pair<>((Fragment) new StatisticFragment(), "Статистика")
         );
@@ -135,7 +136,9 @@ public class MainActivity extends AppCompatActivity {
         gaidel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GlobalPrefs.getInstance().changeBalance(BuildingsRepository.getInstance().getClickProfit());
+                BigDecimal clickProfit = BuildingsRepository.getInstance().getClickProfit();
+                Toast.makeText(MainActivity.this, "click +" + clickProfit.toBigInteger(), Toast.LENGTH_SHORT).show();
+                GlobalPrefs.getInstance().changeBalance(clickProfit);
                 countOfClicksLabel.setText(FormatUtils.formatDecimalAsInteger(GlobalPrefs.getInstance().getBalance()));
                 GlobalPrefs.getInstance().increaseClickCount(1);
                 Analytics.getInstance().sendEvent("Click Gaidel", "Clicks Count", FormatUtils.formatDecimalAsInteger(GlobalPrefs.getInstance().getBalance()).toString());
