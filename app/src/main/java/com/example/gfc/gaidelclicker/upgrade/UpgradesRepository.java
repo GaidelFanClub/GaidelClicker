@@ -17,7 +17,6 @@ import com.example.gfc.gaidelclicker.upgrade.effects.WholePercentageEffect;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.TreeSet;
@@ -458,5 +457,19 @@ public class UpgradesRepository {
         }
         Collections.sort(unbought);
         return unbought;
+    }
+
+    public int getBoughtCount() {
+        int count = 0;
+        for (Upgrade upgrade : allUpgrades) {
+            if (upgrade.isBought()) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int getAllUpgradesCount() {
+        return allUpgrades.size();
     }
 }

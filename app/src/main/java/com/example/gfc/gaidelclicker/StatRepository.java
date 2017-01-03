@@ -1,6 +1,7 @@
 package com.example.gfc.gaidelclicker;
 
 
+import com.example.gfc.gaidelclicker.upgrade.UpgradesRepository;
 import com.example.gfc.gaidelclicker.utils.FormatUtils;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class StatRepository {
         stat.add("Собрано вручную: " + FormatUtils.formatDecimalAsInteger(GlobalPrefs.getInstance().getProfitFromClicks()));
         stat.add("Собрано за все время: " + FormatUtils.formatDecimalAsInteger(GlobalPrefs.getInstance().getWholeProfit()));
         stat.add("Количество пойманных золотых Гайделей: " + GlobalPrefs.getInstance().getGoldenCookies());
+        stat.add("Количество апгрейдов: " + UpgradesRepository.getInstance().getBoughtCount() + "/" + UpgradesRepository.getInstance().getAllUpgradesCount());
         return stat;
     }
 }
