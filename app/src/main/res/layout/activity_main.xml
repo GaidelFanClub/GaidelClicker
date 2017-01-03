@@ -1,38 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:background="@drawable/background_ny"
-    android:id="@+id/main_layout">
+<RelativeLayout android:id="@+id/main_layout"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_ny"
+                android:fitsSystemWindows="true">
 
-    <com.example.gfc.gaidelclicker.ui.HTMLTextView
-        android:id="@+id/clicks"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/clicks_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:paddingTop="10dp"
-        android:textColor="@color/black"
-        android:textSize="42sp" />
+        android:minHeight="180dp"
+        android:animateLayoutChanges="true"
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <com.example.gfc.gaidelclicker.ui.HTMLTextView
-        android:id="@+id/speed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/clicks"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="8dp"
-        android:paddingTop="5dp"
-        android:textSize="24sp" />
+        <TextView
+            android:id="@+id/snackbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:padding="14dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            android:textSize="18sp"/>
+
+        <com.example.gfc.gaidelclicker.ui.HTMLTextView
+            android:id="@+id/clicks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="42sp"/>
+
+        <com.example.gfc.gaidelclicker.ui.HTMLTextView
+            android:id="@+id/speed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:paddingTop="5dp"
+            android:textSize="24sp"/>
+    </LinearLayout>
 
     <com.pierfrancescosoffritti.slidingdrawer.SlidingDrawer
         android:id="@+id/sliding_drawer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/speed">
+        android:layout_below="@+id/clicks_container">
 
         <FrameLayout
             android:id="@+id/non_slidable_view"
@@ -42,22 +59,21 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp">
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/svaston"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    app:srcCompat="@drawable/svas" />
+                    app:srcCompat="@drawable/svas"/>
 
                 <ImageButton
                     android:id="@+id/buttonGaidel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/gaidel_face_pink" />
+                    android:background="@drawable/gaidel_face_pink"/>
             </FrameLayout>
         </FrameLayout>
 
@@ -77,15 +93,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="64dp"
                     android:background="@color/colorPrimary"
-                    app:tabMode="fixed"
                     app:tabIndicatorColor="@color/colorPrimary"
+                    app:tabMode="fixed"
                     app:tabSelectedTextColor="@android:color/white"
-                    app:tabTextColor="@android:color/white" />
+                    app:tabTextColor="@android:color/white"/>
 
                 <android.support.v4.view.ViewPager
                     android:id="@+id/view_pager"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"/>
 
             </LinearLayout>
 
@@ -97,5 +113,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/gold_gaidel"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 </RelativeLayout>

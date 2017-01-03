@@ -22,7 +22,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.gfc.gaidelclicker.bonus.Bonus;
 import com.example.gfc.gaidelclicker.bonus.BonusRepository;
@@ -56,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton gaidel;
     private ImageView svaston;
 
+    private TextView snackbar;
     private TabLayout tabs;
     @ColorInt
     private int colorPrimary;
@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Handler handler;
     private Bonus currentDisplayedBonus;
+    private long lastSyncTime = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
 
         countOfClicksLabel = (TextView) findViewById(R.id.clicks);
         speedLabel = (TextView) findViewById(R.id.speed);
+
+        snackbar = (TextView) findViewById(R.id.snackbar);
 
         slidingDrawer = (SlidingDrawer) findViewById(R.id.sliding_drawer);
         slidingDrawer.setDragView(findViewById(R.id.tab_layout));
@@ -168,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                     handler.sendEmptyMessageDelayed(UpdateHandler.EXPIRED_GOLD_COOKIE, currentDisplayedBonus.getDurationMillis());
                 }
                 GlobalPrefs.getInstance().addGoldenCookie();
-                Toast.makeText(MainActivity.this, currentDisplayedBonus.getMessage(), Toast.LENGTH_SHORT).show();//TODO string resources
+                showSnackBar(currentDisplayedBonus.getMessage(), Math.max(2000, currentDisplayedBonus.getDurationMillis()));
                 Analytics.getInstance().sendEvent("Golden Cookie Clicked");
             }
         });
@@ -238,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onAchievementUnlocked(AchievementUnlockedEvent event) {
         //todo string resources
-        Toast.makeText(this, "Новое достижение: " + event.getAchievement().getMessage(), Toast.LENGTH_SHORT).show();
+        showSnackBar("Новое достижение: " + event.getAchievement().getMessage(), 3000);
     }
 
     @Override
@@ -309,8 +312,6 @@ public class MainActivity extends AppCompatActivity {
         handler.sendEmptyMessageDelayed(UpdateHandler.SPAWN_GOLD_COOKIE, spawnDelay);
     }
 
-    private long lastSyncTime = -1;
-
     private void syncPreferencesIfNeed() {
         long currentTime = System.currentTimeMillis();
         if (lastSyncTime == -1) {
@@ -341,11 +342,19 @@ public class MainActivity extends AppCompatActivity {
         syncPreferencesIfNeed();
     }
 
+    private void showSnackBar(CharSequence message, int time) {
+        snackbar.setText(message);
+        snackbar.setVisibility(View.VISIBLE);
+        handler.removeMessages(UpdateHandler.HIDE_SNACKBAR);
+        handler.sendEmptyMessageDelayed(UpdateHandler.HIDE_SNACKBAR, time);
+    }
+
     private static class UpdateHandler extends Handler {
 
         private static final int UPDATE_MESSAGE = 0;
         private static final int SPAWN_GOLD_COOKIE = 1;
         private static final int EXPIRED_GOLD_COOKIE = 2;
+        private static final int HIDE_SNACKBAR = 3;
         private static final int UPDATE_MESSAGE_DELAY = 200;
 
         WeakReference<MainActivity> mainActivityWeakReference;
@@ -370,6 +379,9 @@ public class MainActivity extends AppCompatActivity {
                 case EXPIRED_GOLD_COOKIE:
                     mainActivity.goldCookieExpired();
                     mainActivity.requestGoldCookieSpawn();
+                    break;
+                case HIDE_SNACKBAR:
+                    mainActivity.snackbar.setVisibility(View.GONE);
                     break;
             }
         }
