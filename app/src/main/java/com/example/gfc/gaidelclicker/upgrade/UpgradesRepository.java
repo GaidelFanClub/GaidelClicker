@@ -3,9 +3,13 @@ package com.example.gfc.gaidelclicker.upgrade;
 import com.example.gfc.gaidelclicker.R;
 import com.example.gfc.gaidelclicker.building.BuildingsRepository;
 import com.example.gfc.gaidelclicker.upgrade.conditions.BuildingCountCondition;
+import com.example.gfc.gaidelclicker.upgrade.conditions.GoldenCountCondition;
+import com.example.gfc.gaidelclicker.upgrade.conditions.HandMadeGaidelsCondition;
 import com.example.gfc.gaidelclicker.upgrade.conditions.UpgradesIsBoughtCondition;
 import com.example.gfc.gaidelclicker.upgrade.conditions.WholeProfitCondition;
+import com.example.gfc.gaidelclicker.upgrade.effects.ClickCpsPercentEffect;
 import com.example.gfc.gaidelclicker.upgrade.effects.ClickFinalAddEffect;
+import com.example.gfc.gaidelclicker.upgrade.effects.GoldenBoostEffect;
 import com.example.gfc.gaidelclicker.upgrade.effects.SimpleAddEffect;
 import com.example.gfc.gaidelclicker.upgrade.effects.SimpleMulEffect;
 import com.example.gfc.gaidelclicker.upgrade.effects.WholePercentageEffect;
@@ -398,6 +402,39 @@ public class UpgradesRepository {
         allUpgrades.add(new Upgrade(106, R.mipmap.gold_gaidel, "Сонный Гайдель", "+20% к получению баллов", new BigInteger("200000000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("10000000000000")))
                 .addEffect(new WholePercentageEffect(20)));
+
+        allUpgrades.add(new Upgrade(107, R.mipmap.click, "Пластиковый палец", "+1% от значения гайдели/сек за клик", new BigInteger("50000"))
+                .addCondition(new HandMadeGaidelsCondition(new BigDecimal("1000")))
+                .addEffect(new ClickCpsPercentEffect()));
+        allUpgrades.add(new Upgrade(108, R.mipmap.click, "Железный палец", "+1% от значения гайдели/сек за клик", new BigInteger("5000000"))
+                .addCondition(new HandMadeGaidelsCondition(new BigDecimal("100000")))
+                .addEffect(new ClickCpsPercentEffect()));
+        allUpgrades.add(new Upgrade(109, R.mipmap.click, "Титановый палец", "+1% от значения гайдели/сек за клик", new BigInteger("500000000"))
+                .addCondition(new HandMadeGaidelsCondition(new BigDecimal("10000000")))
+                .addEffect(new ClickCpsPercentEffect()));
+        allUpgrades.add(new Upgrade(110, R.mipmap.click, "Алмазный палец", "+1% от значения гайдели/сек за клик", new BigInteger("50000000000"))
+                .addCondition(new HandMadeGaidelsCondition(new BigDecimal("1000000000")))
+                .addEffect(new ClickCpsPercentEffect()));
+        allUpgrades.add(new Upgrade(111, R.mipmap.click, "Адамантиевый палец", "+1% от значения гайдели/сек за клик", new BigInteger("5000000000000"))
+                .addCondition(new HandMadeGaidelsCondition(new BigDecimal("100000000000")))
+                .addEffect(new ClickCpsPercentEffect()));
+        allUpgrades.add(new Upgrade(112, R.mipmap.click, "Унобтаниевый палец", "+1% от значения гайдели/сек за клик", new BigInteger("500000000000000"))
+                .addCondition(new HandMadeGaidelsCondition(new BigDecimal("10000000000000")))
+                .addEffect(new ClickCpsPercentEffect()));
+        allUpgrades.add(new Upgrade(113, R.mipmap.click, "Элюдиевый палец", "+1% от значения гайдели/сек за клик", new BigInteger("50000000000000000"))
+                .addCondition(new HandMadeGaidelsCondition(new BigDecimal("1000000000000000")))
+                .addEffect(new ClickCpsPercentEffect()));
+
+        allUpgrades.add(new Upgrade(114, R.mipmap.gold_gaidel, "Удачный день", "Золотой Гайдель выпадает вдвое чаще и не исчезает вдвое дольше", new BigInteger("777777777"))
+                .addCondition(new GoldenCountCondition(7))
+                .addEffect(new GoldenBoostEffect(2, 2, 1)));
+        allUpgrades.add(new Upgrade(115, R.mipmap.gold_gaidel, "Счастливый билет", "Золотой Гайдель выпадает вдвое чаще и не исчезает вдвое дольше", new BigInteger("77777777777"))
+                .addCondition(new GoldenCountCondition(27))
+                .addEffect(new GoldenBoostEffect(2, 2, 1)));
+        allUpgrades.add(new Upgrade(116, R.mipmap.gold_gaidel, "Фарт", "Эффект золотого Гайделя длится вдвое дольше", new BigInteger("77777777777777"))
+                .addCondition(new GoldenCountCondition(77))
+                .addEffect(new GoldenBoostEffect(1, 1, 2)));
+
 
         assertAllIdsUnique(allUpgrades);
     }

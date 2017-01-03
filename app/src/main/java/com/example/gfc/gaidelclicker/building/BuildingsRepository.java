@@ -35,7 +35,7 @@ public class BuildingsRepository {
     public static final int ID_FINAL = 11;
     public static final int ID_DOTA = 12;
 
-    private static final BigDecimal speedUp = new BigDecimal("222222.8");
+    private static final BigDecimal speedUp = new BigDecimal("1");
 
     private static BuildingsRepository instance = new BuildingsRepository();
 
@@ -44,12 +44,17 @@ public class BuildingsRepository {
     }
 
     private Building[] buildings;
+    private BigDecimal baseDeltaPerSecond = BigDecimal.ZERO;
     private BigDecimal deltaPerSecond = BigDecimal.ZERO;
 
     private SparseArray<BigDecimal> addBonus = new SparseArray<>();
     private SparseArray<BigDecimal> mulBonus = new SparseArray<>();
     private SparseArray<BigDecimal> finalAddBonus = new SparseArray<>();
     private int percentage = 100;
+    private int clickPercentCpS = 0;
+    private int divideGoldenCookieSpawnFactor = 1;
+    private int multipleGoldenCookiePresentFactor = 1;
+    private int multipleGoldenCookieEffectFactor = 1;
 
     private Bonus bonus;
 
@@ -100,6 +105,28 @@ public class BuildingsRepository {
         mulBonus.put(id, current);
     }
 
+    public void changeGoldenCookieFactors(int divSpawn, int mulPresent, int mulEffect) {
+        divideGoldenCookieSpawnFactor *= divSpawn;
+        multipleGoldenCookiePresentFactor *= mulPresent;
+        multipleGoldenCookieEffectFactor *= mulEffect;
+    }
+
+    public int getDivideGoldenCookieSpawnFactor() {
+        return divideGoldenCookieSpawnFactor;
+    }
+
+    public int getMultipleGoldenCookiePresentFactor() {
+        return multipleGoldenCookiePresentFactor;
+    }
+
+    public int getMultipleGoldenCookieEffectFactor() {
+        return multipleGoldenCookieEffectFactor;
+    }
+
+    public void increaseClickPercentCpS(int addPercent) {
+        clickPercentCpS += addPercent;
+    }
+
     public Building[] getBuildings() {
         return buildings;
     }
@@ -130,6 +157,7 @@ public class BuildingsRepository {
 
     public BigDecimal getClickProfit() {
         BigDecimal value = calculate(BigDecimal.ONE, ID_TAP);
+        value = value.add(BigDecimal.valueOf(clickPercentCpS / 100d).multiply(baseDeltaPerSecond));
         if (bonus != null) {
             value = value.multiply(bonus.getCoefficient());
         }
@@ -146,12 +174,13 @@ public class BuildingsRepository {
             value = value.multiply(BigDecimal.valueOf(getCount(building)));
             delta = delta.add(value);
         }
-        if (bonus != null) {
-            delta = delta.multiply(bonus.getCoefficient());
-        }
         delta = delta.multiply(speedUp);
         BigDecimal percentageVal = BigDecimal.valueOf(percentage / 100d);
         delta = delta.multiply(percentageVal);
+        baseDeltaPerSecond = delta;
+        if (bonus != null) {
+            delta = delta.multiply(bonus.getCoefficient());
+        }
         deltaPerSecond = delta;
     }
 
@@ -160,6 +189,8 @@ public class BuildingsRepository {
         mulBonus.clear();
         finalAddBonus.clear();
         percentage = 100;
+        clickPercentCpS = 0;
+        divideGoldenCookieSpawnFactor = multipleGoldenCookiePresentFactor = multipleGoldenCookieEffectFactor = 1;
         for (Upgrade upgrade : UpgradesRepository.getInstance().getAllUpgrades()) {
             if (upgrade.isBought()) {
                 upgrade.activateBonus();

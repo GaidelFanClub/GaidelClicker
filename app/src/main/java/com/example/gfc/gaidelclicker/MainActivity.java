@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.example.gfc.gaidelclicker.bonus.Bonus;
 import com.example.gfc.gaidelclicker.bonus.BonusRepository;
+import com.example.gfc.gaidelclicker.building.Building;
 import com.example.gfc.gaidelclicker.building.BuildingsRepository;
 import com.example.gfc.gaidelclicker.event.AchievementUnlockedEvent;
 import com.example.gfc.gaidelclicker.ui.HTMLTextView;
@@ -177,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
                     requestGoldCookieSpawn();
                 } else {
                     BuildingsRepository.getInstance().setActiveBonus(currentDisplayedBonus);
-                    handler.sendEmptyMessageDelayed(UpdateHandler.EXPIRED_GOLD_COOKIE, currentDisplayedBonus.getDurationMillis());
+                    handler.sendEmptyMessageDelayed(UpdateHandler.EXPIRED_GOLD_COOKIE, currentDisplayedBonus.getDurationMillis());//TODO there are effect
                 }
                 GlobalPrefs.getInstance().addGoldenCookie();
                 Toast.makeText(MainActivity.this, currentDisplayedBonus.getMessage(), Toast.LENGTH_SHORT).show();//TODO string resources
@@ -295,7 +296,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void spawnGoldCookie() {
         goldCookieAlphaAnimator = ObjectAnimator.ofFloat(goldCookie, View.ALPHA, 0f, 1f);
-        goldCookieAlphaAnimator.setDuration(6 * 1000);
+        goldCookieAlphaAnimator.setDuration(BuildingsRepository.getInstance().getMultipleGoldenCookiePresentFactor() * 6 * 1000);
         goldCookieAlphaAnimator.setRepeatMode(ValueAnimator.REVERSE);
         goldCookieAlphaAnimator.setRepeatCount(1);
         goldCookieAlphaAnimator.addListener(new AnimatorListenerAdapter() {
@@ -348,7 +349,8 @@ public class MainActivity extends AppCompatActivity {
         handler.removeMessages(UpdateHandler.SPAWN_GOLD_COOKIE);
         handler.removeMessages(UpdateHandler.EXPIRED_GOLD_COOKIE);
         goldCookieExpired();
-        int spawnDelay = RandomUtils.nextInt(MIN_GOLD_COOKIE_SPAWN_PERIOD, MAX_GOLD_COOKIE_SPAWN_PERIOD);
+        int divideSpawnFactor = BuildingsRepository.getInstance().getDivideGoldenCookieSpawnFactor();
+        int spawnDelay = RandomUtils.nextInt(MIN_GOLD_COOKIE_SPAWN_PERIOD / divideSpawnFactor, MAX_GOLD_COOKIE_SPAWN_PERIOD / divideSpawnFactor);
         handler.sendEmptyMessageDelayed(UpdateHandler.SPAWN_GOLD_COOKIE, spawnDelay);
     }
 
