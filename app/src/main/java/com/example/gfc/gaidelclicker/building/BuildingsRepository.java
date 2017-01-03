@@ -35,6 +35,8 @@ public class BuildingsRepository {
     public static final int ID_FINAL = 11;
     public static final int ID_DOTA = 12;
 
+    private static final BigDecimal speedUp = new BigDecimal("100000");
+
     private static BuildingsRepository instance = new BuildingsRepository();
 
     public static BuildingsRepository getInstance() {
@@ -47,6 +49,7 @@ public class BuildingsRepository {
     private SparseArray<BigDecimal> addBonus = new SparseArray<>();
     private SparseArray<BigDecimal> mulBonus = new SparseArray<>();
     private SparseArray<BigDecimal> finalAddBonus = new SparseArray<>();
+    private int percentage = 100;
 
     private Bonus bonus;
 
@@ -85,6 +88,10 @@ public class BuildingsRepository {
         BigDecimal current = finalAddBonus.get(id, BigDecimal.ZERO);
         current = current.add(add);
         finalAddBonus.put(id, current);
+    }
+
+    public void addPercentage(int add) {
+        percentage += add;
     }
 
     public void changeMulBonus(int id, BigDecimal mul) {
@@ -141,6 +148,9 @@ public class BuildingsRepository {
         if (bonus != null) {
             delta = delta.multiply(bonus.getCoefficient());
         }
+        delta = delta.multiply(speedUp);
+        BigDecimal percentageVal = BigDecimal.valueOf(percentage / 100d);
+        delta = delta.multiply(percentageVal);
         deltaPerSecond = delta;
     }
 
@@ -148,6 +158,7 @@ public class BuildingsRepository {
         addBonus.clear();
         mulBonus.clear();
         finalAddBonus.clear();
+        percentage = 100;
         for (Upgrade upgrade : UpgradesRepository.getInstance().getAllUpgrades()) {
             if (upgrade.isBought()) {
                 upgrade.activateBonus();
