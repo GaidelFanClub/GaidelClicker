@@ -35,7 +35,7 @@ public class BuildingsRepository {
     public static final int ID_FINAL = 11;
     public static final int ID_DOTA = 12;
 
-    private static final BigDecimal speedUp = new BigDecimal("100000");
+    private static final BigDecimal speedUp = new BigDecimal("222222.8");
 
     private static BuildingsRepository instance = new BuildingsRepository();
 
@@ -133,6 +133,7 @@ public class BuildingsRepository {
         if (bonus != null) {
             value = value.multiply(bonus.getCoefficient());
         }
+        value = value.multiply(speedUp);
         return value;
     }
 

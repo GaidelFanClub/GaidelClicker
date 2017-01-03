@@ -20,8 +20,18 @@ public class UpgradesAdapter extends RecyclerView.Adapter<UpgradeHolder> {
     private OnUpgradeClickListener onUpgradeClickListener;
 
     public void setData(List<Upgrade> data) {
+        if (isEquals(this.data, data)) return;
         this.data = data;
         notifyDataSetChanged();
+    }
+
+    private boolean isEquals(List<Upgrade> old, List<Upgrade> current) {
+        if (old == null) return false;
+        if (old.size() != current.size()) return false;
+        for (int i = 0; i < old.size(); i++) {
+            if (old.get(i).getId() != current.get(i).getId()) return false;
+        }
+        return true;
     }
 
     public void setOnUpgradeClickListener(OnUpgradeClickListener onUpgradeClickListener) {

@@ -399,10 +399,6 @@ public class UpgradesRepository {
                 .addCondition(new WholeProfitCondition(new BigDecimal("10000000000000")))
                 .addEffect(new WholePercentageEffect(20)));
 
-
-
-
-
         assertAllIdsUnique(allUpgrades);
     }
 
