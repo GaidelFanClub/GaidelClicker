@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.gfc.gaidelclicker.building.Building;
 import com.example.gfc.gaidelclicker.building.BuildingsRepository;
 import com.example.gfc.gaidelclicker.upgrade.OnUpgradeClickListener;
 import com.example.gfc.gaidelclicker.upgrade.Upgrade;
@@ -20,7 +21,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.math.BigDecimal;
 
-public class UpgradesFragment extends Fragment {
+public class UpgradesFragment extends Fragment implements GlobalPrefs.OnBalanceChangedListener {
 
     private static final int COLUMN_COUNT = 1;
     private RecyclerView recyclerView;
@@ -70,6 +71,7 @@ public class UpgradesFragment extends Fragment {
     public void onResume() {
         super.onResume();
         refresh();
+        GlobalPrefs.getInstance().registerListener(this); // todo improve performance
     }
 
     @Override
@@ -79,5 +81,10 @@ public class UpgradesFragment extends Fragment {
 
     public void refresh() {
         adapter.setData(UpgradesRepository.getInstance().getUnBoughtUpgrades());
+    }
+
+    @Override
+    public void onBalanceChanged(BigDecimal currentBalance, BigDecimal wholeProfit) {
+        refresh();
     }
 }

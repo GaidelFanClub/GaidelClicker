@@ -24,8 +24,8 @@ public class BuildingsRepository {
     public static final int ID_TAP = -1;
     public static final int ID_CLICK = 1;
     public static final int ID_TWITCH = 2;
-    public static final int ID_LECTOR = 3;
-    public static final int ID_LABARATORY = 4;
+    public static final int ID_LECTURE = 3;
+    public static final int ID_LAB_WORK = 4;
     public static final int ID_PRACTICE = 5;
     public static final int ID_CIRCLE = 6;
     public static final int ID_CORMEN = 7;
@@ -46,6 +46,7 @@ public class BuildingsRepository {
 
     private SparseArray<BigDecimal> addBonus = new SparseArray<>();
     private SparseArray<BigDecimal> mulBonus = new SparseArray<>();
+    private SparseArray<BigDecimal> finalAddBonus = new SparseArray<>();
 
     private Bonus bonus;
 
@@ -53,8 +54,8 @@ public class BuildingsRepository {
         List<Building> buildingList = new ArrayList<>();
         buildingList.add(new Building(ID_CLICK, R.mipmap.click, "Кликер", 20, 0.1));
         buildingList.add(new Building(ID_TWITCH, R.mipmap.twitch, "Посмотреть стрим Гайделя", 50, 0.5));
-        buildingList.add(new Building(ID_LECTOR, R.mipmap.lector, "Сходить на лекции", 150, 1));
-        buildingList.add(new Building(ID_LABARATORY, R.mipmap.labaratory, "Сдать лабу", 560, 3));
+        buildingList.add(new Building(ID_LECTURE, R.mipmap.lecture, "Сходить на лекции", 150, 1));
+        buildingList.add(new Building(ID_LAB_WORK, R.mipmap.lab_work, "Сдать лабу", 560, 3));
         buildingList.add(new Building(ID_PRACTICE, R.mipmap.practice, "Сделать идз", 1100, 8));
         buildingList.add(new Building(ID_CIRCLE, R.mipmap.circle, "Сходить на кружок", 12000, 47));
         buildingList.add(new Building(ID_CORMEN, R.mipmap.cormen, "Почитать кормена", 56000, 68));
@@ -67,10 +68,23 @@ public class BuildingsRepository {
         buildings = buildingList.toArray(new Building[buildingList.size()]);
     }
 
+    public Building getBuildingById(int id) {
+        for (Building building : buildings) {
+            if (building.getId() == id) return building;
+        }
+        return null;
+    }
+
     public void changeAddBonus(int id, BigDecimal add) {
         BigDecimal current = addBonus.get(id, BigDecimal.ZERO);
         current = current.add(add);
         addBonus.put(id, current);
+    }
+
+    public void changeFinalAddBonus(int id, BigDecimal add) {
+        BigDecimal current = finalAddBonus.get(id, BigDecimal.ZERO);
+        current = current.add(add);
+        finalAddBonus.put(id, current);
     }
 
     public void changeMulBonus(int id, BigDecimal mul) {
@@ -108,9 +122,7 @@ public class BuildingsRepository {
     }
 
     public BigDecimal getClickProfit() {
-        BigDecimal value = BigDecimal.ONE;
-        value = value.add(addBonus.get(ID_TAP, BigDecimal.ZERO));
-        value = value.multiply(mulBonus.get(ID_TAP, BigDecimal.ONE));
+        BigDecimal value = calculate(BigDecimal.ONE, ID_TAP);
         if (bonus != null) {
             value = value.multiply(bonus.getCoefficient());
         }
@@ -121,7 +133,10 @@ public class BuildingsRepository {
         reactivateAllUpgrades();
         BigDecimal delta = BigDecimal.ZERO;
         for (Building building : buildings) {
-            delta = delta.add((BigDecimal.valueOf(building.getDelta()).multiply(getCoefficient(building))).multiply(BigDecimal.valueOf(getCount(building))));
+            BigDecimal value = calculate(building.getDelta(), building.getId());
+            value = value.multiply(getCoefficient(building));
+            value = value.multiply(BigDecimal.valueOf(getCount(building)));
+            delta = delta.add(value);
         }
         if (bonus != null) {
             delta = delta.multiply(bonus.getCoefficient());
@@ -132,11 +147,19 @@ public class BuildingsRepository {
     private void reactivateAllUpgrades() {
         addBonus.clear();
         mulBonus.clear();
+        finalAddBonus.clear();
         for (Upgrade upgrade : UpgradesRepository.getInstance().getAllUpgrades()) {
             if (upgrade.isBought()) {
                 upgrade.activateBonus();
             }
         }
+    }
+
+    private BigDecimal calculate(BigDecimal base, int id) {
+        BigDecimal add = addBonus.get(id, BigDecimal.ZERO);
+        BigDecimal mul = mulBonus.get(id, BigDecimal.ONE);
+        BigDecimal finalAdd = finalAddBonus.get(id, BigDecimal.ZERO);
+        return base.add(add).multiply(mul).add(finalAdd);
     }
 
 }

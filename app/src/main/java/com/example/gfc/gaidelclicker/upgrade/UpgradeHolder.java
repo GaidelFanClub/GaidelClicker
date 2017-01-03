@@ -39,6 +39,7 @@ public class UpgradeHolder extends RecyclerView.ViewHolder {
 
     public void bind(Upgrade upgrade) {
         this.upgrade = upgrade;
+        icon.setImageResource(upgrade.getResourceId());
         name.setText(upgrade.getName());
         effect.setText(upgrade.getEffect());
         cost.setText(FormatUtils.formatInteger(upgrade.getCost()));
