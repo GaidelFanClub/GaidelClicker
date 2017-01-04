@@ -159,7 +159,7 @@ public class BuildingsRepository {
         BigDecimal value = calculate(BigDecimal.ONE, ID_TAP);
         value = value.add(BigDecimal.valueOf(clickPercentCpS / 100d).multiply(baseDeltaPerSecond));
         if (bonus != null) {
-            value = value.multiply(bonus.getCoefficient());
+            value = value.multiply(bonus.getClickCoefficient());
         }
         value = value.multiply(speedUp);
         return value;
@@ -179,7 +179,7 @@ public class BuildingsRepository {
         delta = delta.multiply(percentageVal);
         baseDeltaPerSecond = delta;
         if (bonus != null) {
-            delta = delta.multiply(bonus.getCoefficient());
+            delta = delta.multiply(bonus.getPassiveCoefficient());
         }
         deltaPerSecond = delta;
     }
