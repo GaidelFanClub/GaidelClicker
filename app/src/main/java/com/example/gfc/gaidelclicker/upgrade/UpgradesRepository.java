@@ -400,25 +400,25 @@ public class UpgradesRepository {
                 .addCondition(new WholeProfitCondition(new BigDecimal("10000000000000")))
                 .addEffect(new WholePercentageEffect(20)));
 
-        allUpgrades.add(new Upgrade(107, R.mipmap.click, "Пластиковый палец", "+1% от значения гайдели/сек за клик", new BigInteger("50000"))
+        allUpgrades.add(new Upgrade(107, R.drawable.tap_red, "Пластиковый палец", "+1% от значения гайдели/сек за клик", new BigInteger("50000"))
                 .addCondition(new HandMadeGaidelsCondition(new BigDecimal("1000")))
                 .addEffect(new ClickCpsPercentEffect()));
-        allUpgrades.add(new Upgrade(108, R.mipmap.click, "Железный палец", "+1% от значения гайдели/сек за клик", new BigInteger("5000000"))
+        allUpgrades.add(new Upgrade(108, R.drawable.tap_orange, "Железный палец", "+1% от значения гайдели/сек за клик", new BigInteger("5000000"))
                 .addCondition(new HandMadeGaidelsCondition(new BigDecimal("100000")))
                 .addEffect(new ClickCpsPercentEffect()));
-        allUpgrades.add(new Upgrade(109, R.mipmap.click, "Титановый палец", "+1% от значения гайдели/сек за клик", new BigInteger("500000000"))
+        allUpgrades.add(new Upgrade(109, R.drawable.tap_yellow, "Титановый палец", "+1% от значения гайдели/сек за клик", new BigInteger("500000000"))
                 .addCondition(new HandMadeGaidelsCondition(new BigDecimal("10000000")))
                 .addEffect(new ClickCpsPercentEffect()));
-        allUpgrades.add(new Upgrade(110, R.mipmap.click, "Алмазный палец", "+1% от значения гайдели/сек за клик", new BigInteger("50000000000"))
+        allUpgrades.add(new Upgrade(110, R.drawable.tap_green, "Алмазный палец", "+1% от значения гайдели/сек за клик", new BigInteger("50000000000"))
                 .addCondition(new HandMadeGaidelsCondition(new BigDecimal("1000000000")))
                 .addEffect(new ClickCpsPercentEffect()));
-        allUpgrades.add(new Upgrade(111, R.mipmap.click, "Адамантиевый палец", "+1% от значения гайдели/сек за клик", new BigInteger("5000000000000"))
+        allUpgrades.add(new Upgrade(111, R.drawable.tap_blue, "Адамантиевый палец", "+1% от значения гайдели/сек за клик", new BigInteger("5000000000000"))
                 .addCondition(new HandMadeGaidelsCondition(new BigDecimal("100000000000")))
                 .addEffect(new ClickCpsPercentEffect()));
-        allUpgrades.add(new Upgrade(112, R.mipmap.click, "Унобтаниевый палец", "+1% от значения гайдели/сек за клик", new BigInteger("500000000000000"))
+        allUpgrades.add(new Upgrade(112, R.drawable.tap_dark_blue, "Унобтаниевый палец", "+1% от значения гайдели/сек за клик", new BigInteger("500000000000000"))
                 .addCondition(new HandMadeGaidelsCondition(new BigDecimal("10000000000000")))
                 .addEffect(new ClickCpsPercentEffect()));
-        allUpgrades.add(new Upgrade(113, R.mipmap.click, "Элюдиевый палец", "+1% от значения гайдели/сек за клик", new BigInteger("50000000000000000"))
+        allUpgrades.add(new Upgrade(113, R.drawable.tap_violet, "Элюдиевый палец", "+1% от значения гайдели/сек за клик", new BigInteger("50000000000000000"))
                 .addCondition(new HandMadeGaidelsCondition(new BigDecimal("1000000000000000")))
                 .addEffect(new ClickCpsPercentEffect()));
 
