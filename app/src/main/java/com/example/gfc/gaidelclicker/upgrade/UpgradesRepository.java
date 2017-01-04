@@ -37,6 +37,10 @@ public class UpgradesRepository {
 
     private List<Upgrade> allUpgrades;
 
+    private List<Upgrade> boughtUpgrades = new ArrayList<>();
+    private List<Upgrade> availableUpgrades = new ArrayList<>();
+    private List<Upgrade> unavailableUpgrades = new ArrayList<>();
+
     private UpgradesRepository() {
         allUpgrades = new ArrayList<>();
 
@@ -434,6 +438,8 @@ public class UpgradesRepository {
 
 
         assertAllIdsUnique(allUpgrades);
+        unavailableUpgrades.addAll(allUpgrades);
+        checkUpgradeStates();
     }
 
     private void assertAllIdsUnique(List<Upgrade> upgrades) {
@@ -446,28 +452,47 @@ public class UpgradesRepository {
         return allUpgrades;
     }
 
-    public List<Upgrade> getUnBoughtUpgrades() {
-        List<Upgrade> unbought = new ArrayList<>();
-        for (Upgrade upgrade : allUpgrades) {
-            if (upgrade.isPreconditionsFullfilled() && !upgrade.isBought()) {
-                unbought.add(upgrade);
-            }
-        }
-        Collections.sort(unbought);
-        return unbought;
+    public List<Upgrade> getBoughtUpgrades() {
+        return boughtUpgrades;
+    }
+
+    public List<Upgrade> getAvailableUpgrades() {
+        checkUpgradeStates();
+        return availableUpgrades;
     }
 
     public int getBoughtCount() {
-        int count = 0;
-        for (Upgrade upgrade : allUpgrades) {
-            if (upgrade.isBought()) {
-                count++;
-            }
-        }
-        return count;
+        return boughtUpgrades.size();
     }
 
     public int getAllUpgradesCount() {
         return allUpgrades.size();
     }
+
+    public void refresh() {
+        checkUpgradeStates();
+    }
+
+    private void checkUpgradeStates() {
+        boolean availableUpgradesChanged = false;
+        for (int i = 0; i < unavailableUpgrades.size(); i++) {
+            Upgrade upgrade = unavailableUpgrades.get(i);
+            if (upgrade.isPreconditionsFullfilled()) {
+                availableUpgrades.add(upgrade);
+                unavailableUpgrades.remove(i--);
+                availableUpgradesChanged = true;
+            }
+        }
+        if (availableUpgradesChanged) {
+            Collections.sort(availableUpgrades);
+        }
+        for (int i = 0; i < availableUpgrades.size(); i++) {
+            Upgrade upgrade = availableUpgrades.get(i);
+            if (upgrade.isBought()) {
+                boughtUpgrades.add(upgrade);
+                availableUpgrades.remove(i--);
+            }
+        }
+    }
+
 }

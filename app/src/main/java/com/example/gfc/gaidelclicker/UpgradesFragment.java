@@ -10,14 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.gfc.gaidelclicker.building.Building;
 import com.example.gfc.gaidelclicker.building.BuildingsRepository;
 import com.example.gfc.gaidelclicker.upgrade.OnUpgradeClickListener;
 import com.example.gfc.gaidelclicker.upgrade.Upgrade;
 import com.example.gfc.gaidelclicker.upgrade.UpgradesAdapter;
 import com.example.gfc.gaidelclicker.upgrade.UpgradesRepository;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.math.BigDecimal;
 
@@ -58,6 +55,7 @@ public class UpgradesFragment extends Fragment implements GlobalPrefs.OnBalanceC
                 if (decimalCost.compareTo(GlobalPrefs.getInstance().getBalance()) <= 0) {
                     GlobalPrefs.getInstance().changeBalance(decimalCost.negate());
                     upgrade.buy();
+                    UpgradesRepository.getInstance().refresh();
                     BuildingsRepository.getInstance().recalculateDelta();
                     refresh();
                 }
@@ -80,7 +78,7 @@ public class UpgradesFragment extends Fragment implements GlobalPrefs.OnBalanceC
     }
 
     public void refresh() {
-        adapter.setData(UpgradesRepository.getInstance().getUnBoughtUpgrades());
+        adapter.setData(UpgradesRepository.getInstance().getAvailableUpgrades());
     }
 
     @Override

@@ -1,13 +1,13 @@
 package com.example.gfc.gaidelclicker.upgrade;
 
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.gfc.gaidelclicker.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,12 +16,13 @@ import java.util.List;
 
 public class UpgradesAdapter extends RecyclerView.Adapter<UpgradeHolder> {
 
-    private List<Upgrade> data;
+    private List<Upgrade> data = new ArrayList<>();
     private OnUpgradeClickListener onUpgradeClickListener;
 
     public void setData(List<Upgrade> data) {
         if (isEquals(this.data, data)) return;
-        this.data = data;
+        this.data.clear();
+        this.data.addAll(data);
         notifyDataSetChanged();
     }
 

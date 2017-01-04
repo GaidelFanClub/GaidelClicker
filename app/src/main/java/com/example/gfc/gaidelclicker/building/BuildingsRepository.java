@@ -191,7 +191,7 @@ public class BuildingsRepository {
         percentage = 100;
         clickPercentCpS = 0;
         divideGoldenCookieSpawnFactor = multipleGoldenCookiePresentFactor = multipleGoldenCookieEffectFactor = 1;
-        for (Upgrade upgrade : UpgradesRepository.getInstance().getAllUpgrades()) {
+        for (Upgrade upgrade : UpgradesRepository.getInstance().getBoughtUpgrades()) {
             if (upgrade.isBought()) {
                 upgrade.activateBonus();
             }
