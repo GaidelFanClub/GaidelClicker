@@ -15,22 +15,27 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/effect"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="13sp" />
 
         <com.example.gfc.gaidelclicker.ui.HTMLTextView
             android:id="@+id/cost"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:textSize="13sp" />
     </LinearLayout>
 
 </LinearLayout>

@@ -167,7 +167,7 @@ public class UpgradesRepository {
         allUpgrades.add(new Upgrade(38, R.mipmap.circle, "Вступить в группу но CodeForces", "х2 за посещение кружка", BigInteger.valueOf(4_000_000))
                 .addCondition(new BuildingCountCondition(ID_CIRCLE, 1))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_CIRCLE)));
-        allUpgrades.add(new Upgrade(39, R.mipmap.circle, "$$ Решить 2 задачки $$", "х2 за посещение кружка", BigInteger.valueOf(40_000_000))
+        allUpgrades.add(new Upgrade(39, R.drawable.upgrade_botan, "Решить 2 задачки", "х2 за посещение кружка", BigInteger.valueOf(40_000_000))
                 .addCondition(new BuildingCountCondition(ID_CIRCLE, 10))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_CIRCLE)));
         allUpgrades.add(new Upgrade(40, R.mipmap.circle, "Послушать разбор", "х2 за посещение кружка", BigInteger.valueOf(2_000_000_000L))
@@ -303,100 +303,100 @@ public class UpgradesRepository {
 
         /*Whole percentage upgrades*/
         //10mln / 100mln / 5%
-        allUpgrades.add(new Upgrade(79, R.mipmap.gold_gaidel, "Добрый Гайдель", "+5% к получению баллов", new BigInteger("100000000"))
+        allUpgrades.add(new Upgrade(79, R.drawable.upgrade_kind, "Добрый Гайдель", "+5% к получению баллов", new BigInteger("100000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("10000000")))
                 .addEffect(new WholePercentageEffect(5)));
-        allUpgrades.add(new Upgrade(80, R.mipmap.gold_gaidel, "Сонный Гайдель", "+5% к получению баллов", new BigInteger("100000000"))
+        allUpgrades.add(new Upgrade(80, R.drawable.upgrade_sleep, "Сонный Гайдель", "+5% к получению баллов", new BigInteger("100000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("10000000")))
                 .addEffect(new WholePercentageEffect(5)));
-        allUpgrades.add(new Upgrade(81, R.mipmap.gold_gaidel, "Задумчивый Гайдель", "+5% к получению баллов", new BigInteger("100000000"))
+        allUpgrades.add(new Upgrade(81, R.drawable.upgrade_simple, "Задумчивый Гайдель", "+5% к получению баллов", new BigInteger("100000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("10000000")))
                 .addEffect(new WholePercentageEffect(5)));
-        allUpgrades.add(new Upgrade(82, R.mipmap.gold_gaidel, "Перевернутый Гайдель", "+5% к получению баллов", new BigInteger("100000000"))
+        allUpgrades.add(new Upgrade(82, R.drawable.upgrade_rotated, "Перевернутый Гайдель", "+5% к получению баллов", new BigInteger("100000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("10000000")))
                 .addEffect(new WholePercentageEffect(5)));
 
         //100mln / 1bln / 5%
-        allUpgrades.add(new Upgrade(83, R.mipmap.gold_gaidel, "Непредсказуемый Гайдель", "+5% к получению баллов", new BigInteger("1000000000"))
+        allUpgrades.add(new Upgrade(83, R.drawable.upgrade_displeased, "Непредсказуемый Гайдель", "+5% к получению баллов", new BigInteger("1000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("100000000")))
                 .addEffect(new WholePercentageEffect(5)));
-        allUpgrades.add(new Upgrade(84, R.mipmap.gold_gaidel, "Странный Гайдель", "+5% к получению баллов", new BigInteger("1000000000"))
+        allUpgrades.add(new Upgrade(84, R.drawable.upgrade_strange, "Странный Гайдель", "+5% к получению баллов", new BigInteger("1000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("100000000")))
                 .addEffect(new WholePercentageEffect(5)));
-        allUpgrades.add(new Upgrade(85, R.mipmap.gold_gaidel, "Плохой Гайдель", "+5% к получению баллов", new BigInteger("1000000000"))
+        allUpgrades.add(new Upgrade(85, R.drawable.upgrade_displeased, "Плохой Гайдель", "+5% к получению баллов", new BigInteger("1000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("100000000")))
                 .addEffect(new WholePercentageEffect(5)));
 
         //1bln / 100bln / 10%
-        allUpgrades.add(new Upgrade(86, R.mipmap.gold_gaidel, "Хороший Гайдель", "+10% к получению баллов", new BigInteger("100000000000"))
+        allUpgrades.add(new Upgrade(86, R.drawable.upgrade_simple, "Хороший Гайдель", "+10% к получению баллов", new BigInteger("100000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("1000000000")))
                 .addEffect(new WholePercentageEffect(10)));
-        allUpgrades.add(new Upgrade(87, R.mipmap.gold_gaidel, "Злой Гайдель", "+10% к получению баллов", new BigInteger("100000000000"))
+        allUpgrades.add(new Upgrade(87, R.drawable.upgrade_evil_2, "Злой Гайдель", "+10% к получению баллов", new BigInteger("100000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("1000000000")))
                 .addEffect(new WholePercentageEffect(10)));
-        allUpgrades.add(new Upgrade(88, R.mipmap.gold_gaidel, "Няшный Гайдель", "+10% к получению баллов", new BigInteger("100000000000"))
+        allUpgrades.add(new Upgrade(88, R.drawable.upgrade_kind, "Няшный Гайдель", "+10% к получению баллов", new BigInteger("100000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("1000000000")))
                 .addEffect(new WholePercentageEffect(10)));
 
         //10bln / 1tln / 15%
-        allUpgrades.add(new Upgrade(89, R.mipmap.gold_gaidel, "Опасный Гайдель", "+15% к получению баллов", new BigInteger("1000000000000"))
+        allUpgrades.add(new Upgrade(89, R.drawable.upgrade_displeased, "Опасный Гайдель", "+15% к получению баллов", new BigInteger("1000000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("10000000000")))
                 .addEffect(new WholePercentageEffect(15)));
-        allUpgrades.add(new Upgrade(90, R.mipmap.gold_gaidel, "Уличный Гайдель", "+15% к получению баллов", new BigInteger("1000000000000"))
+        allUpgrades.add(new Upgrade(90, R.drawable.upgrade_displeased, "Уличный Гайдель", "+15% к получению баллов", new BigInteger("1000000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("10000000000")))
                 .addEffect(new WholePercentageEffect(15)));
 
         //100bln / 10tln / 15%
-        allUpgrades.add(new Upgrade(91, R.mipmap.gold_gaidel, "Домашний Гайдель", "+15% к получению баллов", new BigInteger("10000000000000"))
+        allUpgrades.add(new Upgrade(91, R.drawable.upgrade_home, "Домашний Гайдель", "+15% к получению баллов", new BigInteger("10000000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("10000000000")))
                 .addEffect(new WholePercentageEffect(15)));
-        allUpgrades.add(new Upgrade(92, R.mipmap.gold_gaidel, "Шутливый Гайдель", "+15% к получению баллов", new BigInteger("10000000000000"))
+        allUpgrades.add(new Upgrade(92, R.drawable.upgrade_troll, "Шутливый Гайдель", "+15% к получению баллов", new BigInteger("10000000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("10000000000")))
                 .addEffect(new WholePercentageEffect(15)));
 
         //1tln / 100tln / 15%
-        allUpgrades.add(new Upgrade(93, R.mipmap.gold_gaidel, "Молодой Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
+        allUpgrades.add(new Upgrade(93, R.drawable.upgrade_sport, "Молодой Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("100000000000")))
                 .addEffect(new WholePercentageEffect(15)));
-        allUpgrades.add(new Upgrade(94, R.mipmap.gold_gaidel, "Старый Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
+        allUpgrades.add(new Upgrade(94, R.drawable.upgrade_old, "Старый Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("100000000000")))
                 .addEffect(new WholePercentageEffect(15)));
-        allUpgrades.add(new Upgrade(95, R.mipmap.gold_gaidel, "Заводной Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
+        allUpgrades.add(new Upgrade(95, R.drawable.upgrade_troll, "Заводной Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("100000000000")))
                 .addEffect(new WholePercentageEffect(15)));
 
-        allUpgrades.add(new Upgrade(96, R.mipmap.gold_gaidel, "Профессиональный Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
+        allUpgrades.add(new Upgrade(96, R.drawable.upgrade_strange, "Профессиональный Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
                 .addCondition(new UpgradesIsBoughtCondition(allUpgrades, 93, 94, 95))
                 .addEffect(new WholePercentageEffect(15)));
-        allUpgrades.add(new Upgrade(97, R.mipmap.gold_gaidel, "Загадочный Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
+        allUpgrades.add(new Upgrade(97, R.drawable.upgrade_simple, "Загадочный Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
                 .addCondition(new UpgradesIsBoughtCondition(allUpgrades, 96))
                 .addEffect(new WholePercentageEffect(15)));
-        allUpgrades.add(new Upgrade(98, R.mipmap.gold_gaidel, "Талантливый Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
+        allUpgrades.add(new Upgrade(98, R.drawable.upgrade_sleep, "Талантливый Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
                 .addCondition(new UpgradesIsBoughtCondition(allUpgrades, 97))
                 .addEffect(new WholePercentageEffect(15)));
-        allUpgrades.add(new Upgrade(99, R.mipmap.gold_gaidel, "Спортивный Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
+        allUpgrades.add(new Upgrade(99, R.drawable.upgrade_sport, "Спортивный Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
                 .addCondition(new UpgradesIsBoughtCondition(allUpgrades, 98))
                 .addEffect(new WholePercentageEffect(15)));
-        allUpgrades.add(new Upgrade(100, R.mipmap.gold_gaidel, "Мечтающий Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
+        allUpgrades.add(new Upgrade(100, R.drawable.upgrade_strange, "Мечтающий Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
                 .addCondition(new UpgradesIsBoughtCondition(allUpgrades, 99))
                 .addEffect(new WholePercentageEffect(15)));
-        allUpgrades.add(new Upgrade(101, R.mipmap.gold_gaidel, "Веселый Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
+        allUpgrades.add(new Upgrade(101, R.drawable.upgrade_troll, "Веселый Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
                 .addCondition(new UpgradesIsBoughtCondition(allUpgrades, 100))
                 .addEffect(new WholePercentageEffect(15)));
-        allUpgrades.add(new Upgrade(102, R.mipmap.gold_gaidel, "Грустный Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
+        allUpgrades.add(new Upgrade(102, R.drawable.upgrade_sad, "Грустный Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
                 .addCondition(new UpgradesIsBoughtCondition(allUpgrades, 101))
                 .addEffect(new WholePercentageEffect(15)));
 
-        allUpgrades.add(new Upgrade(103, R.mipmap.gold_gaidel, "Обычный Гайдель", "+20% к получению баллов", new BigInteger("200000000000000"))
+        allUpgrades.add(new Upgrade(103, R.drawable.upgrade_simple, "Обычный Гайдель", "+20% к получению баллов", new BigInteger("200000000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("10000000000000")))
                 .addEffect(new WholePercentageEffect(20)));
-        allUpgrades.add(new Upgrade(104, R.mipmap.gold_gaidel, "Радостный Гайдель", "+20% к получению баллов", new BigInteger("200000000000000"))
+        allUpgrades.add(new Upgrade(104, R.drawable.upgrade_troll, "Радостный Гайдель", "+20% к получению баллов", new BigInteger("200000000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("10000000000000")))
                 .addEffect(new WholePercentageEffect(20)));
-        allUpgrades.add(new Upgrade(105, R.mipmap.gold_gaidel, "Хихикающий Гайдель", "+20% к получению баллов", new BigInteger("200000000000000"))
+        allUpgrades.add(new Upgrade(105, R.drawable.upgrade_troll, "Хихикающий Гайдель", "+20% к получению баллов", new BigInteger("200000000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("10000000000000")))
                 .addEffect(new WholePercentageEffect(20)));
-        allUpgrades.add(new Upgrade(106, R.mipmap.gold_gaidel, "Щедрый Гайдель", "+20% к получению баллов", new BigInteger("200000000000000"))
+        allUpgrades.add(new Upgrade(106, R.drawable.upgrade_kind, "Щедрый Гайдель", "+20% к получению баллов", new BigInteger("200000000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("10000000000000")))
                 .addEffect(new WholePercentageEffect(20)));
 
