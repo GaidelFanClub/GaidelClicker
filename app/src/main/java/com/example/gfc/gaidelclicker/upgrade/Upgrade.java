@@ -4,6 +4,7 @@ import com.example.gfc.gaidelclicker.Prefs;
 import com.example.gfc.gaidelclicker.upgrade.conditions.Condition;
 import com.example.gfc.gaidelclicker.upgrade.effects.Effect;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -19,6 +20,7 @@ public class Upgrade implements Comparable<Upgrade> {
     private String name;
     private String effect;
     private BigInteger cost;
+    private BigDecimal decimalCost;
 
     private List<Effect> effects = new ArrayList<>();
     private List<Condition> conditions = new ArrayList<>();
@@ -30,6 +32,7 @@ public class Upgrade implements Comparable<Upgrade> {
         this.name = name;
         this.effect = effect;
         this.cost = cost;
+        this.decimalCost = new BigDecimal(cost.toString());
         this.id = id;
         this.key = "upgrade" + id;
     }
@@ -52,6 +55,10 @@ public class Upgrade implements Comparable<Upgrade> {
 
     public BigInteger getCost() {
         return cost;
+    }
+
+    public BigDecimal getCostAsDecimal() {
+        return decimalCost;
     }
 
     public boolean isBought() {
