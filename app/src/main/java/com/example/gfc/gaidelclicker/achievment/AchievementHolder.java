@@ -17,20 +17,27 @@ public class AchievementHolder extends RecyclerView.ViewHolder {
 
     private ImageView icon;
     private TextView name;
+    private TextView description;
 
     public AchievementHolder(View itemView) {
         super(itemView);
         icon = (ImageView) itemView.findViewById(R.id.icon);
         name = (TextView) itemView.findViewById(R.id.name);
+        description = (TextView) itemView.findViewById(R.id.description);
     }
 
     public void bind(Achievement achievement) {
         icon.setImageResource(achievement.getImageResourceId());
         name.setText(achievement.getName());
         if (achievement.isUnlocked()) {
-            icon.clearColorFilter();
+            if (achievement.getColor() != -1) {
+                icon.setColorFilter(achievement.getColor(), PorterDuff.Mode.SRC_IN);
+            } else {
+                icon.clearColorFilter();
+            }
         } else {
             icon.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
         }
+        description.setText(achievement.getDescription());
     }
 }
