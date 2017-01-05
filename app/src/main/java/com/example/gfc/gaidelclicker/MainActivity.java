@@ -57,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
 
     private static final float GAIDEL_ANIMATION_SCALE = 1.075f;
     private final OvershootInterpolator overshootInterpolator = new OvershootInterpolator();
+    private final LinearInterpolator linearInterpolator = new LinearInterpolator();
+    private final SnowFlakeInterpolator snowFlakeInterpolator = new SnowFlakeInterpolator();
+    private final AccelerateInterpolator accelerateInterpolator = new AccelerateInterpolator();
 
     private RelativeLayout relativeLayout;
 
@@ -233,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
         translationY -= clickTextView.getMeasuredHeight() >> 1;
         clickTextView.setTranslationX(translationX);
         clickTextView.setTranslationY(translationY);
-        clickTextView.animate().setInterpolator(new LinearInterpolator()).alpha(0.2f).translationY(translationY - 300).setListener(new AnimatorListenerAdapter() {
+        clickTextView.animate().setInterpolator(linearInterpolator).alpha(0.2f).translationY(translationY - 300).setListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
@@ -254,11 +257,11 @@ public class MainActivity extends AppCompatActivity {
         imageView.setTranslationX(translationX);
         imageView.setTranslationY(translationY);
         ObjectAnimator verticalAnimator = ObjectAnimator.ofFloat(imageView, View.TRANSLATION_Y, translationY + verticalSnowflakeOffset);
-        verticalAnimator.setInterpolator(new SnowFlakeInterpolator());
+        verticalAnimator.setInterpolator(snowFlakeInterpolator);
 
         ObjectAnimator horizontalAnimator = ObjectAnimator.ofFloat(imageView, View.TRANSLATION_X, translationX + RandomUtils.nextSign() * RandomUtils.nextInt(horizontalSnowflakeMinOffset, horizontalSnowflakeMaxOffset));
         ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(imageView, View.ALPHA, 0.1f);
-        alphaAnimator.setInterpolator(new AccelerateInterpolator());
+        alphaAnimator.setInterpolator(accelerateInterpolator);
         AnimatorSet set = new AnimatorSet();
         set.playTogether(verticalAnimator, horizontalAnimator, alphaAnimator);
         set.addListener(new AnimatorListenerAdapter() {
