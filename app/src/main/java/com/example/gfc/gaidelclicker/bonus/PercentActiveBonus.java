@@ -15,7 +15,7 @@ public class PercentActiveBonus extends Bonus {
     private BigDecimal fraction;
 
     public PercentActiveBonus(int id, int resourceId, double minPercent, double maxPercent) {
-        super(id, resourceId, "", true, 0, null, -1);
+        super(id, resourceId, "", true, 0, null, null, -1);
         fraction = BigDecimal.valueOf(RandomUtils.nextDouble(minPercent, maxPercent));
     }
 

@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,11 +14,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.Pair;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -25,8 +30,10 @@ import android.widget.TextView;
 
 import com.example.gfc.gaidelclicker.bonus.Bonus;
 import com.example.gfc.gaidelclicker.bonus.BonusRepository;
+import com.example.gfc.gaidelclicker.building.Building;
 import com.example.gfc.gaidelclicker.building.BuildingsRepository;
 import com.example.gfc.gaidelclicker.event.AchievementUnlockedEvent;
+import com.example.gfc.gaidelclicker.ui.HTMLTextView;
 import com.example.gfc.gaidelclicker.utils.FormatUtils;
 import com.example.gfc.gaidelclicker.utils.RandomUtils;
 import com.example.gfc.gaidelclicker.utils.UIUtils;
@@ -64,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView countOfClicksLabel;
     private TextView speedLabel;
+    private ViewGroup clickResultsContainer;
 
     private SlidingDrawer slidingDrawer;
 
@@ -84,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         setupViewPager(
                 tabs,
                 new Pair<>((Fragment) new BuildingsFragment(), "Действия"),
+                new Pair<>((Fragment) new UpgradesFragment(), "Апгрейды"),
                 new Pair<>((Fragment) new AchievementsFragment(), "Ачивки"),
                 new Pair<>((Fragment) new StatisticFragment(), "Статистика")
         );
@@ -92,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
     private void initViews() {
         gaidel = (ImageButton) findViewById(R.id.buttonGaidel);
         relativeLayout = (RelativeLayout) findViewById(R.id.main_layout);
+        clickResultsContainer = (FrameLayout) findViewById(R.id.clicks_result_container);
 
         svaston = (ImageView) findViewById(R.id.svaston);
 
@@ -129,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
         goldCookie = (ImageView) findViewById(R.id.gold_cookie);
 
-        ObjectAnimator anim = ObjectAnimator.ofFloat(svaston, View.ROTATION, 0f, 360f);
+        final ObjectAnimator anim = ObjectAnimator.ofFloat(svaston, View.ROTATION, 0f, 360f);
         anim.setRepeatCount(-1);
         anim.setInterpolator(new LinearInterpolator());
         anim.setDuration(2000);
@@ -138,9 +148,11 @@ public class MainActivity extends AppCompatActivity {
         gaidel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GlobalPrefs.getInstance().changeBalance(BuildingsRepository.getInstance().getClickProfit());
+                BigDecimal clickProfit = BuildingsRepository.getInstance().getClickProfit();
+                GlobalPrefs.getInstance().changeBalance(clickProfit);
                 countOfClicksLabel.setText(FormatUtils.formatDecimalAsInteger(GlobalPrefs.getInstance().getBalance()));
                 GlobalPrefs.getInstance().increaseClickCount(1);
+                GlobalPrefs.getInstance().increaseProfitFromClicks(clickProfit);
                 Analytics.getInstance().sendEvent("Click Gaidel", "Clicks Count", FormatUtils.formatDecimalAsInteger(GlobalPrefs.getInstance().getBalance()).toString());
             }
         });
@@ -153,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case MotionEvent.ACTION_CANCEL:
                     case MotionEvent.ACTION_UP:
+                        startMoveText(event);
                         gaidel.animate().setInterpolator(overshootInterpolator).scaleX(1).scaleY(1).start();
                         break;
                 }
@@ -168,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
                     requestGoldCookieSpawn();
                 } else {
                     BuildingsRepository.getInstance().setActiveBonus(currentDisplayedBonus);
-                    handler.sendEmptyMessageDelayed(UpdateHandler.EXPIRED_GOLD_COOKIE, currentDisplayedBonus.getDurationMillis());
+                    handler.sendEmptyMessageDelayed(UpdateHandler.EXPIRED_GOLD_COOKIE, currentDisplayedBonus.getDurationMillis());//TODO there are effect
                 }
                 GlobalPrefs.getInstance().addGoldenCookie();
                 showSnackBar(currentDisplayedBonus.getMessage(), Math.max(2000, currentDisplayedBonus.getDurationMillis()));
@@ -183,6 +196,37 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void startMoveText(MotionEvent event) {
+        float translationY = event.getRawY() - getStatusBarHeight();
+        float translationX = event.getRawX();
+        final HTMLTextView clickTextView = new HTMLTextView(this);
+        clickResultsContainer.addView(clickTextView);
+        clickTextView.setText("+" + FormatUtils.formatDecimal(BuildingsRepository.getInstance().getClickProfit()));
+        clickTextView.setPadding(25, 25, 25, 25);
+        clickTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        clickTextView.setTextColor(Color.BLACK);
+        clickTextView.measure(0, 0);
+        int measuredWidth = clickTextView.getMeasuredWidth();
+        clickTextView.setTranslationX(translationX - measuredWidth / 2f);
+        clickTextView.setTranslationY(translationY);
+        clickTextView.animate().setInterpolator(new LinearInterpolator()).alpha(0.2f).translationY(translationY - 300).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                clickResultsContainer.removeView(clickTextView);
+            }
+        }).setDuration(3000).start();
+    }
+
+    private int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 
     private void setupViewPager(TabLayout tabs, Pair<Fragment, String>... fragments) {
@@ -255,7 +299,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void spawnGoldCookie() {
         goldCookieAlphaAnimator = ObjectAnimator.ofFloat(goldCookie, View.ALPHA, 0f, 1f);
-        goldCookieAlphaAnimator.setDuration(6 * 1000);
+        goldCookieAlphaAnimator.setDuration(BuildingsRepository.getInstance().getMultipleGoldenCookiePresentFactor() * 6 * 1000);
         goldCookieAlphaAnimator.setRepeatMode(ValueAnimator.REVERSE);
         goldCookieAlphaAnimator.setRepeatCount(1);
         goldCookieAlphaAnimator.addListener(new AnimatorListenerAdapter() {
@@ -308,7 +352,8 @@ public class MainActivity extends AppCompatActivity {
         handler.removeMessages(UpdateHandler.SPAWN_GOLD_COOKIE);
         handler.removeMessages(UpdateHandler.EXPIRED_GOLD_COOKIE);
         goldCookieExpired();
-        int spawnDelay = RandomUtils.nextInt(MIN_GOLD_COOKIE_SPAWN_PERIOD, MAX_GOLD_COOKIE_SPAWN_PERIOD);
+        int divideSpawnFactor = BuildingsRepository.getInstance().getDivideGoldenCookieSpawnFactor();
+        int spawnDelay = RandomUtils.nextInt(MIN_GOLD_COOKIE_SPAWN_PERIOD / divideSpawnFactor, MAX_GOLD_COOKIE_SPAWN_PERIOD / divideSpawnFactor);
         handler.sendEmptyMessageDelayed(UpdateHandler.SPAWN_GOLD_COOKIE, spawnDelay);
     }
 

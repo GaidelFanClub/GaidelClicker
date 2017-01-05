@@ -16,6 +16,7 @@ public class GlobalPrefs {
     private static final String WHOLE_PROFIT = "WHOLE_PROFIT";
     private static final String GOLDEN_COOKIES = "GOLDEN_COOKIES";
     private static final String COUNT_OF_CLICK = "COUNT_OF_CLICK";
+    private static final String PROFIT_FROM_CLICKS = "PROFIT_FROM_CLICKS";
 
     private static GlobalPrefs instance = new GlobalPrefs();
     public interface OnBalanceChangedListener {
@@ -74,6 +75,18 @@ public class GlobalPrefs {
 
     public void increaseClickCount(int delta) {
         Prefs.putInt(COUNT_OF_CLICK, getCountOfClicks() + delta);
+    }
+
+    public BigDecimal getProfitFromClicks() {
+        return new BigDecimal(Prefs.getString(PROFIT_FROM_CLICKS, "" + getCountOfClicks()));
+    }
+
+    public void putProfitFromClicks(BigDecimal value) {
+        Prefs.putString(PROFIT_FROM_CLICKS, value.toString());
+    }
+
+    public void increaseProfitFromClicks(BigDecimal delta) {
+        putProfitFromClicks(getProfitFromClicks().add(delta));
     }
 
     public void registerListener(OnBalanceChangedListener listener) {

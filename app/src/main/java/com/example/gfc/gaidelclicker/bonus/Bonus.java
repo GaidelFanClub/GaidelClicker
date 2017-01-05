@@ -12,16 +12,18 @@ public class Bonus {
     private String message;
     private boolean isImmediate;
     private int durationMillis;
-    private BigDecimal coefficient;
+    private BigDecimal clickCoefficient;
+    private BigDecimal passiveCoefficient;
     private int buf;
 
-    public Bonus(int id, int imageResourceId, String message, boolean isImmediate, int durationMillis, BigDecimal coefficient, int buf) {
+    public Bonus(int id, int imageResourceId, String message, boolean isImmediate, int durationMillis, BigDecimal clickCoefficient, BigDecimal passiveCoefficient, int buf) {
         this.id = id;
         this.imageResourceId = imageResourceId;
         this.message = message;
         this.isImmediate = isImmediate;
         this.durationMillis = durationMillis;
-        this.coefficient = coefficient;
+        this.clickCoefficient = clickCoefficient;
+        this.passiveCoefficient = passiveCoefficient;
         this.buf = buf;
     }
 
@@ -49,8 +51,12 @@ public class Bonus {
         return durationMillis;
     }
 
-    public BigDecimal getCoefficient() {
-        return coefficient;
+    public BigDecimal getClickCoefficient() {
+        return clickCoefficient;
+    }
+
+    public BigDecimal getPassiveCoefficient() {
+        return passiveCoefficient;
     }
 
     public int getBuf() {

@@ -16,7 +16,7 @@ public class Building {
 
     private int imageResourceId;
     private BigDecimal basePrice;
-    private double baseDelta;
+    private BigDecimal baseDelta;
 
 
     public Building(int id, int imageResourceId, String name, long price, double delta) {
@@ -25,8 +25,7 @@ public class Building {
         this.imageResourceId = imageResourceId;
         this.name = name;
         this.basePrice = BigDecimal.valueOf(price);
-        this.baseDelta = delta;
-
+        this.baseDelta = BigDecimal.valueOf(delta);
     }
 
     public int getImageResourceId() {
@@ -41,7 +40,7 @@ public class Building {
         return PriceFactorCalculator.getPriceScaleFactor(getCount()).multiply(basePrice);
     }
 
-    public double getDelta() {
+    public BigDecimal getDelta() {
         return baseDelta;
     }
 
