@@ -1,6 +1,7 @@
 package com.example.gfc.gaidelclicker.bonus;
 
 import com.example.gfc.gaidelclicker.GlobalPrefs;
+import com.example.gfc.gaidelclicker.building.BuildingsRepository;
 import com.example.gfc.gaidelclicker.utils.RandomUtils;
 
 import java.math.BigDecimal;
@@ -22,6 +23,10 @@ public class PercentActiveBonus extends Bonus {
     @Override
     public void performImmediateAction(BigDecimal balance, BigDecimal wholeProfit) {
         added = balance.multiply(fraction);
+        BigDecimal limit = BigDecimal.valueOf(60 * 60).multiply(BuildingsRepository.getInstance().getDeltaPerSecond());
+        if (added.compareTo(limit) > 0) { //User can't rich more than one-hour profit
+            added = limit;
+        }
         GlobalPrefs.getInstance().changeBalance(added);
     }
 
