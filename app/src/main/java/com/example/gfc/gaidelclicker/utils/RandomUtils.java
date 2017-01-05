@@ -18,17 +18,21 @@ public class RandomUtils {
         return from + value;
     }
 
-    public static final double nextDouble(double from, double to) {
+    public static double nextDouble(double from, double to) {
         if (from > to) throw new IllegalArgumentException("from can't be greater that to");
         double len = to - from;
         return from + random.nextDouble() * len;
     }
 
-    public static final int nextInt(int limit) {
+    public static int nextInt(int limit) {
         return random.nextInt(limit);
     }
 
-    public static final int nextIndex(int arrayLength) {
+    public static int nextIndex(int arrayLength) {
         return random.nextInt(arrayLength);
+    }
+
+    public static int nextSign() {
+        return random.nextBoolean() ? 1 : -1;
     }
 }

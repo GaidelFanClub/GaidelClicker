@@ -2,6 +2,7 @@ package com.example.gfc.gaidelclicker;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.graphics.Color;
@@ -14,12 +15,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.util.Pair;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
@@ -30,10 +31,10 @@ import android.widget.TextView;
 
 import com.example.gfc.gaidelclicker.bonus.Bonus;
 import com.example.gfc.gaidelclicker.bonus.BonusRepository;
-import com.example.gfc.gaidelclicker.building.Building;
 import com.example.gfc.gaidelclicker.building.BuildingsRepository;
 import com.example.gfc.gaidelclicker.event.AchievementUnlockedEvent;
 import com.example.gfc.gaidelclicker.ui.HTMLTextView;
+import com.example.gfc.gaidelclicker.ui.SnowFlakeInterpolator;
 import com.example.gfc.gaidelclicker.utils.FormatUtils;
 import com.example.gfc.gaidelclicker.utils.RandomUtils;
 import com.example.gfc.gaidelclicker.utils.UIUtils;
@@ -82,6 +83,17 @@ public class MainActivity extends AppCompatActivity {
     private Bonus currentDisplayedBonus;
     private long lastSyncTime = -1;
 
+    private int[] availableSnowFlakes = {R.drawable.upgrade_evil,
+            R.drawable.upgrade_simple,
+            R.drawable.upgrade_displeased,
+            R.drawable.upgrade_kind,
+            R.drawable.upgrade_troll};
+
+    private float verticalSnowflakeOffset;
+    private int horizontalSnowflakeMinOffset;
+    private int horizontalSnowflakeMaxOffset;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +108,14 @@ public class MainActivity extends AppCompatActivity {
                 new Pair<>((Fragment) new AchievementsFragment(), "Ачивки"),
                 new Pair<>((Fragment) new StatisticFragment(), "Статистика")
         );
+        initSnowflakeAnimationParams();
+    }
+
+    private void initSnowflakeAnimationParams() {
+        verticalSnowflakeOffset = UIUtils.getHeight(this) * 0.07f;
+        int screenWidth = UIUtils.getWidth(this);
+        horizontalSnowflakeMinOffset = Math.max(15, Math.round(screenWidth * 0.06f));
+        horizontalSnowflakeMaxOffset = Math.max(25, Math.round(screenWidth * 0.12f));
     }
 
     private void initViews() {
@@ -166,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_CANCEL:
                     case MotionEvent.ACTION_UP:
                         startMoveText(event);
+                        startSnowflakeFall(event);
                         gaidel.animate().setInterpolator(overshootInterpolator).scaleX(1).scaleY(1).start();
                         break;
                 }
@@ -208,8 +229,9 @@ public class MainActivity extends AppCompatActivity {
         clickTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
         clickTextView.setTextColor(Color.BLACK);
         clickTextView.measure(0, 0);
-        int measuredWidth = clickTextView.getMeasuredWidth();
-        clickTextView.setTranslationX(translationX - measuredWidth / 2f);
+        translationX -= clickTextView.getMeasuredWidth() >> 1;
+        translationY -= clickTextView.getMeasuredHeight() >> 1;
+        clickTextView.setTranslationX(translationX);
         clickTextView.setTranslationY(translationY);
         clickTextView.animate().setInterpolator(new LinearInterpolator()).alpha(0.2f).translationY(translationY - 300).setListener(new AnimatorListenerAdapter() {
             @Override
@@ -218,6 +240,37 @@ public class MainActivity extends AppCompatActivity {
                 clickResultsContainer.removeView(clickTextView);
             }
         }).setDuration(3000).start();
+    }
+
+    private void startSnowflakeFall(MotionEvent event) {
+        float translationY = event.getRawY() - clickResultsContainer.getTop();
+        float translationX = event.getRawX();
+        final ImageView imageView = new ImageView(this);
+        imageView.setImageResource(availableSnowFlakes[RandomUtils.nextIndex(availableSnowFlakes.length)]);
+        clickResultsContainer.addView(imageView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        imageView.measure(0, 0);
+        translationX -= imageView.getMeasuredWidth() >> 1;
+        translationY -= imageView.getMeasuredHeight() >> 1;
+        imageView.setTranslationX(translationX);
+        imageView.setTranslationY(translationY);
+        ObjectAnimator verticalAnimator = ObjectAnimator.ofFloat(imageView, View.TRANSLATION_Y, translationY + verticalSnowflakeOffset);
+        verticalAnimator.setInterpolator(new SnowFlakeInterpolator());
+
+        ObjectAnimator horizontalAnimator = ObjectAnimator.ofFloat(imageView, View.TRANSLATION_X, translationX + RandomUtils.nextSign() * RandomUtils.nextInt(horizontalSnowflakeMinOffset, horizontalSnowflakeMaxOffset));
+        ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(imageView, View.ALPHA, 0.1f);
+        alphaAnimator.setInterpolator(new AccelerateInterpolator());
+        AnimatorSet set = new AnimatorSet();
+        set.playTogether(verticalAnimator, horizontalAnimator, alphaAnimator);
+        set.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                clickResultsContainer.removeView(imageView);
+            }
+        });
+        set.setDuration(1000);
+        set.start();
+
     }
 
     private int getStatusBarHeight() {
