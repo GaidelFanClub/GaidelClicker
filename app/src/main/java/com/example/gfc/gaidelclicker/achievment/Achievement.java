@@ -1,27 +1,31 @@
 package com.example.gfc.gaidelclicker.achievment;
 
-/**
- * Created by Artem on 27.12.2016.
- */
+import android.support.annotation.Nullable;
 
 public abstract class Achievement {
     private int imageResourceId;
-    private String message;
+    private String name;
+    private String description;
 
-    public Achievement(int imageResourceId, String message) {
+    public Achievement(int imageResourceId, String name, String description) {
         this.imageResourceId = imageResourceId;
-        this.message = message;
+        this.name = name;
+        this.description = description;
     }
 
     public int getImageResourceId() {
         return imageResourceId;
     }
 
-    public String getMessage() {
-        return message;
+    public String getName() {
+        return name;
     }
 
     public abstract boolean isUnlocked();
     public abstract String getKey();
 
+    @Nullable
+    public String getDescription() {
+        return description;
+    }
 }

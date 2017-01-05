@@ -26,7 +26,7 @@ public class AchievementHolder extends RecyclerView.ViewHolder {
 
     public void bind(Achievement achievement) {
         icon.setImageResource(achievement.getImageResourceId());
-        name.setText(achievement.getMessage());
+        name.setText(achievement.getName());
         if (achievement.isUnlocked()) {
             icon.clearColorFilter();
         } else {

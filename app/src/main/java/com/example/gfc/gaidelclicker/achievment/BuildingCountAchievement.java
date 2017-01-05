@@ -13,7 +13,7 @@ public class BuildingCountAchievement extends Achievement {
     private String key;
 
     public BuildingCountAchievement(Building building, int count, int resourceId, String name) {
-        super(resourceId, name);
+        super(resourceId, name, null);
         this.building = building;
         this.count = count;
         key = "building_" + building.getId() + " " + count;

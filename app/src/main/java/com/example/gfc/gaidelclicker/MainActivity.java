@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onAchievementUnlocked(AchievementUnlockedEvent event) {
         //todo string resources
-        showSnackBar("Новое достижение: " + event.getAchievement().getMessage(), 3000);
+        showSnackBar("Новое достижение: " + event.getAchievement().getName(), 3000);
     }
 
     @Override
