@@ -269,19 +269,19 @@ public class UpgradesRepository {
         allUpgrades.add(new Upgrade(67, R.mipmap.dota, "Пойти на мид", "+48999.999 за игру в доту", BigInteger.valueOf(3_500_000_000_000L))
                 .addCondition(new BuildingCountCondition(ID_DOTA, 1))
                 .addEffect(new SimpleAddEffect(BigDecimal.valueOf(48999.999), ID_DOTA)));
-        allUpgrades.add(new Upgrade(68, R.mipmap.dota, "TODO", "х2 за игру в доту", BigInteger.valueOf(17_500_000_000_000L))
+        allUpgrades.add(new Upgrade(68, R.mipmap.dota, "Хукануть за пуджа", "х2 за игру в доту", BigInteger.valueOf(17_500_000_000_000L))
                 .addCondition(new BuildingCountCondition(ID_DOTA, 1))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_DOTA)));
-        allUpgrades.add(new Upgrade(69, R.mipmap.dota, "TODO", "х2 за игру в доту", BigInteger.valueOf(500_000_000_000_000L))
+        allUpgrades.add(new Upgrade(69, R.mipmap.dota, "Застилить крипа", "х2 за игру в доту", BigInteger.valueOf(500_000_000_000_000L))
                 .addCondition(new BuildingCountCondition(ID_DOTA, 10))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_DOTA)));
-        allUpgrades.add(new Upgrade(70, R.mipmap.dota, "TODO", "х2 за игру в доту", BigInteger.valueOf(21_000_000_000_000_000L))
+        allUpgrades.add(new Upgrade(70, R.mipmap.dota, "Купить куру", "х2 за игру в доту", BigInteger.valueOf(21_000_000_000_000_000L))
                 .addCondition(new BuildingCountCondition(ID_DOTA, 50))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_DOTA)));
-        allUpgrades.add(new Upgrade(71, R.mipmap.dota, "TODO", "х2 за игру в доту", BigInteger.valueOf(400_000_000_000_000_000L))
+        allUpgrades.add(new Upgrade(71, R.mipmap.dota, "Посапортить Гайделю", "х2 за игру в доту", BigInteger.valueOf(400_000_000_000_000_000L))
                 .addCondition(new BuildingCountCondition(ID_DOTA, 100))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_DOTA)));
-        allUpgrades.add(new Upgrade(72, R.mipmap.dota, "TODO", "х2 за игру в доту", new BigInteger("2400000000000000000000"))
+        allUpgrades.add(new Upgrade(72, R.mipmap.dota, "Затащить катку", "х2 за игру в доту", new BigInteger("2400000000000000000000"))
                 .addCondition(new BuildingCountCondition(ID_DOTA, 200))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_DOTA)));
 
