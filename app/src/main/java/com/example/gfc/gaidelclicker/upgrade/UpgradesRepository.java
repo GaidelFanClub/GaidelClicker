@@ -83,9 +83,9 @@ public class UpgradesRepository {
                 .addEffect(new ClickFinalAddEffect(BigDecimal.valueOf(800d))));
 
         /*Twitch */
-        allUpgrades.add(new Upgrade(13, R.mipmap.twitch, "Зарегистрироваться на твиче", "+0.3 за просмотр твича", BigInteger.valueOf(1000))
+        allUpgrades.add(new Upgrade(13, R.mipmap.twitch, "Зарегистрироваться на твиче", "+0.2 за просмотр твича", BigInteger.valueOf(500))
                 .addCondition(new BuildingCountCondition(ID_TWITCH, 1))
-                .addEffect(new SimpleAddEffect(BigDecimal.valueOf(0.3), ID_TWITCH)));
+                .addEffect(new SimpleAddEffect(BigDecimal.valueOf(0.2), ID_TWITCH)));
         allUpgrades.add(new Upgrade(14, R.mipmap.twitch, "Зафоловить Гайделя", "х2 за просмотр твича", BigInteger.valueOf(10000))
                 .addCondition(new BuildingCountCondition(ID_TWITCH, 1))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_TWITCH)));
@@ -103,9 +103,9 @@ public class UpgradesRepository {
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_TWITCH)));
 
         /*Lecture */
-        allUpgrades.add(new Upgrade(19, R.mipmap.lecture, "Сесть на первую парту", "+1 за посещение лекции", BigInteger.valueOf(5000))
+        allUpgrades.add(new Upgrade(19, R.mipmap.lecture, "Сесть на первую парту", "+0.5 за посещение лекции", BigInteger.valueOf(3000))
                 .addCondition(new BuildingCountCondition(ID_LECTURE, 1))
-                .addEffect(new SimpleAddEffect(BigDecimal.valueOf(1), ID_LECTURE)));
+                .addEffect(new SimpleAddEffect(BigDecimal.valueOf(0.5), ID_LECTURE)));
         allUpgrades.add(new Upgrade(20, R.mipmap.lecture, "Делать вид что умный", "х2 за посещение лекции", BigInteger.valueOf(50_000))
                 .addCondition(new BuildingCountCondition(ID_LECTURE, 1))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_LECTURE)));
@@ -124,9 +124,9 @@ public class UpgradesRepository {
 
         /*LabWork*/
 
-        allUpgrades.add(new Upgrade(25, R.mipmap.lab_work, "Cделать лабу", "+4 за сдачу лабы", BigInteger.valueOf(30_000))
+        allUpgrades.add(new Upgrade(25, R.mipmap.lab_work, "Cделать лабу", "+1 за сдачу лабы", BigInteger.valueOf(30_000))
                 .addCondition(new BuildingCountCondition(ID_LAB_WORK, 1))
-                .addEffect(new SimpleAddEffect(BigDecimal.valueOf(4), ID_LAB_WORK)));
+                .addEffect(new SimpleAddEffect(BigDecimal.valueOf(1), ID_LAB_WORK)));
         allUpgrades.add(new Upgrade(26, R.mipmap.lab_work, "Узнать как работает лаба", "х2 за сдачу лабы", BigInteger.valueOf(300_000))
                 .addCondition(new BuildingCountCondition(ID_LAB_WORK, 1))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_LAB_WORK)));
@@ -145,9 +145,9 @@ public class UpgradesRepository {
 
 
         /*Practice*/
-        allUpgrades.add(new Upgrade(31, R.mipmap.practice, "Послушать музыку пока делаешь ИДЗ", "+10 за сдачу идз", BigInteger.valueOf(100_000))
+        allUpgrades.add(new Upgrade(31, R.mipmap.practice, "Послушать музыку пока делаешь ИДЗ", "+3 за сдачу идз", BigInteger.valueOf(100_000))
                 .addCondition(new BuildingCountCondition(ID_PRACTICE, 1))
-                .addEffect(new SimpleAddEffect(BigDecimal.valueOf(10), ID_PRACTICE)));
+                .addEffect(new SimpleAddEffect(BigDecimal.valueOf(3), ID_PRACTICE)));
         allUpgrades.add(new Upgrade(32, R.mipmap.practice, "Отвлечься на мемосы", "х2 за сдачу идз", BigInteger.valueOf(1_000_000))
                 .addCondition(new BuildingCountCondition(ID_PRACTICE, 1))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_PRACTICE)));
@@ -165,9 +165,9 @@ public class UpgradesRepository {
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_PRACTICE)));
 
         /*Cirlce*/
-        allUpgrades.add(new Upgrade(37, R.mipmap.circle, "Послушать лекцию Гайделя", "+30 за посещение кружка", BigInteger.valueOf(400_000))
+        allUpgrades.add(new Upgrade(37, R.mipmap.circle, "Послушать лекцию Гайделя", "+22.8 за посещение кружка", BigInteger.valueOf(400_000))
                 .addCondition(new BuildingCountCondition(ID_CIRCLE, 1))
-                .addEffect(new SimpleAddEffect(BigDecimal.valueOf(30), ID_CIRCLE)));
+                .addEffect(new SimpleAddEffect(BigDecimal.valueOf(22.8), ID_CIRCLE)));
         allUpgrades.add(new Upgrade(38, R.mipmap.circle, "Вступить в группу но CodeForces", "х2 за посещение кружка", BigInteger.valueOf(4_000_000))
                 .addCondition(new BuildingCountCondition(ID_CIRCLE, 1))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_CIRCLE)));
@@ -185,9 +185,9 @@ public class UpgradesRepository {
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_CIRCLE)));
 
         /*Cormen*/
-        allUpgrades.add(new Upgrade(43, R.mipmap.cormen, "Прочитать предисловие", "+100 за чтение Кормена", BigInteger.valueOf(2_000_000))
+        allUpgrades.add(new Upgrade(43, R.mipmap.cormen, "Прочитать предисловие", "+30 за чтение Кормена", BigInteger.valueOf(2_000_000))
                 .addCondition(new BuildingCountCondition(ID_CORMEN, 1))
-                .addEffect(new SimpleAddEffect(BigDecimal.valueOf(100), ID_CORMEN)));
+                .addEffect(new SimpleAddEffect(BigDecimal.valueOf(30), ID_CORMEN)));
         allUpgrades.add(new Upgrade(44, R.mipmap.cormen, "Прочитаь 1 главу", "х2 за чтение Кормена", BigInteger.valueOf(4_000_000))
                 .addCondition(new BuildingCountCondition(ID_CORMEN, 1))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_CORMEN)));
@@ -205,9 +205,9 @@ public class UpgradesRepository {
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_CORMEN)));
 
         /*Timus*/
-        allUpgrades.add(new Upgrade(49, R.mipmap.task, "Зареистрировать аккаунт", "+1666 за решение Тимуса", BigInteger.valueOf(15_000_000))
+        allUpgrades.add(new Upgrade(49, R.mipmap.task, "Зареистрировать аккаунт", "+167 за решение Тимуса", BigInteger.valueOf(15_000_000))
                 .addCondition(new BuildingCountCondition(ID_TIMUS, 1))
-                .addEffect(new SimpleAddEffect(BigDecimal.valueOf(1666), ID_TIMUS)));
+                .addEffect(new SimpleAddEffect(BigDecimal.valueOf(167), ID_TIMUS)));
         allUpgrades.add(new Upgrade(50, R.mipmap.task, "Сдать А+Б", "х2 за решение Тимуса", BigInteger.valueOf(75_000_000))
                 .addCondition(new BuildingCountCondition(ID_TIMUS, 1))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_TIMUS)));
@@ -225,9 +225,9 @@ public class UpgradesRepository {
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_TIMUS)));
 
         /*CF*/
-        allUpgrades.add(new Upgrade(55, R.mipmap.code_forces, "Решить А", "+9999 за участие в CF", BigInteger.valueOf(1_000_000_000))
+        allUpgrades.add(new Upgrade(55, R.mipmap.code_forces, "Решить А", "+1500 за участие в CF", BigInteger.valueOf(1_000_000_000))
                 .addCondition(new BuildingCountCondition(ID_CF, 1))
-                .addEffect(new SimpleAddEffect(BigDecimal.valueOf(9999), ID_CF)));
+                .addEffect(new SimpleAddEffect(BigDecimal.valueOf(1500), ID_CF)));
         allUpgrades.add(new Upgrade(56, R.mipmap.code_forces, "Решить Б", "х2 за участие в CF", BigInteger.valueOf(9_000_000_000L))
                 .addCondition(new BuildingCountCondition(ID_CF, 1))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_CF)));
@@ -245,9 +245,9 @@ public class UpgradesRepository {
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_CF)));
 
         /*BEER*/
-        allUpgrades.add(new Upgrade(61, R.mipmap.beer_factory, "Разливать пиво в банки 0.5", "+999999 за пивзавод", BigInteger.valueOf(40_000_000_000L))
+        allUpgrades.add(new Upgrade(61, R.mipmap.beer_factory, "Разливать пиво в банки 0.5", "+5555.5 за пивзавод", BigInteger.valueOf(40_000_000_000L))
                 .addCondition(new BuildingCountCondition(ID_BEER, 1))
-                .addEffect(new SimpleAddEffect(BigDecimal.valueOf(999999), ID_BEER)));
+                .addEffect(new SimpleAddEffect(BigDecimal.valueOf(5555.5), ID_BEER)));
         allUpgrades.add(new Upgrade(62, R.mipmap.beer_factory, "Разливать пиво в бутылки 0.5", "х2 за пивзавод", BigInteger.valueOf(400_000_000_000L))
                 .addCondition(new BuildingCountCondition(ID_BEER, 1))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_BEER)));
@@ -266,9 +266,9 @@ public class UpgradesRepository {
 
 
         /*Dota*/
-        allUpgrades.add(new Upgrade(67, R.mipmap.dota, "Пойти на мид", "+4444444 за игру в доту", BigInteger.valueOf(3_500_000_000_000L))
+        allUpgrades.add(new Upgrade(67, R.mipmap.dota, "Пойти на мид", "+48999.999 за игру в доту", BigInteger.valueOf(3_500_000_000_000L))
                 .addCondition(new BuildingCountCondition(ID_DOTA, 1))
-                .addEffect(new SimpleAddEffect(BigDecimal.valueOf(999999), ID_DOTA)));
+                .addEffect(new SimpleAddEffect(BigDecimal.valueOf(48999.999), ID_DOTA)));
         allUpgrades.add(new Upgrade(68, R.mipmap.dota, "TODO", "х2 за игру в доту", BigInteger.valueOf(17_500_000_000_000L))
                 .addCondition(new BuildingCountCondition(ID_DOTA, 1))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_DOTA)));
@@ -286,9 +286,9 @@ public class UpgradesRepository {
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_DOTA)));
 
         /*Final*/
-        allUpgrades.add(new Upgrade(73, R.mipmap.go_to_final, "Взять кокоача", "+1000000 за выход на финал", BigInteger.valueOf(750_000_000_000L))
+        allUpgrades.add(new Upgrade(73, R.mipmap.go_to_final, "Взять кокоача", "+21345.67 за выход на финал", BigInteger.valueOf(750_000_000_000L))
                 .addCondition(new BuildingCountCondition(ID_FINAL, 1))
-                .addEffect(new SimpleAddEffect(BigDecimal.valueOf(999999), ID_FINAL)));
+                .addEffect(new SimpleAddEffect(BigDecimal.valueOf(21345.67), ID_FINAL)));
         allUpgrades.add(new Upgrade(74, R.mipmap.go_to_final, "Заказать футболочки", "х2 за выход на финал", BigInteger.valueOf(7_500_000_000_000L))
                 .addCondition(new BuildingCountCondition(ID_FINAL, 1))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_FINAL)));
@@ -307,89 +307,89 @@ public class UpgradesRepository {
 
         /*Whole percentage upgrades*/
         //10mln / 100mln / 5%
-        allUpgrades.add(new Upgrade(79, R.drawable.upgrade_kind, "Добрый Гайдель", "+5% к получению баллов", new BigInteger("100000000"))
+        allUpgrades.add(new Upgrade(79, R.drawable.upgrade_kind, "Добрый Гайдель", "+2% к получению баллов", new BigInteger("100000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("10000000")))
-                .addEffect(new WholePercentageEffect(5)));
-        allUpgrades.add(new Upgrade(80, R.drawable.upgrade_sleep, "Сонный Гайдель", "+5% к получению баллов", new BigInteger("100000000"))
+                .addEffect(new WholePercentageEffect(2)));
+        allUpgrades.add(new Upgrade(80, R.drawable.upgrade_sleep, "Сонный Гайдель", "+2% к получению баллов", new BigInteger("100000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("10000000")))
-                .addEffect(new WholePercentageEffect(5)));
-        allUpgrades.add(new Upgrade(81, R.drawable.upgrade_simple, "Задумчивый Гайдель", "+5% к получению баллов", new BigInteger("100000000"))
+                .addEffect(new WholePercentageEffect(2)));
+        allUpgrades.add(new Upgrade(81, R.drawable.upgrade_simple, "Задумчивый Гайдель", "+2% к получению баллов", new BigInteger("100000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("10000000")))
-                .addEffect(new WholePercentageEffect(5)));
-        allUpgrades.add(new Upgrade(82, R.drawable.upgrade_rotated, "Перевернутый Гайдель", "+5% к получению баллов", new BigInteger("100000000"))
+                .addEffect(new WholePercentageEffect(2)));
+        allUpgrades.add(new Upgrade(82, R.drawable.upgrade_rotated, "Перевернутый Гайдель", "+2% к получению баллов", new BigInteger("100000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("10000000")))
-                .addEffect(new WholePercentageEffect(5)));
+                .addEffect(new WholePercentageEffect(2)));
 
         //100mln / 1bln / 5%
-        allUpgrades.add(new Upgrade(83, R.drawable.upgrade_displeased, "Непредсказуемый Гайдель", "+5% к получению баллов", new BigInteger("1000000000"))
+        allUpgrades.add(new Upgrade(83, R.drawable.upgrade_displeased, "Непредсказуемый Гайдель", "+3% к получению баллов", new BigInteger("1000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("100000000")))
-                .addEffect(new WholePercentageEffect(5)));
-        allUpgrades.add(new Upgrade(84, R.drawable.upgrade_strange, "Странный Гайдель", "+5% к получению баллов", new BigInteger("1000000000"))
+                .addEffect(new WholePercentageEffect(3)));
+        allUpgrades.add(new Upgrade(84, R.drawable.upgrade_strange, "Странный Гайдель", "+3% к получению баллов", new BigInteger("1000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("100000000")))
-                .addEffect(new WholePercentageEffect(5)));
-        allUpgrades.add(new Upgrade(85, R.drawable.upgrade_displeased, "Плохой Гайдель", "+5% к получению баллов", new BigInteger("1000000000"))
+                .addEffect(new WholePercentageEffect(3)));
+        allUpgrades.add(new Upgrade(85, R.drawable.upgrade_displeased, "Плохой Гайдель", "+3% к получению баллов", new BigInteger("1000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("100000000")))
-                .addEffect(new WholePercentageEffect(5)));
+                .addEffect(new WholePercentageEffect(3)));
 
         //1bln / 100bln / 10%
-        allUpgrades.add(new Upgrade(86, R.drawable.upgrade_simple, "Хороший Гайдель", "+10% к получению баллов", new BigInteger("100000000000"))
+        allUpgrades.add(new Upgrade(86, R.drawable.upgrade_simple, "Хороший Гайдель", "+5% к получению баллов", new BigInteger("100000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("1000000000")))
-                .addEffect(new WholePercentageEffect(10)));
-        allUpgrades.add(new Upgrade(87, R.drawable.upgrade_evil_2, "Злой Гайдель", "+10% к получению баллов", new BigInteger("100000000000"))
+                .addEffect(new WholePercentageEffect(5)));
+        allUpgrades.add(new Upgrade(87, R.drawable.upgrade_evil_2, "Злой Гайдель", "+6.66% к получению баллов", new BigInteger("100000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("1000000000")))
-                .addEffect(new WholePercentageEffect(10)));
-        allUpgrades.add(new Upgrade(88, R.drawable.upgrade_kind, "Няшный Гайдель", "+10% к получению баллов", new BigInteger("100000000000"))
+                .addEffect(new WholePercentageEffect(7)));//todo make it real 6.66
+        allUpgrades.add(new Upgrade(88, R.drawable.upgrade_kind, "Няшный Гайдель", "+5% к получению баллов", new BigInteger("100000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("1000000000")))
-                .addEffect(new WholePercentageEffect(10)));
+                .addEffect(new WholePercentageEffect(5)));
 
         //10bln / 1tln / 15%
-        allUpgrades.add(new Upgrade(89, R.drawable.upgrade_displeased, "Опасный Гайдель", "+15% к получению баллов", new BigInteger("1000000000000"))
+        allUpgrades.add(new Upgrade(89, R.drawable.upgrade_displeased, "Опасный Гайдель", "+7% к получению баллов", new BigInteger("1000000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("10000000000")))
-                .addEffect(new WholePercentageEffect(15)));
-        allUpgrades.add(new Upgrade(90, R.drawable.upgrade_displeased, "Уличный Гайдель", "+15% к получению баллов", new BigInteger("1000000000000"))
+                .addEffect(new WholePercentageEffect(7)));
+        allUpgrades.add(new Upgrade(90, R.drawable.upgrade_displeased, "Уличный Гайдель", "+7% к получению баллов", new BigInteger("1000000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("10000000000")))
-                .addEffect(new WholePercentageEffect(15)));
+                .addEffect(new WholePercentageEffect(7)));
 
         //100bln / 10tln / 15%
-        allUpgrades.add(new Upgrade(91, R.drawable.upgrade_home, "Домашний Гайдель", "+15% к получению баллов", new BigInteger("10000000000000"))
+        allUpgrades.add(new Upgrade(91, R.drawable.upgrade_home, "Домашний Гайдель", "+10% к получению баллов", new BigInteger("10000000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("10000000000")))
-                .addEffect(new WholePercentageEffect(15)));
-        allUpgrades.add(new Upgrade(92, R.drawable.upgrade_troll, "Шутливый Гайдель", "+15% к получению баллов", new BigInteger("10000000000000"))
+                .addEffect(new WholePercentageEffect(10)));
+        allUpgrades.add(new Upgrade(92, R.drawable.upgrade_troll, "Шутливый Гайдель", "+10% к получению баллов", new BigInteger("10000000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("10000000000")))
-                .addEffect(new WholePercentageEffect(15)));
+                .addEffect(new WholePercentageEffect(10)));
 
         //1tln / 100tln / 15%
-        allUpgrades.add(new Upgrade(93, R.drawable.upgrade_sport, "Молодой Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
+        allUpgrades.add(new Upgrade(93, R.drawable.upgrade_sport, "Молодой Гайдель", "+11% к получению баллов", new BigInteger("100000000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("100000000000")))
-                .addEffect(new WholePercentageEffect(15)));
-        allUpgrades.add(new Upgrade(94, R.drawable.upgrade_old, "Старый Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
+                .addEffect(new WholePercentageEffect(11)));
+        allUpgrades.add(new Upgrade(94, R.drawable.upgrade_old, "Старый Гайдель", "+11% к получению баллов", new BigInteger("100000000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("100000000000")))
-                .addEffect(new WholePercentageEffect(15)));
-        allUpgrades.add(new Upgrade(95, R.drawable.upgrade_troll, "Заводной Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
+                .addEffect(new WholePercentageEffect(11)));
+        allUpgrades.add(new Upgrade(95, R.drawable.upgrade_troll, "Заводной Гайдель", "+11% к получению баллов", new BigInteger("100000000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("100000000000")))
-                .addEffect(new WholePercentageEffect(15)));
+                .addEffect(new WholePercentageEffect(11)));
 
-        allUpgrades.add(new Upgrade(96, R.drawable.upgrade_strange, "Профессиональный Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
+        allUpgrades.add(new Upgrade(96, R.drawable.upgrade_strange, "Профессиональный Гайдель", "+12% к получению баллов", new BigInteger("100000000000000"))
                 .addCondition(new UpgradesIsBoughtCondition(allUpgrades, 93, 94, 95))
-                .addEffect(new WholePercentageEffect(15)));
-        allUpgrades.add(new Upgrade(97, R.drawable.upgrade_simple, "Загадочный Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
+                .addEffect(new WholePercentageEffect(12)));
+        allUpgrades.add(new Upgrade(97, R.drawable.upgrade_simple, "Загадочный Гайдель", "+13% к получению баллов", new BigInteger("100000000000000"))
                 .addCondition(new UpgradesIsBoughtCondition(allUpgrades, 96))
-                .addEffect(new WholePercentageEffect(15)));
-        allUpgrades.add(new Upgrade(98, R.drawable.upgrade_sleep, "Талантливый Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
+                .addEffect(new WholePercentageEffect(13)));
+        allUpgrades.add(new Upgrade(98, R.drawable.upgrade_sleep, "Талантливый Гайдель", "+14% к получению баллов", new BigInteger("100000000000000"))
                 .addCondition(new UpgradesIsBoughtCondition(allUpgrades, 97))
-                .addEffect(new WholePercentageEffect(15)));
+                .addEffect(new WholePercentageEffect(14)));
         allUpgrades.add(new Upgrade(99, R.drawable.upgrade_sport, "Спортивный Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
                 .addCondition(new UpgradesIsBoughtCondition(allUpgrades, 98))
                 .addEffect(new WholePercentageEffect(15)));
-        allUpgrades.add(new Upgrade(100, R.drawable.upgrade_strange, "Мечтающий Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
+        allUpgrades.add(new Upgrade(100, R.drawable.upgrade_strange, "Мечтающий Гайдель", "+16% к получению баллов", new BigInteger("100000000000000"))
                 .addCondition(new UpgradesIsBoughtCondition(allUpgrades, 99))
-                .addEffect(new WholePercentageEffect(15)));
-        allUpgrades.add(new Upgrade(101, R.drawable.upgrade_troll, "Веселый Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
+                .addEffect(new WholePercentageEffect(16)));
+        allUpgrades.add(new Upgrade(101, R.drawable.upgrade_troll, "Веселый Гайдель", "+17% к получению баллов", new BigInteger("100000000000000"))
                 .addCondition(new UpgradesIsBoughtCondition(allUpgrades, 100))
-                .addEffect(new WholePercentageEffect(15)));
-        allUpgrades.add(new Upgrade(102, R.drawable.upgrade_sad, "Грустный Гайдель", "+15% к получению баллов", new BigInteger("100000000000000"))
+                .addEffect(new WholePercentageEffect(17)));
+        allUpgrades.add(new Upgrade(102, R.drawable.upgrade_sad, "Грустный Гайдель", "+19% к получению баллов", new BigInteger("100000000000000"))
                 .addCondition(new UpgradesIsBoughtCondition(allUpgrades, 101))
-                .addEffect(new WholePercentageEffect(15)));
+                .addEffect(new WholePercentageEffect(19)));
 
         allUpgrades.add(new Upgrade(103, R.drawable.upgrade_simple, "Обычный Гайдель", "+20% к получению баллов", new BigInteger("200000000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("10000000000000")))
