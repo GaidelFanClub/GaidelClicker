@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
                     requestGoldCookieSpawn();
                 } else {
                     BuildingsRepository.getInstance().setActiveBonus(currentDisplayedBonus);
-                    handler.sendEmptyMessageDelayed(UpdateHandler.EXPIRED_GOLD_COOKIE, currentDisplayedBonus.getDurationMillis());//TODO there are effect
+                    handler.sendEmptyMessageDelayed(UpdateHandler.EXPIRED_GOLD_COOKIE, currentDisplayedBonus.getDurationMillis());
                 }
                 GlobalPrefs.getInstance().addGoldenCookie();
                 showSnackBar(currentDisplayedBonus.getMessage(), Math.max(2000, currentDisplayedBonus.getDurationMillis()));
