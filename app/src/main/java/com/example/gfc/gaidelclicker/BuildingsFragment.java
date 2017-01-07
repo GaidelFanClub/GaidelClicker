@@ -51,6 +51,7 @@ public class BuildingsFragment extends Fragment {
                     GlobalPrefs.getInstance().changeBalance(bonus.getPrice().negate());
                     BuildingsRepository.getInstance().buy(bonus);
                     adapter.notifyDataSetChanged();
+                    Analytics.getInstance().sendEvent("Buy building");
                 }
             }
         });

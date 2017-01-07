@@ -15,6 +15,7 @@ import com.example.gfc.gaidelclicker.upgrade.OnUpgradeClickListener;
 import com.example.gfc.gaidelclicker.upgrade.Upgrade;
 import com.example.gfc.gaidelclicker.upgrade.UpgradesAdapter;
 import com.example.gfc.gaidelclicker.upgrade.UpgradesRepository;
+import com.google.android.gms.analytics.GoogleAnalytics;
 
 import java.math.BigDecimal;
 
@@ -41,7 +42,7 @@ public class UpgradesFragment extends Fragment implements GlobalPrefs.OnBalanceC
         return view;
     }
 
-    private void initRecycler(Context context) {
+    private void initRecycler(final Context context) {
         GridLayoutManager layoutManager
                 = new GridLayoutManager(context, COLUMN_COUNT);
 
@@ -58,6 +59,7 @@ public class UpgradesFragment extends Fragment implements GlobalPrefs.OnBalanceC
                     UpgradesRepository.getInstance().refresh();
                     BuildingsRepository.getInstance().recalculateDelta();
                     refresh();
+                    Analytics.getInstance().sendEvent("Buy upgrade");
                 }
             }
         });
