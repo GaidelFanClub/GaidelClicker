@@ -118,13 +118,13 @@ public class UpgradesRepository {
         allUpgrades.add(new Upgrade(23, R.mipmap.lecture, "Убрать телефон за спину соседа спереди", "х2 за посещение лекции", BigInteger.valueOf(228_000_000L))
                 .addCondition(new BuildingCountCondition(ID_LECTURE, 100))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_LECTURE)));
-        allUpgrades.add(new Upgrade(24, R.mipmap.lecture, "Одевать костюм как Гайдель", "х2 за посещение лекции", BigInteger.valueOf(1_000_000_000_000L))
+        allUpgrades.add(new Upgrade(24, R.mipmap.lecture, "Надевать костюм как Гайдель", "х2 за посещение лекции", BigInteger.valueOf(1_000_000_000_000L))
                 .addCondition(new BuildingCountCondition(ID_LECTURE, 200))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_LECTURE)));
 
         /*LabWork*/
 
-        allUpgrades.add(new Upgrade(25, R.mipmap.lab_work, "Cделать лабу", "+1 за сдачу лабы", BigInteger.valueOf(7_000))
+        allUpgrades.add(new Upgrade(25, R.mipmap.lab_work, "Сделать лабу", "+1 за сдачу лабы", BigInteger.valueOf(7_000))
                 .addCondition(new BuildingCountCondition(ID_LAB_WORK, 1))
                 .addEffect(new SimpleAddEffect(BigDecimal.valueOf(1), ID_LAB_WORK)));
         allUpgrades.add(new Upgrade(26, R.mipmap.lab_work, "Узнать как работает лаба", "х2 за сдачу лабы", BigInteger.valueOf(125_000))
@@ -136,7 +136,7 @@ public class UpgradesRepository {
         allUpgrades.add(new Upgrade(28, R.mipmap.lab_work, "Сделать отчет по лабе", "х2 за сдачу лабы", BigInteger.valueOf(90_000_000L))
                 .addCondition(new BuildingCountCondition(ID_LAB_WORK, 50))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_LAB_WORK)));
-        allUpgrades.add(new Upgrade(29, R.mipmap.lab_work, "Заоптимайзить алгортм", "х2 за сдачу лабы", BigInteger.valueOf(1_000_000_000L))
+        allUpgrades.add(new Upgrade(29, R.mipmap.lab_work, "Оптимизировать алгоритм", "х2 за сдачу лабы", BigInteger.valueOf(1_000_000_000L))
                 .addCondition(new BuildingCountCondition(ID_LAB_WORK, 100))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_LAB_WORK)));
         allUpgrades.add(new Upgrade(30, R.mipmap.lab_work, "Сдать лабы до экзамена", "х2 за сдачу лабы", BigInteger.valueOf(11_000_000_000_000L))
@@ -145,7 +145,7 @@ public class UpgradesRepository {
 
 
         /*Practice*/
-        allUpgrades.add(new Upgrade(31, R.mipmap.practice, "Послушать музыку пока делаешь ИДЗ", "+3 за сдачу идз", BigInteger.valueOf(55_000))
+        allUpgrades.add(new Upgrade(31, R.mipmap.practice, "Послушать музыку пока делаешь идз", "+3 за сдачу идз", BigInteger.valueOf(55_000))
                 .addCondition(new BuildingCountCondition(ID_PRACTICE, 1))
                 .addEffect(new SimpleAddEffect(BigDecimal.valueOf(3), ID_PRACTICE)));
         allUpgrades.add(new Upgrade(32, R.mipmap.practice, "Отвлечься на мемосы", "х2 за сдачу идз", BigInteger.valueOf(500_000))
@@ -154,10 +154,10 @@ public class UpgradesRepository {
         allUpgrades.add(new Upgrade(33, R.mipmap.practice, "Посмотреть видосы на ютубе", "х2 за сдачу идз", BigInteger.valueOf(3_333_000))
                 .addCondition(new BuildingCountCondition(ID_PRACTICE, 10))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_PRACTICE)));
-        allUpgrades.add(new Upgrade(34, R.mipmap.practice, "Начать делать ИДЗ", "х2 за сдачу идз", BigInteger.valueOf(125_000_000L))
+        allUpgrades.add(new Upgrade(34, R.mipmap.practice, "Начать делать идз", "х2 за сдачу идз", BigInteger.valueOf(125_000_000L))
                 .addCondition(new BuildingCountCondition(ID_PRACTICE, 50))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_PRACTICE)));
-        allUpgrades.add(new Upgrade(35, R.mipmap.practice, "Делать ИДЗ всю ночь", "х2 за сдачу идз", BigInteger.valueOf(2_000_000_000L))
+        allUpgrades.add(new Upgrade(35, R.mipmap.practice, "Делать идз всю ночь", "х2 за сдачу идз", BigInteger.valueOf(2_000_000_000L))
                 .addCondition(new BuildingCountCondition(ID_PRACTICE, 100))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_PRACTICE)));
         allUpgrades.add(new Upgrade(36, R.mipmap.practice, "Не уснуть перед парой", "х2 за сдачу идз", BigInteger.valueOf(33_000_000_000_000L))
@@ -168,7 +168,7 @@ public class UpgradesRepository {
         allUpgrades.add(new Upgrade(37, R.mipmap.circle, "Послушать лекцию Гайделя", "+22.8 за посещение кружка", BigInteger.valueOf(99_999))
                 .addCondition(new BuildingCountCondition(ID_CIRCLE, 1))
                 .addEffect(new SimpleAddEffect(BigDecimal.valueOf(22.8), ID_CIRCLE)));
-        allUpgrades.add(new Upgrade(38, R.mipmap.circle, "Вступить в группу но CodeForces", "х2 за посещение кружка", BigInteger.valueOf(1_250_000))
+        allUpgrades.add(new Upgrade(38, R.mipmap.circle, "Вступить в группу на CodeForces", "х2 за посещение кружка", BigInteger.valueOf(1_250_000))
                 .addCondition(new BuildingCountCondition(ID_CIRCLE, 1))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_CIRCLE)));
         allUpgrades.add(new Upgrade(39, R.drawable.upgrade_botan, "Решить 2 задачки", "х2 за посещение кружка", BigInteger.valueOf(13_000_000))
@@ -188,24 +188,24 @@ public class UpgradesRepository {
         allUpgrades.add(new Upgrade(43, R.mipmap.cormen, "Прочитать предисловие", "+30 за чтение Кормена", BigInteger.valueOf(666_000))
                 .addCondition(new BuildingCountCondition(ID_CORMEN, 1))
                 .addEffect(new SimpleAddEffect(BigDecimal.valueOf(30), ID_CORMEN)));
-        allUpgrades.add(new Upgrade(44, R.mipmap.cormen, "Прочитаь 1 главу", "х2 за чтение Кормена", BigInteger.valueOf(1_000_000))
+        allUpgrades.add(new Upgrade(44, R.mipmap.cormen, "Прочитать третье издание", "х2 за чтение Кормена", BigInteger.valueOf(1_000_000))
                 .addCondition(new BuildingCountCondition(ID_CORMEN, 1))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_CORMEN)));
-        allUpgrades.add(new Upgrade(45, R.mipmap.cormen, "Прочитаь 2 главу", "х2 за чтение Кормена", BigInteger.valueOf(77_000_000))
+        allUpgrades.add(new Upgrade(45, R.mipmap.cormen, "Прочитать второе издание", "х2 за чтение Кормена", BigInteger.valueOf(77_000_000))
                 .addCondition(new BuildingCountCondition(ID_CORMEN, 10))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_CORMEN)));
-        allUpgrades.add(new Upgrade(46, R.mipmap.cormen, "Прочитаь 3 главу", "х2 за чтение Кормена", BigInteger.valueOf(1_000_000_000L))
+        allUpgrades.add(new Upgrade(46, R.mipmap.cormen, "Прочитать первое издание", "х2 за чтение Кормена", BigInteger.valueOf(1_000_000_000L))
                 .addCondition(new BuildingCountCondition(ID_CORMEN, 50))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_CORMEN)));
-        allUpgrades.add(new Upgrade(47, R.mipmap.cormen, "Прочитаь 4 главу", "х2 за чтение Кормена", BigInteger.valueOf(25_000_000_000L))
+        allUpgrades.add(new Upgrade(47, R.mipmap.cormen, "Прочитать оригинал", "х2 за чтение Кормена", BigInteger.valueOf(25_000_000_000L))
                 .addCondition(new BuildingCountCondition(ID_CORMEN, 100))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_CORMEN)));
-        allUpgrades.add(new Upgrade(48, R.mipmap.cormen, "Прочитаь 5 главу", "х2 за чтение Кормена", BigInteger.valueOf(500_000_000_000_000L))
+        allUpgrades.add(new Upgrade(48, R.mipmap.cormen, "Прорешать все упражнения", "х2 за чтение Кормена", BigInteger.valueOf(500_000_000_000_000L))
                 .addCondition(new BuildingCountCondition(ID_CORMEN, 200))
                 .addEffect(new SimpleMulEffect(BigDecimal.valueOf(2), ID_CORMEN)));
 
         /*Timus*/
-        allUpgrades.add(new Upgrade(49, R.mipmap.task, "Зареистрировать аккаунт", "+167 за решение Тимуса", BigInteger.valueOf(6_000_000))
+        allUpgrades.add(new Upgrade(49, R.mipmap.task, "Зарегистрировать аккаунт", "+167 за решение Тимуса", BigInteger.valueOf(6_000_000))
                 .addCondition(new BuildingCountCondition(ID_TIMUS, 1))
                 .addEffect(new SimpleAddEffect(BigDecimal.valueOf(167), ID_TIMUS)));
         allUpgrades.add(new Upgrade(50, R.mipmap.task, "Сдать А+Б", "х2 за решение Тимуса", BigInteger.valueOf(33_000_000))
@@ -346,7 +346,7 @@ public class UpgradesRepository {
         allUpgrades.add(new Upgrade(89, R.drawable.upgrade_displeased, "Опасный Гайдель", "+7% к получению баллов", new BigInteger("1000000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("10000000000")))
                 .addEffect(new WholePercentageEffect(7)));
-        allUpgrades.add(new Upgrade(90, R.drawable.upgrade_displeased, "Уличный Гайдель", "+7% к получению баллов", new BigInteger("1000000000000"))
+        allUpgrades.add(new Upgrade(90, R.drawable.upgrade_sport, "Уличный Гайдель", "+7% к получению баллов", new BigInteger("1000000000000"))
                 .addCondition(new WholeProfitCondition(new BigDecimal("10000000000")))
                 .addEffect(new WholePercentageEffect(7)));
 
