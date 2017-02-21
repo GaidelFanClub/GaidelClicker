@@ -33,6 +33,8 @@ import com.example.gfc.gaidelclicker.bonus.Bonus;
 import com.example.gfc.gaidelclicker.bonus.BonusRepository;
 import com.example.gfc.gaidelclicker.building.BuildingsRepository;
 import com.example.gfc.gaidelclicker.event.AchievementUnlockedEvent;
+import com.example.gfc.gaidelclicker.skin.Skin;
+import com.example.gfc.gaidelclicker.skin.SkinManager;
 import com.example.gfc.gaidelclicker.stat.StatisticFragment;
 import com.example.gfc.gaidelclicker.ui.HTMLTextView;
 import com.example.gfc.gaidelclicker.ui.SnowFlakeInterpolator;
@@ -141,13 +143,11 @@ public class MainActivity extends AppCompatActivity {
         colorAccent = ContextCompat.getColor(MainActivity.this, R.color.colorAccent);
         colorPrimary = ContextCompat.getColor(MainActivity.this, R.color.colorPrimary);
 
-        GregorianCalendar calendar = new GregorianCalendar();
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        if ((day >= 15 && month == 11) || (day <= 14 && month == 0)) {
-            gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_gold_ny));
-            svaston.setBackground(getResources().getDrawable(R.drawable.svas_ny));
-            relativeLayout.setBackground(getResources().getDrawable(R.drawable.background_ny));
+        Skin skin = SkinManager.findActiveSkin();
+        if (skin != null) {
+            gaidel.setBackgroundResource(skin.getFaceResourceId());
+            svaston.setBackgroundResource(skin.getRotatedBackgroundResourceId());
+            relativeLayout.setBackgroundResource(skin.getGlobalBackgroundId());
         }
 
         slidingDrawer.addSlideListener(new SlidingDrawer.OnSlideListener() {
