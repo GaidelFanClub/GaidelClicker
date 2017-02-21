@@ -4,7 +4,7 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/background_ny"
+                android:background="@drawable/background_camo"
                 android:fitsSystemWindows="true">
 
     <LinearLayout
@@ -66,14 +66,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    app:srcCompat="@drawable/svas"/>
+                    app:srcCompat="@drawable/svas2"/>
 
                 <ImageButton
                     android:id="@+id/buttonGaidel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/gaidel_face_pink"/>
+                    android:background="@drawable/gaidel_face_vdve"/>
             </FrameLayout>
         </FrameLayout>
 
