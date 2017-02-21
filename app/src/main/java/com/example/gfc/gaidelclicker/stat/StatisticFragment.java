@@ -1,4 +1,4 @@
-package com.example.gfc.gaidelclicker;
+package com.example.gfc.gaidelclicker.stat;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,8 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.gfc.gaidelclicker.stat.StatRepository;
-import com.example.gfc.gaidelclicker.stat.StatisticAdapter;
+import com.example.gfc.gaidelclicker.GlobalPrefs;
+import com.example.gfc.gaidelclicker.R;
 
 import java.math.BigDecimal;
 
