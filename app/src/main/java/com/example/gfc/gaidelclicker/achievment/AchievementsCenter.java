@@ -1,5 +1,6 @@
 package com.example.gfc.gaidelclicker.achievment;
 
+import com.example.gfc.gaidelclicker.Analytics;
 import com.example.gfc.gaidelclicker.GlobalPrefs;
 import com.example.gfc.gaidelclicker.Prefs;
 import com.example.gfc.gaidelclicker.building.Building;
@@ -43,6 +44,7 @@ public class AchievementsCenter implements GlobalPrefs.OnBalanceChangedListener 
                 if (!Prefs.getBoolean(achievement.getKey(), false)) {
                     Prefs.putBoolean(achievement.getKey(), true);
                     EventBus.getDefault().post(new AchievementUnlockedEvent(achievement));
+                    Analytics.getInstance().sendEvent("Achievement unlocked");
                 }
             }
         }

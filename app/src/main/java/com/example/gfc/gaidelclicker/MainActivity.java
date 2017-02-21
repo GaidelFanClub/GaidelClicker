@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         GregorianCalendar calendar = new GregorianCalendar();
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        if ((day >= 15 && month == 11) || (day <= 5 && month == 0)) {
+        if ((day >= 15 && month == 11) || (day <= 14 && month == 0)) {
             gaidel.setBackground(getResources().getDrawable(R.drawable.gaidel_face_gold_ny));
             svaston.setBackground(getResources().getDrawable(R.drawable.svas_ny));
             relativeLayout.setBackground(getResources().getDrawable(R.drawable.background_ny));
@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
                     requestGoldCookieSpawn();
                 } else {
                     BuildingsRepository.getInstance().setActiveBonus(currentDisplayedBonus);
-                    handler.sendEmptyMessageDelayed(UpdateHandler.EXPIRED_GOLD_COOKIE, currentDisplayedBonus.getDurationMillis());//TODO there are effect
+                    handler.sendEmptyMessageDelayed(UpdateHandler.EXPIRED_GOLD_COOKIE, currentDisplayedBonus.getDurationMillis());
                 }
                 GlobalPrefs.getInstance().addGoldenCookie();
                 showSnackBar(currentDisplayedBonus.getMessage(), Math.max(2000, currentDisplayedBonus.getDurationMillis()));

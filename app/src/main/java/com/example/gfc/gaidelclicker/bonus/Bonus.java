@@ -1,5 +1,7 @@
 package com.example.gfc.gaidelclicker.bonus;
 
+import com.example.gfc.gaidelclicker.building.BuildingsRepository;
+
 import java.math.BigDecimal;
 
 /**
@@ -48,7 +50,7 @@ public class Bonus {
     }
 
     public int getDurationMillis() {
-        return durationMillis;
+        return durationMillis * BuildingsRepository.getInstance().getMultipleGoldenCookieEffectFactor();
     }
 
     public BigDecimal getClickCoefficient() {

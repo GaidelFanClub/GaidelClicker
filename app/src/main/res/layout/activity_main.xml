@@ -4,7 +4,10 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+<<<<<<< HEAD
                 android:background="@drawable/background_camo"
+=======
+>>>>>>> 902abe5b3b88c0033fa10ca71fef64cdb057363b
                 android:fitsSystemWindows="true">
 
     <LinearLayout
@@ -73,7 +76,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+<<<<<<< HEAD
                     android:background="@drawable/gaidel_face_vdve"/>
+=======
+                    android:background="@drawable/gaidel_face_gold"/>
+>>>>>>> 902abe5b3b88c0033fa10ca71fef64cdb057363b
             </FrameLayout>
         </FrameLayout>
 
