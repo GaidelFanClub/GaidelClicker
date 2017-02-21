@@ -33,6 +33,7 @@ import com.example.gfc.gaidelclicker.bonus.Bonus;
 import com.example.gfc.gaidelclicker.bonus.BonusRepository;
 import com.example.gfc.gaidelclicker.building.BuildingsRepository;
 import com.example.gfc.gaidelclicker.event.AchievementUnlockedEvent;
+import com.example.gfc.gaidelclicker.stat.StatisticFragment;
 import com.example.gfc.gaidelclicker.ui.HTMLTextView;
 import com.example.gfc.gaidelclicker.ui.SnowFlakeInterpolator;
 import com.example.gfc.gaidelclicker.utils.FormatUtils;

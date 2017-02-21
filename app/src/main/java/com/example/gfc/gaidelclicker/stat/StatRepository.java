@@ -1,6 +1,7 @@
-package com.example.gfc.gaidelclicker;
+package com.example.gfc.gaidelclicker.stat;
 
 
+import com.example.gfc.gaidelclicker.GlobalPrefs;
 import com.example.gfc.gaidelclicker.upgrade.UpgradesRepository;
 import com.example.gfc.gaidelclicker.utils.FormatUtils;
 
