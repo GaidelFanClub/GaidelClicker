@@ -168,10 +168,12 @@ public class BuildingsRepository {
     public void recalculateDelta() {
         reactivateAllUpgrades();
         BigDecimal delta = BigDecimal.ZERO;
-        for (Building building : buildings) {
+        for (int i = 0; i < buildings.length; i++) {
+            Building building = buildings[i];
             BigDecimal value = calculate(building.getDelta(), building.getId());
             value = value.multiply(getCoefficient(building));
             value = value.multiply(BigDecimal.valueOf(getCount(building)));
+            building.setProfit(value);
             delta = delta.add(value);
         }
         delta = delta.multiply(speedUp);
@@ -180,6 +182,15 @@ public class BuildingsRepository {
         baseDeltaPerSecond = delta;
         if (bonus != null) {
             delta = delta.multiply(bonus.getPassiveCoefficient());
+        }
+        for (int i = 0; i < buildings.length; i++) {
+            BigDecimal profit = buildings[i].getProfit();
+            profit = profit.multiply(speedUp);
+            profit = profit.multiply(percentageVal);
+            if (bonus != null) {
+                profit = profit.multiply(bonus.getPassiveCoefficient());
+            }
+            buildings[i].setProfit(profit);
         }
         deltaPerSecond = delta;
     }

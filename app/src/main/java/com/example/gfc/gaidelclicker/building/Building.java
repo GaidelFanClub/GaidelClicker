@@ -19,6 +19,10 @@ public class Building {
     private BigDecimal baseDelta;
 
 
+    //Use only to display info
+    private BigDecimal profit = BigDecimal.ZERO;
+
+
     public Building(int id, int imageResourceId, String name, long price, double delta) {
         this.id = id;
         this.stringId = String.valueOf(id);
@@ -38,6 +42,14 @@ public class Building {
 
     public BigDecimal getPrice() {
         return PriceFactorCalculator.getPriceScaleFactor(getCount()).multiply(basePrice);
+    }
+
+    public BigDecimal getProfit() {
+        return profit;
+    }
+
+    public void setProfit(BigDecimal profit) {
+        this.profit = profit;
     }
 
     public BigDecimal getDelta() {

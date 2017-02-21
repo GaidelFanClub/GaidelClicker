@@ -23,6 +23,7 @@ public class BuildingHolder extends RecyclerView.ViewHolder implements GlobalPre
     private TextView cost;
     private TextView name;
     private ImageView image;
+    private TextView profit;
 
     private Building bonus;
 
@@ -32,6 +33,7 @@ public class BuildingHolder extends RecyclerView.ViewHolder implements GlobalPre
         cost = (TextView) itemView.findViewById(R.id.cost);
         image = (ImageView) itemView.findViewById(R.id.image);
         name = (TextView) itemView.findViewById(R.id.name);
+        profit = (TextView) itemView.findViewById(R.id.profit);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,6 +50,7 @@ public class BuildingHolder extends RecyclerView.ViewHolder implements GlobalPre
         image.setImageResource(bonus.getImageResourceId());
         cost.setText(cost.getContext().getString(R.string.cost_format, FormatUtils.formatDecimalAsInteger(bonus.getPrice())));
         name.setText(bonus.getName());
+        profit.setText(profit.getContext().getString(R.string.profit_format, FormatUtils.formatDecimalAsInteger(bonus.getProfit())));
         GlobalPrefs.getInstance().registerListener(this);
     }
 
@@ -59,6 +62,7 @@ public class BuildingHolder extends RecyclerView.ViewHolder implements GlobalPre
             } else {
                 image.clearColorFilter();
             }
+            profit.setText(profit.getContext().getString(R.string.profit_format, FormatUtils.formatDecimal(bonus.getProfit())));
         }
     }
 }

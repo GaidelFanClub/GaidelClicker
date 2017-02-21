@@ -54,4 +54,14 @@
         android:paddingTop="4dp"
         android:textColor="@color/black" />
 
+    <com.example.gfc.gaidelclicker.ui.HTMLTextView
+        android:id="@+id/profit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cost"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="4dp"
+        android:textColor="@color/black" />
+
+
 </RelativeLayout>
